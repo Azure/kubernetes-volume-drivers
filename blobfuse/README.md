@@ -14,7 +14,7 @@ sudo systemctl restart kubelet
 
 Note:
  - `/etc/kubernetes/volumeplugins` has already been the default flexvolume plugin directory in acs-engine (starting from v0.12.0)
- - There would be one line of [kubelet log](https://github.com/andyzhangx/Demo/tree/master/debug#q-how-to-get-k8s-kubelet-logs-on-linux-agent) like below showing that `flexvolume-azure/blobfuse` is loaded correctly
+ - There would be one line of [kubelet log](https://github.com/andyzhangx/Demo/tree/master/debug#q-how-to-get-k8s-kubelet-logs-on-linux-agent) in agent node like below showing that `flexvolume-azure/blobfuse` is loaded correctly
 ```
 I0122 08:24:47.761479    2963 plugins.go:469] Loaded volume plugin "flexvolume-azure/blobfuse"
 ```
@@ -25,11 +25,11 @@ I0122 08:24:47.761479    2963 plugins.go:469] Loaded volume plugin "flexvolume-a
 create daemonset to install blobfuse driver
  - v1.9: 
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/Demo/master/linux/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/flexvolume-on-azure/master/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
 ```
  - v1.8: 
 ```
- kubectl create -f https://raw.githubusercontent.com/andyzhangx/Demo/master/linux/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.8.yaml
+ kubectl create -f https://raw.githubusercontent.com/andyzhangx/flexvolume-on-azure/master/blobfuse/deployment/blobfuse-flexvol-installer-1.8.yaml
 ```
  - check daemonset status:
 ```
@@ -44,11 +44,11 @@ version=v1.9
 sudo mkdir -p /etc/kubernetes/volumeplugins/azure~blobfuse/bin
 cd /etc/kubernetes/volumeplugins/azure~blobfuse/bin
 
-sudo wget -O blobfuse https://raw.githubusercontent.com/andyzhangx/Demo/master/linux/flexvolume/blobfuse/binary/kubelet/$version/blobfuse
+sudo wget -O blobfuse https://raw.githubusercontent.com/andyzhangx/flexvolume-on-azure/master/blobfuse/binary/hyperkube-$version/v0.2.4/blobfuse
 sudo chmod a+x blobfuse
 
 cd /etc/kubernetes/volumeplugins/azure~blobfuse
-sudo wget -O blobfuse https://raw.githubusercontent.com/andyzhangx/Demo/master/linux/flexvolume/blobfuse/blobfuse
+sudo wget -O blobfuse https://raw.githubusercontent.com/andyzhangx/flexvolume-on-azure/master/blobfuse/blobfuse
 sudo chmod a+x blobfuse
 ```
 
@@ -66,7 +66,7 @@ MountVolume.SetUp failed for volume "azure" : Couldn't get secret default/azure-
 ## 2. create a pod with flexvolume blobfuse mount driver on linux
  - download `nginx-flex-blobfuse.yaml` file and modify `container` field
 ```
-wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/andyzhangx/Demo/master/linux/flexvolume/blobfuse/nginx-flex-blobfuse.yaml
+wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/andyzhangx/flexvolume-on-azure/master/blobfuse/nginx-flex-blobfuse.yaml
 vi nginx-flex-blobfuse.yaml
 ```
  - create a pod with flexvolume blobfuse driver mount
