@@ -25,11 +25,11 @@ else
 	version=`echo ${KUBELET_VERSION} | awk -F '.' '{print $1"."$2}'`
 fi
 
-wget -O ${blobfuse_bin_dir}/blobfuse https://github.com/andyzhangx/kubernetes-drivers-azure/blob/master/flexvolume/blobfuse/binary/hyperkube-$version/v0.2.4/blobfuse >>$LOG
+wget -O ${blobfuse_bin_dir}/blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers-azure/master/flexvolume/blobfuse/binary/hyperkube-$version/v0.2.4/blobfuse >>$LOG
 chmod a+x ${blobfuse_bin_dir}/blobfuse
 
 #download blobfuse script
-wget -O ${blobfuse_vol_dir}/blobfuse https://github.com/andyzhangx/kubernetes-drivers-azure/blob/master/flexvolume/blobfuse/blobfuse >>$LOG
+wget -O ${blobfuse_vol_dir}/blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers-azure/master/flexvolume/blobfuse/blobfuse >>$LOG
 chmod a+x ${blobfuse_vol_dir}/blobfuse
 
 #https://github.com/kubernetes/kubernetes/issues/17182
