@@ -3,7 +3,9 @@
 set -eo pipefail
 
 LOG="/var/log/blobfuse-flexvol-installer.log"
+VER="1.0.0"
 target_dir="${TARGET_DIR}"
+echo "blobfuse-flexvol-installer ${VER}" >> $LOG
 
 if [[ -z "${target_dir}" ]]; then
   target_dir="/etc/kubernetes/volumeplugins"
@@ -23,11 +25,11 @@ else
 	version=`echo ${KUBELET_VERSION} | awk -F '.' '{print $1"."$2}'`
 fi
 
-wget -O ${blobfuse_bin_dir}/blobfuse https://raw.githubusercontent.com/andyzhangx/Demo/master/linux/flexvolume/blobfuse/binary/kubelet/$version/blobfuse >>$LOG	
+wget -O ${blobfuse_bin_dir}/blobfuse https://github.com/andyzhangx/kubernetes-drivers-azure/blob/master/flexvolume/blobfuse/binary/hyperkube-$version/v0.2.4/blobfuse >>$LOG
 chmod a+x ${blobfuse_bin_dir}/blobfuse
 
 #download blobfuse script
-wget -O ${blobfuse_vol_dir}/blobfuse https://raw.githubusercontent.com/andyzhangx/Demo/master/linux/flexvolume/blobfuse/blobfuse >>$LOG	
+wget -O ${blobfuse_vol_dir}/blobfuse https://github.com/andyzhangx/kubernetes-drivers-azure/blob/master/flexvolume/blobfuse/blobfuse >>$LOG
 chmod a+x ${blobfuse_vol_dir}/blobfuse
 
 #https://github.com/kubernetes/kubernetes/issues/17182
