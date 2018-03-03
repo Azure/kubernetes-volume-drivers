@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -eo pipefail
-
 LOG="/var/log/blobfuse-flexvol-installer.log"
 VER="1.0.0"
 target_dir="${TARGET_DIR}"
