@@ -4,8 +4,8 @@
 mkdir blobfuse-flexvol-installer
 cd blobfuse-flexvol-installer
 
-wget -O Dockerfile https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers-azure/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer/Dockerfile
-wget -O install.sh https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers-azure/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer/install.sh
+wget -O Dockerfile https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer/Dockerfile
+wget -O install.sh https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer/install.sh
 chmod a+x install.sh
 
 docker build --no-cache -t andyzhangx/blobfuse-flexvol-installer:1.0 .
