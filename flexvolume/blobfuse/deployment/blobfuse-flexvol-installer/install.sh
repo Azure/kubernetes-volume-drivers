@@ -9,7 +9,7 @@ if [[ -z "${target_dir}" ]]; then
   target_dir="/etc/kubernetes/volumeplugins"
 fi
 
-apt-get update && apt-get install wget -y >>$LOG
+apt-get update && apt-get install wget -y >>$LOG 2>&1
 
 blobfuse_vol_dir="${target_dir}/azure~blobfuse"
 blobfuse_bin_dir="${blobfuse_vol_dir}/bin"
@@ -18,16 +18,16 @@ mkdir -p ${blobfuse_bin_dir}
 #download blobfuse binary
 version="v1.9"
 if [[ -z "${KUBELET_VERSION}" ]]; then
-	echo "ERR: could not get env var: KUBELET_VERSION, use default kubelet version ${version}" >>$LOG
+	echo "ERR: could not get env var: KUBELET_VERSION, use default kubelet version ${version}" >>$LOG 2>&1
 else
 	version=`echo ${KUBELET_VERSION} | awk -F '.' '{print $1"."$2}'`
 fi
 
-wget -O ${blobfuse_bin_dir}/blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/binary/hyperkube-$version/v0.2.4/blobfuse >>$LOG
+wget -O ${blobfuse_bin_dir}/blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/binary/hyperkube-$version/v0.2.4/blobfuse >>$LOG 2>&1
 chmod a+x ${blobfuse_bin_dir}/blobfuse
 
 #download blobfuse script
-wget -O ${blobfuse_vol_dir}/blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/blobfuse >>$LOG
+wget -O ${blobfuse_vol_dir}/blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/blobfuse >>$LOG 2>&1
 chmod a+x ${blobfuse_vol_dir}/blobfuse
 
 #https://github.com/kubernetes/kubernetes/issues/17182
