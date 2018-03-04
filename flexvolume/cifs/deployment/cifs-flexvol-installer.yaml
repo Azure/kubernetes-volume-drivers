@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: cifs-flexvol-installer
+  namespace: kube-system
+  labels:
+    k8s-app: cifs
+spec:
+  selector:
+    matchLabels:
+      name: cifs
+  template:
+    metadata:
+      labels:
+        name: cifs
+    spec:
+      containers:
+      - name: cifs-flexvol-installer
+        image: andyzhangx/cifs-flexvol-installer:1.0
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: volplugins
+          mountPath: /etc/kubernetes/volumeplugins/
+        - name: varlog
+          mountPath: /var/log/      
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log/              
+      - name: volplugins
+        hostPath:
+          path: /etc/kubernetes/volumeplugins/
+          type: DirectoryOrCreate
+      nodeSelector:
+        beta.kubernetes.io/os: linux
