@@ -17,4 +17,4 @@ spec:
         name: cifscreds	
       options:
         source: "//STORAGE-ACCOUNT.file.core.windows.net/SHARE-NAME"
-        mountOptions: "vers=3.0,dir_mode=0700,file_mode=0600"
+        mountOptions: "vers=3.0,dir_mode=0777,file_mode=0777"
