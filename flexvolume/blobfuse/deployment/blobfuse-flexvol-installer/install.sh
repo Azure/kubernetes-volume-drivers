@@ -9,8 +9,6 @@ if [[ -z "${target_dir}" ]]; then
   target_dir="/etc/kubernetes/volumeplugins"
 fi
 
-apt-get update && apt-get install wget -y >>$LOG 2>&1
-
 blobfuse_vol_dir="${target_dir}/azure~blobfuse"
 blobfuse_bin_dir="${blobfuse_vol_dir}/bin"
 mkdir -p ${blobfuse_bin_dir}
