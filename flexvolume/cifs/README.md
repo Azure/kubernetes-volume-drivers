@@ -72,14 +72,15 @@ kubectl exec -it nginx-flex-cifs -- bash
 
 ```
 root@nginx-flex-cifs:/# df -h
-Filesystem      Size  Used Avail Use% Mounted on
-overlay          30G  5.5G   24G  19% /
-tmpfs           3.4G     0  3.4G   0% /dev
-tmpfs           3.4G     0  3.4G   0% /sys/fs/cgroup
-cifs         30G  5.5G   24G  19% /data
-/dev/sda1        30G  5.5G   24G  19% /etc/hosts
-shm              64M     0   64M   0% /dev/shm
-tmpfs           3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
+Filesystem                                 Size  Used Avail Use% Mounted on
+overlay                                    291G  3.2G  288G   2% /
+tmpfs                                      3.4G     0  3.4G   0% /dev
+tmpfs                                      3.4G     0  3.4G   0% /sys/fs/cgroup
+//xiazhang3.file.core.windows.net/k8stest   25G   64K   25G   1% /data
+/dev/sda1                                  291G  3.2G  288G   2% /etc/hosts
+shm                                         64M     0   64M   0% /dev/shm
+tmpfs                                      3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
+tmpfs                                      3.4G     0  3.4G   0% /sys/firmware
 ```
 In the above example, there is a `/data` directory mounted as cifs filesystem.
 
