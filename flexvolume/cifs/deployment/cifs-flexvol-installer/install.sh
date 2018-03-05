@@ -16,9 +16,6 @@ mkdir -p ${cifs_vol_dir}
 cp /cifs/cifs ${cifs_vol_dir}/cifs
 chmod a+x ${cifs_vol_dir}/cifs
 
-wget -O ${cifs_vol_dir}/cifs https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/cifs >>$LOG 2>&1
-
-
 #https://github.com/kubernetes/kubernetes/issues/17182
 # if we are running on kubernetes cluster as a daemon set we should
 # not exit otherwise, container will restart and goes into crashloop (even if exit code is 0)
