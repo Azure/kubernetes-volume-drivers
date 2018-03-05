@@ -3,8 +3,7 @@
 # Notes:
 #  - Please install "jq" package before using this driver.
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
+DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 MOUNT_CIFS="$DIR/cifs"
 LOG="/var/log/cifs.log"
