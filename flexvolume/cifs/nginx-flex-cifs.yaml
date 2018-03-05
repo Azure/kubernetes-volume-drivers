@@ -12,7 +12,7 @@ spec:
   volumes:
   - name: test
     flexVolume:
-      driver: "foo/cifs"
+      driver: "azure/cifs"
       secretRef:
         name: cifscreds	
       options:
