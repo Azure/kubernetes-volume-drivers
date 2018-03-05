@@ -1,6 +1,5 @@
 # cifs flex volume driver for Kubernetes (Preview)
  - supported Kubernetes version: v1.8, v1.9
- - supported agent node OS: Ubuntu 16.04
 
 # Install
 ## 1. config kubelet service (skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0)
