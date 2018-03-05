@@ -16,8 +16,7 @@ docker build --no-cache -t andyzhangx/cifs-flexvol-installer:1.0 .
 ```
 docker run -d --name flex andyzhangx/cifs-flexvol-installer:1.0
 docker exec -it flex bash
-cd /etc/kubernetes/volumeplugins/azure~cifs
-bin/cifs
+ls -lt /etc/kubernetes/volumeplugins/azure~cifs
 docker stop flex && docker rm flex
 ```
 
