@@ -1,4 +1,4 @@
-# cifs flex volume driver for Kubernetes (Preview)
+# cifs/SMB flex volume driver for Kubernetes (Preview)
  - supported Kubernetes version: v1.8, v1.9
 
 # Install
@@ -83,7 +83,7 @@ tmpfs           3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
 In the above example, there is a `/data` directory mounted as cifs filesystem.
 
 ### Links
-[azure-storage-fuse](https://github.com/Azure/azure-storage-fuse)
+[CIFS/SMB wiki](https://en.wikipedia.org/wiki/Server_Message_Block)
 
 [Flexvolume doc](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
 
