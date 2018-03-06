@@ -2,7 +2,13 @@
  - supported Kubernetes version: v1.8, v1.9
  - supported agent OS: Linux 
 
-# Install
+# About
+[azure-storage-fuse(blobfuse)](https://github.com/Azure/azure-storage-fuse) allows Linux based Kubernetes to access virtual filesystem backed by the Azure Blob storage.
+
+# Prerequisite
+User needs to create an storage account and a container in the same region with the kubernetes cluster and provide storage account name, account key and container name in below example.
+
+# Install blobfuse driver on a kubernetes cluster
 ## 1. config kubelet service (skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0)
 specify `volume-plugin-dir` in kubelet service config 
 ```
@@ -64,7 +70,7 @@ kubectl create secret generic blobfusecreds --from-literal username=USERNAME --f
 MountVolume.SetUp failed for volume "azure" : Couldn't get secret default/azure-secret
 ```
 
-## 2. create a pod with flexvolume blobfuse mount driver on linux
+## 2. create a pod with blobfuse flexvolume mount on linux
  - download `nginx-flex-blobfuse.yaml` file and modify `container` field
 ```
 wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse.yaml
