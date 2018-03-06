@@ -53,7 +53,7 @@ kubectl create secret generic cifscreds --from-literal username=USERNAME --from-
 MountVolume.SetUp failed for volume "azure" : Couldn't get secret default/azure-secret
 ```
 
-## 2. create a pod with flexvolume cifs mount driver on linux
+## 2. create a pod with cifs flexvolume mount on linux
  - download `nginx-flex-cifs.yaml` file and modify `container` field
 ```
 wget -O nginx-flex-cifs.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/nginx-flex-cifs.yaml
