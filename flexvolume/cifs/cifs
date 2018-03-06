@@ -6,7 +6,7 @@
 DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 MOUNT_CIFS="$DIR/cifs"
-LOG="/var/log/cifs.log"
+LOG="/var/log/cifs-driver.log"
 VER="1.0.0"
 
 usage() {

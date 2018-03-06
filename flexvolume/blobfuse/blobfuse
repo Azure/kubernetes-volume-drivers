@@ -3,7 +3,7 @@
 DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE=$DIR/bin/blobfuse
-LOG="/var/log/blobfuse.log"
+LOG="/var/log/blobfuse-driver.log"
 VER="1.0.0"
 
 usage() {
