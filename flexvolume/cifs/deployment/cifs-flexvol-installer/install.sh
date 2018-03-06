@@ -21,4 +21,4 @@ echo "install cifs flex volume driver completed." >> $LOG
 #https://github.com/kubernetes/kubernetes/issues/17182
 # if we are running on kubernetes cluster as a daemon set we should
 # not exit otherwise, container will restart and goes into crashloop (even if exit code is 0)
-while true; do echo "install done, daemonset sleeping" && sleep 30; done
+while true; do echo "install done, daemonset sleeping" && sleep 3600; done
