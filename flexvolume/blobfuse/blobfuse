@@ -59,7 +59,7 @@ mount() {
 	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER_NAME} --tmp-path=/tmpblobfuse/
 	if [ "$?" != "0" ]; then
 		errorLog=`tail -n 1 "${LOG}"`
-		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device /dev/${diskname} at ${MNTPATH}, accountname:${ACCOUNTNAME}, error log:${errorLog}\"}"
+		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device /dev/${diskname} at ${MNTPATH}, accountname:${ACCOUNTNAME}, error log:${errorLog}\" }"
 		exit 1
 	fi
 
@@ -88,7 +88,7 @@ unmount() {
 	/bin/umount $MNTPATH >> $LOG 2>&1
 	if [ "$?" != "0" ]; then
 		errorLog=`tail -n 1 "${LOG}"`
-		err '{ "status": "Failed", "message": "Failed to unmount volume at '${MNTPATH}'"}, error log:'${errorLog}''
+		err "{ \"status\": \"Failed\", \"message\": \"Failed to unmount volume at ${MNTPATH}, error log:${errorLog}\" }"
 		exit 1
 	fi
 
