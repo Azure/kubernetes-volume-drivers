@@ -15,7 +15,7 @@ docker build --no-cache -t andyzhangx/cifs-flexvol-installer:1.0 .
 ```
 ## 2. Test cifs-flexvol-installer image
 ```
-docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ --name flex andyzhangx/cifs-flexvol-installer:1.0
+docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex andyzhangx/cifs-flexvol-installer:1.0
 vi /tmp/volumeplugins/azure~cifs/cifs
 docker stop flex && docker rm flex
 ```
