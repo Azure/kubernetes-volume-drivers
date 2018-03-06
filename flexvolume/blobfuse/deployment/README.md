@@ -16,7 +16,8 @@ docker build --no-cache -t andyzhangx/blobfuse-flexvol-installer:1.0 .
 ## 2. Test blobfuse-flexvol-installer image
 ```
 docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex andyzhangx/blobfuse-flexvol-installer:1.0
-vi /tmp/volumeplugins/azure~cifs/cifs
+vi /tmp/volumeplugins/azure~blobfuse/blobfuse
+ls -lt /tmp/volumeplugins/azure~blobfuse/bin
 cat /var/log/blobfuse-flexvol-installer.log
 docker stop flex && docker rm flex
 ```
