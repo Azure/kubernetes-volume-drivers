@@ -3,8 +3,7 @@
 LOG="/var/log/cifs-flexvol-installer.log"
 VER="1.0.0"
 target_dir="${TARGET_DIR}"
-echo "cifs-flexvol-installer ${VER}" >> $LOG
-echo "being to install cifs flex volume driver..." >> $LOG
+echo "begin to install cifs flex volume driver ${VER} ..." >> $LOG
 
 if [[ -z "${target_dir}" ]]; then
   target_dir="/etc/kubernetes/volumeplugins"
