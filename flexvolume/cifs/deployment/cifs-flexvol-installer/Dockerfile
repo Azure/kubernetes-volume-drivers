@@ -1,9 +1,6 @@
-FROM ubuntu:16.04
+FROM busybox
 
-ADD ./download_cifs.sh /bin/download_cifs.sh
+ADD ./cifs /bin/cifs
 ADD ./install.sh /bin/install_cifs_flexvol.sh
-
-RUN apt-get update && apt-get install wget -y
-RUN /bin/download_cifs.sh
 
 ENTRYPOINT ["/bin/install_cifs_flexvol.sh"]

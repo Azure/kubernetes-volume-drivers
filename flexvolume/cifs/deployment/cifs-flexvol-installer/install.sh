@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 LOG="/var/log/cifs-flexvol-installer.log"
 VER="1.0.0"
@@ -13,7 +13,7 @@ cifs_vol_dir="${target_dir}/azure~cifs"
 mkdir -p ${cifs_vol_dir}
 
 #copy cifs script
-cp /cifs/cifs ${cifs_vol_dir}/cifs
+cp /bin/cifs ${cifs_vol_dir}/cifs
 chmod a+x ${cifs_vol_dir}/cifs
 
 #https://github.com/kubernetes/kubernetes/issues/17182

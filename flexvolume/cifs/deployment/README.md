@@ -10,13 +10,13 @@ wget -O download_cifs.sh https://raw.githubusercontent.com/andyzhangx/kubernetes
 chmod a+x install.sh
 chmod a+x download_cifs.sh
 
+./download_cifs.sh
 docker build --no-cache -t andyzhangx/cifs-flexvol-installer:1.0 .
 ```
 ## 2. Test cifs-flexvol-installer image
 ```
-docker run -d --name flex andyzhangx/cifs-flexvol-installer:1.0
-docker exec -it flex bash
-ls -lt /etc/kubernetes/volumeplugins/azure~cifs
+docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ --name flex andyzhangx/cifs-flexvol-installer:1.0
+vi /tmp/volumeplugins/azure~cifs/cifs
 docker stop flex && docker rm flex
 ```
 

@@ -1,5 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
-mkdir -p /cifs
-wget -O /cifs/cifs https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/cifs
-chmod a+x /cifs/cifs
+wget -O ./cifs https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/cifs
+chmod a+x ./cifs
