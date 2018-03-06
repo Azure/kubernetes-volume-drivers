@@ -27,7 +27,7 @@ log() {
 
 ismounted() {
 	MOUNT=`findmnt -n ${MNTPATH} 2>/dev/null | cut -d' ' -f1`
-	[ "${MOUNT}" == "${MNTPATH}" ]
+	[ "${MOUNT}" = "${MNTPATH}" ]
 }
 
 mount() {
@@ -52,12 +52,12 @@ mount() {
 	mkdir -p ${MNTPATH} >>$LOG 2>&1
 
 	#mounting
-	echo '`date` EXEC: /bin/mount -t cifs "${VOLUME_SRC}" "${MNTPATH}"' >>$LOG
+	echo "`date` EXEC: /bin/mount -t cifs ${VOLUME_SRC} ${MNTPATH}" >>$LOG
 	
 	/bin/mount -t cifs "${VOLUME_SRC}" "${MNTPATH}" -o "${ALL_OPTIONS}" >>$LOG 2>&1
 	if [ $? -ne 0 ]; then
 		errorLog=`tail -n 1 "${LOG}"`
-		err '{ "status": "Failure", "message": "Failed to mount device '${DMDEV}' at '${MNTPATH}' , user: '${USERNAME}' , '${VOLUME_SRC}', error log:${errorLog} }'
+		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device ${DMDEV} at ${MNTPATH}, user:${USERNAME}, ${VOLUME_SRC}, error log:${errorLog}\" }"
 		exit 1
 	fi
 	log '{"status": "Success"}'
@@ -75,7 +75,7 @@ unmount() {
 	umount "${MNTPATH}" >>$LOG 2>&1
 	if [ $? -ne 0 ]; then
 		errorLog=`tail -n 1 "${LOG}"`
-		err '{ "status": "Failed", "message": "Failed to unmount volume at '${MNTPATH}', error log:${errorLog} }'
+		err "{ \"status\": \"Failed\", \"message\": \"Failed to unmount volume at ${MNTPATH}, error log:${errorLog}\" }"
 		exit 1
 	fi
 	echo "`date` EXEC: rmdir ${MNTPATH}" >> $LOG
