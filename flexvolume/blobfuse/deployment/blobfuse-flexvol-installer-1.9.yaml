@@ -16,7 +16,9 @@ spec:
     spec:
       tolerations:
       - key: node-role.kubernetes.io/master
-        effect: NoSchedule    
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"  
       containers:
       - name: blobfuse-flexvol-installer
         image: andyzhangx/blobfuse-flexvol-installer:1.0
