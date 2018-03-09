@@ -6,9 +6,6 @@ metadata:
   labels:
     k8s-app: blobfuse
 spec:
-  tolerations:
-  - key: node-role.kubernetes.io/master
-    effect: NoSchedule
   selector:
     matchLabels:
       name: blobfuse
@@ -17,6 +14,9 @@ spec:
       labels:
         name: blobfuse
     spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule    
       containers:
       - name: blobfuse-flexvol-installer
         image: andyzhangx/blobfuse-flexvol-installer:1.0
