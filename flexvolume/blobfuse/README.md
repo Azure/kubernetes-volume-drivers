@@ -64,22 +64,41 @@ sudo chmod a+x blobfuse
 ```
 kubectl create secret generic blobfusecreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/blobfuse"
 ```
-#### Note
- - If secret type is not set correctly as driver name `azure/blobfuse`, you will get following error:
+> Note
+If secret type is not set correctly as driver name `azure/blobfuse`, you will get following error:
 ```
 MountVolume.SetUp failed for volume "azure" : Couldn't get secret default/azure-secret
 ```
 
 ## 2. create a pod with blobfuse flexvolume mount on linux
- - download `nginx-flex-blobfuse.yaml` file and modify `container` field
+### Option#1 Use flexvolume mount directly inside a pod
+- download `nginx-flex-blobfuse.yaml` file and modify `container` field
 ```
 wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse.yaml
 vi nginx-flex-blobfuse.yaml
 ```
- - create a pod with flexvolume blobfuse driver mount
+ - create a pod with blobfuse flexvolume driver mount
 ```
 kubectl create -f nginx-flex-blobfuse.yaml
 ```
+
+### Option#2 Use PV/PVC
+ - download `pv-blobfuse-flexvol.yaml` file, modify `container` field and create a blobfuse flexvolume persistent volume(PV)
+```
+wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/pv-blobfuse-flexvol.yaml
+vi pv-blobfuse-flexvol.yaml
+kubectl create -f pv-blobfuse-flexvol.yaml
+```
+
+ - create a blobfuse flexvolume persistent volume claim(PVC)
+```
+ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/pvc-blobfuse-flexvol.yaml
+```
+ 
+ - create a pod with blobfuse flexvolume PVC
+```
+ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse-pvc.yaml
+ ```
 
 #### watch the status of pod until its Status changed from `Pending` to `Running`
 watch kubectl describe po nginx-flex-blobfuse
