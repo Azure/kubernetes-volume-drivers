@@ -107,7 +107,9 @@ kubectl create -f pv-blobfuse-flexvol.yaml
  ```
 
  - watch the status of pod until its Status changed from `Pending` to `Running`
+```
 watch kubectl describe po nginx-flex-blobfuse
+```
 
 ## 3. enter the pod container to do validation
 kubectl exec -it nginx-flex-blobfuse -- bash
