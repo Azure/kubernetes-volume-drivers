@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-flex-blobfuse
+spec:
+  containers:
+  - name: nginx-flex-blobfuse
+    image: nginx
+    volumeMounts:
+    - name: flexvol-mount
+      mountPath: /data
+  volumes:
+  - name: flexvol-mount
+    persistentVolumeClaim:
+      claimName: pvc-blobfuse-flexvol
