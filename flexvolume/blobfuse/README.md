@@ -71,7 +71,7 @@ MountVolume.SetUp failed for volume "azure" : Couldn't get secret default/azure-
 ```
 
 ## 2. create a pod with blobfuse flexvolume mount on linux
-### Option#1 Use flexvolume mount directly inside a pod
+#### Option#1 Use flexvolume mount directly inside a pod
 - download `nginx-flex-blobfuse.yaml` file and modify `container` field
 ```
 wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse.yaml
@@ -82,7 +82,7 @@ vi nginx-flex-blobfuse.yaml
 kubectl create -f nginx-flex-blobfuse.yaml
 ```
 
-### Option#2 Use PV/PVC
+#### Option#2 Create blobfuse flexvolume PV & PVC and then create a pod based on PVC
  - download `pv-blobfuse-flexvol.yaml` file, modify `container` field and create a blobfuse flexvolume persistent volume(PV)
 ```
 wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/pv-blobfuse-flexvol.yaml
