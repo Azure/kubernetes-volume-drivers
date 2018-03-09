@@ -6,6 +6,9 @@ metadata:
   labels:
     k8s-app: blobfuse
 spec:
+  tolerations:
+  - key: node-role.kubernetes.io/master
+    effect: NoSchedule
   selector:
     matchLabels:
       name: blobfuse
