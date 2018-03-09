@@ -94,13 +94,19 @@ kubectl create -f pv-blobfuse-flexvol.yaml
 ```
  kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/pvc-blobfuse-flexvol.yaml
 ```
+
+ - check status of PV & PVC until its Status changed from `Pending` to `Bound`
+ ```
+ kubectl get pv
+ kubectl get pvc
+ ```
  
  - create a pod with blobfuse flexvolume PVC
 ```
  kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse-pvc.yaml
  ```
 
-#### watch the status of pod until its Status changed from `Pending` to `Running`
+ - watch the status of pod until its Status changed from `Pending` to `Running`
 watch kubectl describe po nginx-flex-blobfuse
 
 ## 3. enter the pod container to do validation
