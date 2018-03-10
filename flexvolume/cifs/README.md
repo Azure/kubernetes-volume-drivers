@@ -47,25 +47,47 @@ sudo chmod a+x cifs
 ```
 kubectl create secret generic cifscreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/cifs"
 ```
-#### Note
- - If secret type is not set correctly as driver name `azure/cifs`, you will get following error:
-```
-MountVolume.SetUp failed for volume "azure" : Couldn't get secret default/azure-secret
-```
 
 ## 2. create a pod with cifs flexvolume mount on linux
- - download `nginx-flex-cifs.yaml` file and modify `container` field
+#### Option#1 Use flexvolume mount directly inside a pod
+- download `nginx-flex-cifs.yaml` file and modify `source` field
 ```
 wget -O nginx-flex-cifs.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/nginx-flex-cifs.yaml
 vi nginx-flex-cifs.yaml
 ```
- - create a pod with flexvolume cifs driver mount
+ - create a pod with cifs flexvolume driver mount
 ```
 kubectl create -f nginx-flex-cifs.yaml
 ```
 
-#### watch the status of pod until its Status changed from `Pending` to `Running`
+#### Option#2 Create cifs flexvolume PV & PVC and then create a pod based on PVC
+ - download `pv-cifs-flexvol.yaml` file, modify `source` field and create a cifs flexvolume persistent volume(PV)
+```
+wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/pv-cifs-flexvol.yaml
+vi pv-cifs-flexvol.yaml
+kubectl create -f pv-cifs-flexvol.yaml
+```
+
+ - create a cifs flexvolume persistent volume claim(PVC)
+```
+ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/pvc-cifs-flexvol.yaml
+```
+
+ - check status of PV & PVC until its Status changed from `Pending` to `Bound`
+ ```
+ kubectl get pv
+ kubectl get pvc
+ ```
+ 
+ - create a pod with cifs flexvolume PVC
+```
+ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/nginx-flex-cifs-pvc.yaml
+ ```
+
+ - watch the status of pod until its Status changed from `Pending` to `Running`
+```
 watch kubectl describe po nginx-flex-cifs
+```
 
 ## 3. enter the pod container to do validation
 kubectl exec -it nginx-flex-cifs -- bash
