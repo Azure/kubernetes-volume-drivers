@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-flex-cifs
+spec:
+  containers:
+  - name: nginx-flex-cifs
+    image: nginx
+    volumeMounts:
+    - name: flexvol-mount
+      mountPath: /data
+  volumes:
+  - name: flexvol-mount
+    persistentVolumeClaim:
+      claimName: pvc-cifs-flexvol
