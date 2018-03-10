@@ -64,11 +64,6 @@ sudo chmod a+x blobfuse
 ```
 kubectl create secret generic blobfusecreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/blobfuse"
 ```
-> Note
-If secret type is not set correctly as driver name `azure/blobfuse`, you will get following error:
-```
-MountVolume.SetUp failed for volume "azure" : Couldn't get secret default/azure-secret
-```
 
 ## 2. create a pod with blobfuse flexvolume mount on linux
 #### Option#1 Use flexvolume mount directly inside a pod
