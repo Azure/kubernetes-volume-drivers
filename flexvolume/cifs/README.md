@@ -19,7 +19,7 @@ Note:
 ```
 I0122 08:24:47.761479    2963 plugins.go:469] Loaded volume plugin "flexvolume-azure/cifs"
 ```
- - Flexvolume is GA from Kubernetes **1.8** release, v1.7 is depreciated since it does not support flex volume driver dynamic detection.
+ - Flexvolume is GA from Kubernetes **1.8** release, v1.7 is depreciated since it does not support [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery).
  
 ## 2. install cifs flex volume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
