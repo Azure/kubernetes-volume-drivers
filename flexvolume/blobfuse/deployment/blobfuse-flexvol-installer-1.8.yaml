@@ -21,7 +21,7 @@ spec:
         effect: "NoSchedule"    
       containers:
       - name: blobfuse-flexvol-installer
-        image: andyzhangx/blobfuse-flexvol-installer:1.0
+        image: andyzhangx/blobfuse-flexvol-installer:1.0.0
         imagePullPolicy: Always
         env:
         - name: KUBELET_VERSION

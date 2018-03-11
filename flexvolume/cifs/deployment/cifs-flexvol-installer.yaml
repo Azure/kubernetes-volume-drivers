@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cifs-flexvol-installer
-        image: andyzhangx/cifs-flexvol-installer:1.0
+        image: andyzhangx/cifs-flexvol-installer:1.0.0
         imagePullPolicy: Always
         volumeMounts:
         - name: volplugins
