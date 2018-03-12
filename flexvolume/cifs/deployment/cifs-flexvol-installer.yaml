@@ -1,8 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flex
+---
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: cifs-flexvol-installer
-  namespace: kube-system
+  namespace: flex
   labels:
     k8s-app: cifs
 spec:
