@@ -122,6 +122,19 @@ tmpfs           3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
 ```
 In the above example, there is a `/data` directory mounted as blobfuse filesystem.
 
+### Tips
+##### How to use flexvolume driver in Helm
+Since flexvolume does not support dynamic provisioning, storageClass should be set as empty in Helm chart, take [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) as an example:
+ - Set up a blobfuse flexvolume PV and also `blobfusecreds` first
+```
+kubectl create secret generic blobfusecreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/blobfuse"
+kubectl create -f pv-blobfuse-flexvol.yaml
+```
+ - Specify `persistence.accessMode=ReadWriteMany,persistence.storageClass="-"` in [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) chart
+```
+helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass="-" stable/wordpress
+```
+
 ### Links
 [azure-storage-fuse](https://github.com/Azure/azure-storage-fuse)
 
