@@ -7,7 +7,7 @@
 
 # Prerequisite
  - A storage account should be created in the same region as the kubernetes cluster
- - An azure disk should be created in that storage account
+ - An azure disk should be created in that storage account, below is one way to create a vhd in default container `dysks`
 ```
 docker run --rm \
 	-it --privileged \
