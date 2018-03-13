@@ -7,8 +7,8 @@ apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   labels:
-    dyskComponent: kernel-kubernetes-installer
-  name: dysk-kubernetes-installer
+    dyskComponent: kernel-flexvol-installer
+  name: dysk-flexvol-installer
   namespace: flex
 spec:
   template:
