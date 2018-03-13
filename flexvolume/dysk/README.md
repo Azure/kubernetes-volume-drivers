@@ -6,7 +6,14 @@
 [dysk - Fast kernel-mode mount/unmount of AzureDisk](https://github.com/khenidak/dysk)
 
 # Prerequisite
-User needs to create an storage account in the same region as the kubernetes cluster and provide storage account name and account key in below example.
+ - A storage account should be created in the same region as the kubernetes cluster
+ - An azure disk should be created in that storage account
+```
+docker run --rm \
+	-it --privileged \
+	-v /etc/ssl/certs:/etc/ssl/certs:ro \
+khenidak/dysk-cli:0.4 create --account ACCOUNT-NAME --key ACCOUNT-KEY --device-name dysk01 --size 1
+```
 
 # Install dysk driver on a kubernetes cluster
 ## 1. config kubelet service (skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0)
@@ -30,14 +37,10 @@ I0122 08:24:47.761479    2963 plugins.go:469] Loaded volume plugin "flexvolume-a
 ## 2. install dysk flex volume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install dysk driver
- - v1.9
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/deployment/dysk-flexvol-installer-1.9.yaml
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/deployment/dysk-flexvol-installer.yaml
 ```
- - v1.8
-```
- kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/deployment/dysk-flexvol-installer-1.8.yaml
-```
+
  - check daemonset status:
 ```
 kubectl describe daemonset dysk-flexvol-installer --namespace=flex
@@ -45,16 +48,10 @@ kubectl get po --namespace=flex
 ```
 
 ### Option#2. Manually install on every agent node (depreciated)
-Take k8s v1.9 as an example:
 ```
-version=v1.9
-sudo mkdir -p /etc/kubernetes/volumeplugins/azure~dysk/bin
-cd /etc/kubernetes/volumeplugins/azure~dysk/bin
+sudo mkdir -p /etc/kubernetes/volumeplugins/azure~dysk/
+cd /etc/kubernetes/volumeplugins/azure~dysk/
 
-sudo wget -O dysk https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/binary/hyperkube-$version/v0.2.4/dysk
-sudo chmod a+x dysk
-
-cd /etc/kubernetes/volumeplugins/azure~dysk
 sudo wget -O dysk https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/dysk
 sudo chmod a+x dysk
 ```
@@ -67,7 +64,7 @@ kubectl create secret generic dyskcreds --from-literal username=USERNAME --from-
 
 ## 2. create a pod with dysk flexvolume mount on linux
 #### Option#1 Use flexvolume mount directly inside a pod
-- download `nginx-flex-dysk.yaml` file and modify `container` field
+- download `nginx-flex-dysk.yaml` file and modify `container`, `blob` field
 ```
 wget -O nginx-flex-dysk.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk.yaml
 vi nginx-flex-dysk.yaml
