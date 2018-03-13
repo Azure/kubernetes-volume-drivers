@@ -13,7 +13,10 @@ spec:
   - name: test
     flexVolume:
       driver: "azure/dysk"
+      readOnly: false
+      fsType: ext4
       secretRef:
         name: dyskcreds
       options:
         container: CONTAINER-NAME
+        blob: NAME.vhd

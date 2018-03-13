@@ -3,10 +3,10 @@
  - supported agent OS: Linux 
 
 # About
-[azure-storage-fuse(dysk)](https://github.com/Azure/azure-storage-fuse) allows Linux based Kubernetes to access virtual filesystem backed by the Azure Blob storage.
+[dysk - Fast kernel-mode mount/unmount of AzureDisk](https://github.com/khenidak/dysk)
 
 # Prerequisite
-User needs to create an storage account and a container in the same region with the kubernetes cluster and provide storage account name, account key and container name in below example.
+User needs to create an storage account in the same region as the kubernetes cluster and provide storage account name and account key in below example.
 
 # Install dysk driver on a kubernetes cluster
 ## 1. config kubelet service (skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0)
@@ -111,14 +111,15 @@ kubectl exec -it nginx-flex-dysk -- bash
 
 ```
 root@nginx-flex-dysk:/# df -h
-Filesystem      Size  Used Avail Use% Mounted on
-overlay          30G  5.5G   24G  19% /
-tmpfs           3.4G     0  3.4G   0% /dev
-tmpfs           3.4G     0  3.4G   0% /sys/fs/cgroup
-dysk         30G  5.5G   24G  19% /data
-/dev/sda1        30G  5.5G   24G  19% /etc/hosts
-shm              64M     0   64M   0% /dev/shm
-tmpfs           3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
+Filesystem         Size  Used Avail Use% Mounted on
+overlay            291G  6.3G  285G   3% /
+tmpfs              3.4G     0  3.4G   0% /dev
+tmpfs              3.4G     0  3.4G   0% /sys/fs/cgroup
+/dev/dyskpoosf9g0  992M  1.3M  924M   1% /data
+/dev/sda1          291G  6.3G  285G   3% /etc/hosts
+shm                 64M     0   64M   0% /dev/shm
+tmpfs              3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
+tmpfs              3.4G     0  3.4G   0% /sys/firmware
 ```
 In the above example, there is a `/data` directory mounted as dysk filesystem.
 
@@ -136,8 +137,8 @@ helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass
 ```
 
 ### Links
-[azure-storage-fuse](https://github.com/Azure/azure-storage-fuse)
-
 [Flexvolume doc](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
 
 More clear steps about flexvolume by Redhat doc: [Persistent Storage Using FlexVolume Plug-ins](https://docs.openshift.org/latest/install_config/persistent_storage/persistent_storage_flex_volume.html)
+
+[dysk - Fast kernel-mode mount/unmount of AzureDisk](https://github.com/khenidak/dysk)
