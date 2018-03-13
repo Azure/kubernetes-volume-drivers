@@ -105,8 +105,8 @@ mount() {
 	fi
 
 	#mounting
-	echo "`date` EXEC: /bin/mount /dev/${diskname} "${MNTPATH}"" >>$LOG
-	/bin/mount /dev/$diskname "${MNTPATH}" >>$LOG 2>&1
+	echo "`date` EXEC: /bin/mount ${read_only_param} /dev/${diskname} "${MNTPATH}"" >>$LOG
+	/bin/mount ${read_only_param} /dev/$diskname "${MNTPATH}" >>$LOG 2>&1
 	if [ "$?" != "0" ]; then
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device /dev/${diskname} at ${MNTPATH}, accountname:${ACCOUNTNAME}, error log:${errorLog}\"}"
