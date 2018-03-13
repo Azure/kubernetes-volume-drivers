@@ -29,11 +29,11 @@ ismounted() {
 
 mount() {
 	MNTPATH="$1"
-	local ACCOUNTNAME=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/username"] // empty'|base64 -d)
-	local ACCOUNTKEY=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/password"] // empty'|base64 -d)
-	local CONTAINER_NAME="$(echo "$2" | "$JQ" -r '.container //empty')"
+	ACCOUNTNAME=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/username"] // empty'|base64 -d)
+	ACCOUNTKEY=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/password"] // empty'|base64 -d)
+	CONTAINER="$(echo "$2"|"$JQ" -r '.container //empty')"
 	
-	if [ -z "${CONTAINER_NAME}" ]; then
+	if [ -z "${CONTAINER}" ]; then
 		echo "`date` ERR: container is empty" >> $LOG
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:${errorLog}\"}"
@@ -41,8 +41,8 @@ mount() {
 	fi
 	
 	if ismounted ; then
-		local devname=`findmnt -n -o SOURCE ${MNTPATH}`
-		log "{\"status\": \"Success\" , \"message\" :  \"log:INF: Mountpoint: ${MNTPATH} has ${devname} already mounted\"}"
+		devname=`findmnt -n -o SOURCE ${MNTPATH}`
+		log "{\"status\": \"Success\" , \"message\":\"log:INF: Mountpoint: ${MNTPATH} has ${devname} already mounted\"}"
 		exit 0
 	fi
 
@@ -55,8 +55,8 @@ mount() {
 	echo "`date` INF: export storage account - ${output_comand} " >> $LOG
 	
 	#mounting
-	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER_NAME} --tmp-path=/tmpblobfuse/" >>$LOG	
-	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER_NAME} --tmp-path=/tmpblobfuse/
+	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmpblobfuse/" >>$LOG
+	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmpblobfuse/
 	if [ "$?" != "0" ]; then
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device /dev/${diskname} at ${MNTPATH}, accountname:${ACCOUNTNAME}, error log:${errorLog}\" }"
@@ -64,7 +64,7 @@ mount() {
 	fi
 
 	errorLog=`tail -n 1 "${LOG}"`
-	log "{\"status\": \"Success\" , \"message\" :  \"log:${errorLog}\" }"
+	log "{\"status\": \"Success\" , \"message\":\"log:${errorLog}\" }"
 	exit 0
 }
 
@@ -77,7 +77,7 @@ unmount() {
 	fi
 
 	#find device name
-	local devname=`findmnt -n -o SOURCE ${MNTPATH}`
+	devname=`findmnt -n -o SOURCE ${MNTPATH}`
 	if [ ${#devname} -lt 1 ]; then
 		echo "`date` INF: mount path:${MNTPATH} has no mounts" >> $LOG
 		log '{"status": "Success"}'
