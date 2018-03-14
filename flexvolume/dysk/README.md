@@ -64,7 +64,7 @@ kubectl create secret generic dyskcreds --from-literal username=USERNAME --from-
 
 ## 2. create a pod with dysk flexvolume mount on linux
 #### Option#1 Use flexvolume mount directly inside a pod
-- download `nginx-flex-dysk.yaml` file and modify `container`, `blob` field
+- download `nginx-flex-dysk.yaml` file and modify `container`, `blob` fields
 ```
 wget -O nginx-flex-dysk.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk.yaml
 vi nginx-flex-dysk.yaml
@@ -75,7 +75,7 @@ kubectl create -f nginx-flex-dysk.yaml
 ```
 
 #### Option#2 Create dysk flexvolume PV & PVC and then create a pod based on PVC
- - download `pv-dysk-flexvol.yaml` file, modify `container` field and create a dysk flexvolume persistent volume(PV)
+ - download `pv-dysk-flexvol.yaml` file, modify `container`, `blob`, `storage` fields and create a dysk flexvolume persistent volume(PV)
 ```
 wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/pv-dysk-flexvol.yaml
 vi pv-dysk-flexvol.yaml
@@ -84,18 +84,18 @@ kubectl create -f pv-dysk-flexvol.yaml
 
  - create a dysk flexvolume persistent volume claim(PVC)
 ```
- kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/pvc-dysk-flexvol.yaml
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/pvc-dysk-flexvol.yaml
 ```
 
- - check status of PV & PVC until its Status changed from `Pending` to `Bound`
+ - check status of PV & PVC until its Status changed to `Bound`
  ```
- kubectl get pv
- kubectl get pvc
+kubectl get pv
+kubectl get pvc
  ```
  
  - create a pod with dysk flexvolume PVC
 ```
- kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk-pvc.yaml
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk-pvc.yaml
  ```
 
  - watch the status of pod until its Status changed from `Pending` to `Running`
