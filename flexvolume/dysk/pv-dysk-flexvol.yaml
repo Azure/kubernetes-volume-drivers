@@ -9,8 +9,11 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   flexVolume:
-    driver: "azure/dysk"
-    secretRef:
-      name: dyskcreds
-    options:
-      container: CONTAINER-NAME
+      driver: "azure/dysk"
+      readOnly: false
+      fsType: ext4
+      secretRef:
+        name: dyskcreds
+      options:
+        container: CONTAINER-NAME
+        blob: NAME.vhd
