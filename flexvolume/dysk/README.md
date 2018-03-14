@@ -28,15 +28,11 @@ sudo systemctl restart kubelet
 
 Note:
  - `/etc/kubernetes/volumeplugins` has already been the default flexvolume plugin directory in acs-engine (starting from v0.12.0)
- - There would be one line of [kubelet log](https://github.com/andyzhangx/Demo/tree/master/debug#q-how-to-get-k8s-kubelet-logs-on-linux-agent) in agent node like below showing that `flexvolume-azure/dysk` is loaded correctly
-```
-I0122 08:24:47.761479    2963 plugins.go:469] Loaded volume plugin "flexvolume-azure/dysk"
-```
  - Flexvolume is GA from Kubernetes **1.8** release, v1.7 is depreciated since it does not support [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery).
  
 ## 2. install dysk flex volume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
-create daemonset to install dysk driver
+ - create daemonset to install dysk driver
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/deployment/dysk-flexvol-installer.yaml
 ```
@@ -75,6 +71,7 @@ kubectl create -f nginx-flex-dysk.yaml
 ```
 
 #### Option#2 Create dysk flexvolume PV & PVC and then create a pod based on PVC
+> Note: access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(RWX)
  - download `pv-dysk-flexvol.yaml` file, modify `container`, `blob`, `storage` fields and create a dysk flexvolume persistent volume(PV)
 ```
 wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/pv-dysk-flexvol.yaml
@@ -128,7 +125,7 @@ Since flexvolume does not support dynamic provisioning, storageClass should be s
 kubectl create secret generic dyskcreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/dysk"
 kubectl create -f pv-dysk-flexvol.yaml
 ```
- - Specify `persistence.accessMode=ReadWriteMany,persistence.storageClass="-"` in [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) chart
+ - Specify `persistence.accessMode=ReadWriteOnce,persistence.storageClass="-"` in [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) chart
 ```
 helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass="-" stable/wordpress
 ```
