@@ -21,10 +21,6 @@ sudo systemctl restart kubelet
 
 Note:
  - `/etc/kubernetes/volumeplugins` has already been the default flexvolume plugin directory in acs-engine (starting from v0.12.0)
- - There would be one line of [kubelet log](https://github.com/andyzhangx/Demo/tree/master/debug#q-how-to-get-k8s-kubelet-logs-on-linux-agent) in agent node like below showing that `flexvolume-azure/blobfuse` is loaded correctly
-```
-I0122 08:24:47.761479    2963 plugins.go:469] Loaded volume plugin "flexvolume-azure/blobfuse"
-```
  - Flexvolume is GA from Kubernetes **1.8** release, v1.7 is depreciated since it does not support [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery).
  
 ## 2. install blobfuse flex volume driver on every agent node
@@ -78,6 +74,7 @@ kubectl create -f nginx-flex-blobfuse.yaml
 ```
 
 #### Option#2 Create blobfuse flexvolume PV & PVC and then create a pod based on PVC
+ > Note: access modes of blobfuse PV supports ReadWriteMany(RWX)
  - download `pv-blobfuse-flexvol.yaml` file, modify `container` field and create a blobfuse flexvolume persistent volume(PV)
 ```
 wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/pv-blobfuse-flexvol.yaml
