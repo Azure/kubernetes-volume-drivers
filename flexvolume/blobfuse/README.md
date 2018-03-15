@@ -74,7 +74,7 @@ kubectl create -f nginx-flex-blobfuse.yaml
 ```
 
 #### Option#2 Create blobfuse flexvolume PV & PVC and then create a pod based on PVC
- > Note: access modes of blobfuse PV supports ReadWriteMany(RWX)
+ > Note: access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX) and ReadWriteMany(RWX)
  - download `pv-blobfuse-flexvol.yaml` file, modify `container` field and create a blobfuse flexvolume persistent volume(PV)
 ```
 wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/pv-blobfuse-flexvol.yaml
