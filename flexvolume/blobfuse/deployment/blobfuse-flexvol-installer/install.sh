@@ -9,7 +9,7 @@ if [[ -z "${target_dir}" ]]; then
   target_dir="/etc/kubernetes/volumeplugins"
 fi
 
-echo "begin to install blobfuse flex volume driver ${VER}, blobfuse version:${BLOBFUSE_VERSION}, target dir:${target_dir} ..." >> $LOG
+echo "begin to install blobfuse FlexVolume driver ${VER}, blobfuse version:${BLOBFUSE_VERSION}, target dir:${target_dir} ..." >> $LOG
 
 blobfuse_vol_dir="${target_dir}/azure~blobfuse"
 blobfuse_bin_dir="${blobfuse_vol_dir}/bin"
@@ -32,7 +32,7 @@ chmod a+x ${blobfuse_bin_dir}/blobfuse >>$LOG 2>&1
 cp /blobfuse/blobfuse ${blobfuse_vol_dir}/blobfuse >>$LOG 2>&1
 chmod a+x ${blobfuse_vol_dir}/blobfuse >>$LOG 2>&1
 
-echo "install blobfuse flex volume driver completed." >> $LOG
+echo "install blobfuse FlexVolume driver completed." >> $LOG
 
 #https://github.com/kubernetes/kubernetes/issues/17182
 # if we are running on kubernetes cluster as a daemon set we should

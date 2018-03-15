@@ -1,4 +1,4 @@
-# blobfuse flex volume driver for Kubernetes (Preview)
+# blobfuse FlexVolume driver for Kubernetes (Preview)
  - supported Kubernetes version: v1.8, v1.9
  - supported agent OS: Linux 
 
@@ -23,7 +23,7 @@ Note:
  - `/etc/kubernetes/volumeplugins` has already been the default flexvolume plugin directory in acs-engine (starting from v0.12.0)
  - Flexvolume is GA from Kubernetes **1.8** release, v1.7 is depreciated since it does not support [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery).
  
-## 2. install blobfuse flex volume driver on every agent node
+## 2. install blobfuse FlexVolume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install blobfuse driver
  - v1.9

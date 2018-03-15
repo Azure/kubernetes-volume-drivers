@@ -3,7 +3,7 @@
 LOG="/var/log/cifs-flexvol-installer.log"
 VER="1.0.0"
 target_dir="${TARGET_DIR}"
-echo "begin to install cifs flex volume driver ${VER} ..." >> $LOG
+echo "begin to install cifs FlexVolume driver ${VER} ..." >> $LOG
 
 if [[ -z "${target_dir}" ]]; then
   target_dir="/etc/kubernetes/volumeplugins"
@@ -16,7 +16,7 @@ mkdir -p ${cifs_vol_dir} >> $LOG 2>&1
 cp /bin/cifs ${cifs_vol_dir}/cifs >> $LOG 2>&1
 chmod a+x ${cifs_vol_dir}/cifs >> $LOG 2>&1
 
-echo "install cifs flex volume driver completed." >> $LOG
+echo "install cifs FlexVolume driver completed." >> $LOG
 
 #https://github.com/kubernetes/kubernetes/issues/17182
 # if we are running on kubernetes cluster as a daemon set we should

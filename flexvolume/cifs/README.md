@@ -1,11 +1,11 @@
-# CIFS/SMB flex volume driver for Kubernetes (Preview)
+# CIFS/SMB FlexVolume driver for Kubernetes (Preview)
  - supported Kubernetes version: v1.8, v1.9
  - supported agent OS: Linux 
 
 # About
 This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://en.wikipedia.org/wiki/Server_Message_Block) protocol.
 
-# Install cifs flex volume driver on a kubernetes cluster
+# Install cifs FlexVolume driver on a kubernetes cluster
 ## 1. config kubelet service (skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0)
 specify `volume-plugin-dir` in kubelet service config 
 ```
@@ -24,7 +24,7 @@ I0122 08:24:47.761479    2963 plugins.go:469] Loaded volume plugin "flexvolume-a
 ```
  - Flexvolume is GA from Kubernetes **1.8** release, v1.7 is depreciated since it does not support [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery).
  
-## 2. install cifs flex volume driver on every agent node
+## 2. install cifs FlexVolume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install cifs driver
 ```
