@@ -3,7 +3,7 @@
  - supported agent OS: Linux 
 
 # About
-[azure-storage-fuse(blobfuse)](https://github.com/Azure/azure-storage-fuse) allows Linux based Kubernetes to access virtual filesystem backed by the Azure Blob storage.
+This driver allows Kubernetes to access virtual filesystem backed by the Azure Blob storage.
 
 # Prerequisite
 User needs to create an storage account and a container in the same region with the kubernetes cluster and provide storage account name, account key and container name in below example.
