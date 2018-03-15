@@ -11,7 +11,7 @@ chmod a+x install.sh
 chmod a+x download_blobfuse.sh
 
 ./download_blobfuse.sh
-docker build --no-cache -t andyzhangx/blobfuse-flexvol-installer:1.0.0 .
+docker build --no-cache -t andyzhangx/blobfuse-flexvol-installer:1.0.1 .
 ```
 ## 2. Test blobfuse-flexvol-installer image
 ```
@@ -31,5 +31,5 @@ docker logs flex
 ## 3. Push blobfuse-flexvol-installer image
 ```
 docker login
-docker push andyzhangx/blobfuse-flexvol-installer:1.0.0
+docker push andyzhangx/blobfuse-flexvol-installer:1.0.1
 ```
