@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE=$DIR/bin/blobfuse
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.0"
+VER="1.0.1"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -55,8 +55,8 @@ mount() {
 	echo "`date` INF: export storage account - ${output_comand} " >> $LOG
 	
 	#mounting
-	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmpblobfuse/" >>$LOG
-	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmpblobfuse/
+	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmp/blobfuse/ -o allow_other" >>$LOG
+	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmp/blobfuse/ -o allow_other
 	if [ "$?" != "0" ]; then
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device /dev/${diskname} at ${MNTPATH}, accountname:${ACCOUNTNAME}, error log:${errorLog}\" }"
