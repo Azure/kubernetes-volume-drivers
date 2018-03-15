@@ -3,7 +3,7 @@
  - supported agent OS: Linux 
 
 # About
-[dysk - Fast kernel-mode mount/unmount of AzureDisk](https://github.com/khenidak/dysk)
+This driver allows Kubernetes to use [fast kernel-mode mount/unmount AzureDisk](https://github.com/khenidak/dysk)
 
 # Prerequisite
  - A storage account should be created in the same region as the kubernetes cluster
