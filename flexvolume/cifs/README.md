@@ -2,6 +2,9 @@
  - supported Kubernetes version: v1.8, v1.9
  - supported agent OS: Linux 
 
+# About
+This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://en.wikipedia.org/wiki/Server_Message_Block) protocol.
+
 # Install cifs flex volume driver on a kubernetes cluster
 ## 1. config kubelet service (skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0)
 specify `volume-plugin-dir` in kubelet service config 
@@ -61,6 +64,7 @@ kubectl create -f nginx-flex-cifs.yaml
 ```
 
 #### Option#2 Create cifs flexvolume PV & PVC and then create a pod based on PVC
+ > Note: access modes of cifs PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX) and ReadWriteMany(RWX)
  - download `pv-cifs-flexvol.yaml` file, modify `source` field and create a cifs flexvolume persistent volume(PV)
 ```
 wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/pv-cifs-flexvol.yaml
