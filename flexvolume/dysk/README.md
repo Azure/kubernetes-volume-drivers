@@ -118,7 +118,7 @@ tmpfs              3.4G     0  3.4G   0% /sys/firmware
 In the above example, there is a `/data` directory mounted as dysk filesystem.
 
 ### Tips
-##### How to use flexvolume driver in Helm
+#### How to use flexvolume driver in Helm
 Since flexvolume does not support dynamic provisioning, storageClass should be set as empty in Helm chart, take [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) as an example:
  - Set up a dysk flexvolume PV and also `dyskcreds` first
 ```
@@ -133,6 +133,6 @@ helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass
 ### Links
 [Flexvolume doc](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
 
-More clear steps about flexvolume by Redhat doc: [Persistent Storage Using FlexVolume Plug-ins](https://docs.openshift.org/latest/install_config/persistent_storage/persistent_storage_flex_volume.html)
+[Persistent Storage Using FlexVolume Plug-ins](https://docs.openshift.org/latest/install_config/persistent_storage/persistent_storage_flex_volume.html)
 
 [dysk - Fast kernel-mode mount/unmount of AzureDisk](https://github.com/khenidak/dysk)
