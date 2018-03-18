@@ -59,7 +59,7 @@ kubectl create secret generic dyskcreds --from-literal username=USERNAME --from-
 ```
 
 ## 2. create a pod with dysk flexvolume mount on linux
-#### Option#1 Use flexvolume mount directly inside a pod
+#### Option#1 Ties a flexvolume volume explicitly to a pod
 - download `nginx-flex-dysk.yaml` file and modify `container`, `blob` fields
 ```
 wget -O nginx-flex-dysk.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk.yaml

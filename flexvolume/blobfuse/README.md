@@ -62,7 +62,7 @@ kubectl create secret generic blobfusecreds --from-literal username=USERNAME --f
 ```
 
 ## 2. create a pod with blobfuse flexvolume mount on linux
-#### Option#1 Use flexvolume mount directly inside a pod
+#### Option#1 Ties a flexvolume volume explicitly to a pod
 - download `nginx-flex-blobfuse.yaml` file and modify `container` field
 ```
 wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse.yaml

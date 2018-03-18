@@ -52,7 +52,7 @@ kubectl create secret generic cifscreds --from-literal username=USERNAME --from-
 ```
 
 ## 2. create a pod with cifs flexvolume mount on linux
-#### Option#1 Use flexvolume mount directly inside a pod
+#### Option#1 Ties a flexvolume volume explicitly to a pod
 - download `nginx-flex-cifs.yaml` file and modify `source` field
 ```
 wget -O nginx-flex-cifs.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/nginx-flex-cifs.yaml
