@@ -7,7 +7,7 @@ This driver allows Kubernetes to use [fast kernel-mode mount/unmount AzureDisk](
 
 # Prerequisite
  - A storage account should be created in the same region as the kubernetes cluster
- - An azure disk should be created in that storage account, below is one way to create a vhd in default container `dysks`
+ - An azure disk should be created in the specified storage account, below example will create a vhd(`dysk01.vhd`) in default container `dysks`
 ```
 docker run --rm \
 	-it --privileged \
@@ -31,7 +31,7 @@ Note:
  - Flexvolume is GA from Kubernetes **1.8** release, v1.7 is depreciated since it does not support [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery).
  
 ## 2. install dysk FlexVolume driver on every agent node
-### Option#1. Automatically install by k8s daemonset
+### Option#1: Automatically install by k8s daemonset
  - create daemonset to install dysk driver
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/deployment/dysk-flexvol-installer.yaml
@@ -43,7 +43,7 @@ kubectl describe daemonset dysk-flexvol-installer --namespace=flex
 kubectl get po --namespace=flex
 ```
 
-### Option#2. Manually install on every agent node (depreciated)
+### Option#2: Manually install on every agent node (depreciated)
 ```
 sudo mkdir -p /etc/kubernetes/volumeplugins/azure~dysk/
 cd /etc/kubernetes/volumeplugins/azure~dysk/
@@ -59,7 +59,7 @@ kubectl create secret generic dyskcreds --from-literal username=USERNAME --from-
 ```
 
 ## 2. create a pod with dysk flexvolume mount on linux
-#### Option#1 Ties a flexvolume volume explicitly to a pod
+#### Option#1: Tie a flexvolume explicitly to a pod
 - download `nginx-flex-dysk.yaml` file and modify `container`, `blob` fields
 ```
 wget -O nginx-flex-dysk.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk.yaml
@@ -70,8 +70,10 @@ vi nginx-flex-dysk.yaml
 kubectl create -f nginx-flex-dysk.yaml
 ```
 
-#### Option#2 Create dysk flexvolume PV & PVC and then create a pod based on PVC
-> Note: access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(RWX)
+#### Option#2: Create dysk flexvolume PV & PVC and then create a pod based on PVC
+> Note: 
+>  - access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX)
+>  - `readOnly` field **must** be set as `true` in `pv-dysk-flexvol.yaml` when `accessModes` of PV is set as `ReadOnlyMany`
  - download `pv-dysk-flexvol.yaml` file, modify `container`, `blob`, `storage` fields and create a dysk flexvolume persistent volume(PV)
 ```
 wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/pv-dysk-flexvol.yaml
