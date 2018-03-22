@@ -1,5 +1,5 @@
 # CIFS/SMB FlexVolume driver for Kubernetes (Preview)
- - supported Kubernetes version: v1.8, v1.9
+ - supported Kubernetes version: v1.7, v1.8, v1.9
  - supported agent OS: Linux 
 
 # About
@@ -35,6 +35,7 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 kubectl describe daemonset cifs-flexvol-installer --namespace=flex
 kubectl get po --namespace=flex
 ```
+> Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
 
 ### Option#2. Manually install on every agent node (depreciated)
 ```
