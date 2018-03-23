@@ -20,6 +20,7 @@ append following two lines **seperately** into `/etc/systemd/system/kubelet.serv
 
 ```
 sudo vi /etc/systemd/system/kubelet.service
+...
 ExecStart=/usr/bin/docker run \
   --net=host \
   ...
@@ -32,6 +33,7 @@ ExecStart=/usr/bin/docker run \
       --volume-plugin-dir=/etc/kubernetes/volumeplugins \
         $KUBELET_CONFIG $KUBELET_OPTS \
         ${KUBELET_REGISTER_NODE} ${KUBELET_REGISTER_WITH_TAINTS}
+...
 
 sudo systemctl daemon-reload
 sudo systemctl restart kubelet
