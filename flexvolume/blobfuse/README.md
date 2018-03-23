@@ -10,7 +10,8 @@ User needs to create an storage account and a container in the same region with 
 
 # Install blobfuse driver on a kubernetes cluster
 ## 1. config kubelet service (skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0)
-specify `volume-plugin-dir` in kubelet service config
+ - specify `volume-plugin-dir` in kubelet service config
+
 append following two lines **seperately** into `/etc/systemd/system/kubelet.service` file
 ```
   --volume=/etc/kubernetes/volumeplugins:/etc/kubernetes/volumeplugins:rw \
