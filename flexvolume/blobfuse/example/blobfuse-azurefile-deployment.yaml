@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: blobfuse-azurefile-deployment
+spec:
+  template:
+    metadata:
+      labels:
+        name: iulogsrvc
+    spec:
+      containers:
+        - name: logsrvc
+          image: nginx
+          volumeMounts:
+            - name: edit
+              mountPath: /var/log/edit
+            - name: solve
+              mountPath: /var/log/solve
+      volumes:
+        - name: edit
+          azureFile:
+            secretName: azure-secret
+            shareName: edit
+            readOnly: true
+        - name: solve
+          flexVolume:
+            driver: "azure/blobfuse"
+            secretRef:
+              name: blobfusecreds
+            options:
+              container: CONTAINER-NAME
