@@ -8,7 +8,7 @@ This directory contains all kubernetes [FlexVolume](https://kubernetes.io/docs/c
 | [dysk](./dysk) | This driver allows Kubernetes to use [fast kernel-mode mount/unmount AzureDisk](https://github.com/khenidak/dysk) |
 
 ## config kubelet service to enable FlexVolume driver
-> Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0)
+> Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0
  - specify `volume-plugin-dir` in kubelet service config
 
 append following two lines **seperately** into `/etc/systemd/system/kubelet.service` file
