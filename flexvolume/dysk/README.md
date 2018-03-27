@@ -1,5 +1,5 @@
 # dysk FlexVolume driver for Kubernetes (Preview)
- - supported Kubernetes version: v1.7, v1.8, v1.9
+ - supported Kubernetes version: available from v1.7
  - supported agent OS: Linux 
 
 # About
@@ -20,7 +20,6 @@ khenidak/dysk-cli:0.4 create --account ACCOUNT-NAME --key ACCOUNT-KEY --device-n
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/andyzhangx/kubernetes-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
 ## 2. install dysk FlexVolume driver on every agent node
-### Option#1: Automatically install by k8s daemonset
  - create daemonset to install dysk driver
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/deployment/dysk-flexvol-installer.yaml
@@ -32,15 +31,6 @@ kubectl describe daemonset dysk-flexvol-installer --namespace=flex
 kubectl get po --namespace=flex
 ```
 > Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
-
-### Option#2: Manually install on every agent node (depreciated)
-```
-sudo mkdir -p /etc/kubernetes/volumeplugins/azure~dysk/
-cd /etc/kubernetes/volumeplugins/azure~dysk/
-
-sudo wget -O dysk https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/dysk
-sudo chmod a+x dysk
-```
 
 # Basic Usage
 ## 1. create a secret which stores dysk account name and password
