@@ -10,6 +10,8 @@ User needs to create an storage account and a container in the same region with 
 
 # Install blobfuse driver on a kubernetes cluster
 ## 1. config kubelet service to enable FlexVolume driver
+> Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0
+
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/andyzhangx/kubernetes-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
 ## 2. install blobfuse FlexVolume driver on every agent node
@@ -89,13 +91,13 @@ kubectl create -f pv-blobfuse-flexvol.yaml
  kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse-pvc.yaml
  ```
 
+## 3. enter the pod container to do validation
  - watch the status of pod until its Status changed from `Pending` to `Running`
 ```
-watch kubectl describe po nginx-flex-blobfuse
+watch kubectl describe po nginx-flex-dysk
 ```
-
-## 3. enter the pod container to do validation
-kubectl exec -it nginx-flex-blobfuse -- bash
+ - enter the pod container
+kubectl exec -it nginx-flex-dysk -- bash
 
 ```
 root@nginx-flex-blobfuse:/# df -h
