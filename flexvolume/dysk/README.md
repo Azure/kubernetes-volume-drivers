@@ -41,7 +41,7 @@ kubectl create secret generic dyskcreds --from-literal username=USERNAME --from-
 ```
 
 ## 2. create a pod with dysk flexvolume mount on linux
-#### Option#1: Tie a flexvolume explicitly to a pod
+#### Example#1: Tie a flexvolume explicitly to a pod (ReadWriteOnce)
 - download `nginx-flex-dysk.yaml` file and modify `container`, `blob` fields
 ```
 wget -O nginx-flex-dysk.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk.yaml
@@ -52,7 +52,7 @@ vi nginx-flex-dysk.yaml
 kubectl create -f nginx-flex-dysk.yaml
 ```
 
-#### Option#2: Create dysk flexvolume PV & PVC and then create a pod based on PVC
+#### Example#2: Create dysk flexvolume PV & PVC and then create a pod based on PVC (ReadOnlyMany)
 > Note:
 >  - access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX)
 >  - `Pod.Spec.Volumes.PersistentVolumeClaim.readOnly` field should be set as `true` when `accessModes` of PV is set as `ReadOnlyMany`
