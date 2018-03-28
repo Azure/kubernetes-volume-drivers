@@ -6,7 +6,7 @@
 This driver allows Kubernetes to access virtual filesystem backed by the Azure Blob storage.
 
 # Prerequisite
-User needs to create an storage account and a container in the same region with the kubernetes cluster and provide storage account name, account key and container name in below example.
+An storage account and a container should be created in the same region with the kubernetes cluster and storage account name, account key, container name should be provided in below example.
 
 # Install blobfuse driver on a kubernetes cluster
 ## 1. config kubelet service to enable FlexVolume driver
