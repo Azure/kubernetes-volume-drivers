@@ -7,6 +7,8 @@ This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://e
 
 # Install cifs FlexVolume driver on a kubernetes cluster
 ## 1. config kubelet service to enable FlexVolume driver
+> Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0
+
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/andyzhangx/kubernetes-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
 ## 2. install cifs FlexVolume driver on every agent node
@@ -74,13 +76,13 @@ kubectl create -f pv-cifs-flexvol.yaml
  kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/nginx-flex-cifs-pvc.yaml
  ```
 
+## 3. enter the pod container to do validation
  - watch the status of pod until its Status changed from `Pending` to `Running`
 ```
-watch kubectl describe po nginx-flex-cifs
+watch kubectl describe po nginx-flex-dysk
 ```
-
-## 3. enter the pod container to do validation
-kubectl exec -it nginx-flex-cifs -- bash
+ - enter the pod container
+kubectl exec -it nginx-flex-dysk -- bash
 
 ```
 root@nginx-flex-cifs:/# df -h
