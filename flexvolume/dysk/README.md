@@ -17,6 +17,8 @@ khenidak/dysk-cli:0.4 create --account ACCOUNT-NAME --key ACCOUNT-KEY --device-n
 
 # Install dysk driver on a kubernetes cluster
 ## 1. config kubelet service to enable FlexVolume driver
+> Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0
+
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/andyzhangx/kubernetes-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
 ## 2. install dysk FlexVolume driver on every agent node
