@@ -53,9 +53,9 @@ kubectl create -f nginx-flex-dysk.yaml
 ```
 
 #### Option#2: Create dysk flexvolume PV & PVC and then create a pod based on PVC
-> Note: 
+> Note:
 >  - access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX)
->  - `readOnly` field **must** be set as `true` in `pv-dysk-flexvol.yaml` when `accessModes` of PV is set as `ReadOnlyMany`
+>  - `Pod.Spec.Volumes.PersistentVolumeClaim.readOnly` field should be set as `true` when `accessModes` of PV is set as `ReadOnlyMany`
  - download `pv-dysk-flexvol.yaml` file, modify `container`, `blob`, `storage` fields and create a dysk flexvolume persistent volume(PV)
 ```
 wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/pv-dysk-flexvol.yaml
@@ -69,22 +69,22 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 ```
 
  - check status of PV & PVC until its Status changed to `Bound`
- ```
+```
 kubectl get pv
 kubectl get pvc
- ```
+```
  
  - create a pod with dysk flexvolume PVC
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk-pvc.yaml
- ```
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk-readonly.yaml
+```
 
+## 3. enter the pod container to do validation
  - watch the status of pod until its Status changed from `Pending` to `Running`
 ```
 watch kubectl describe po nginx-flex-dysk
 ```
-
-## 3. enter the pod container to do validation
+ - enter the pod container
 kubectl exec -it nginx-flex-dysk -- bash
 
 ```
