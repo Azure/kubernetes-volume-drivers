@@ -67,10 +67,25 @@ watch kubectl describe pvc pvc-csi-dysk
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/nginx-pod-csi-dysk.yaml
 ```
 
+### ReadOnlyMany example
+ - Create a dysk CSI ReadOnlyMany PVC
+```
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pvc-csi-dysk-readonly.yaml
+```
+make sure pvc is created successfully
+```
+watch kubectl describe pvc pvc-csi-dysk
+```
+
+ - create a pod with dysk CSI PVC
+```
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/nginx-pod-csi-dysk-readonly.yaml
+```
+
 ## 3. enter the pod container to do validation
  - watch the status of pod until its Status changed from `Pending` to `Running`
 ```
-watch kubectl describe po nginx-flex-dysk
+watch kubectl describe po nginx-csi-dysk
 ```
  - enter the pod container
 kubectl exec -it nginx-csi-dysk -- bash
