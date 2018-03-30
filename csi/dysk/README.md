@@ -52,8 +52,7 @@ kubectl create secret generic dyskcreds --from-literal username=USERNAME --from-
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/storageclass-csi-dysk.yaml
 ```
 
-### ReadWriteOnce example
- - Create a dysk CSI ReadWriteOnce PVC
+ - Create a dysk CSI PVC
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pvc-csi-dysk.yaml
 ```
@@ -65,21 +64,6 @@ watch kubectl describe pvc pvc-csi-dysk
  - create a pod with dysk CSI PVC
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/nginx-pod-csi-dysk.yaml
-```
-
-### ReadOnlyMany example
- - Create a dysk CSI ReadOnlyMany PVC
-```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pvc-csi-dysk-readonly.yaml
-```
-make sure pvc is created successfully
-```
-watch kubectl describe pvc pvc-csi-dysk
-```
-
- - create a pod with dysk CSI PVC
-```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/nginx-pod-csi-dysk-readonly.yaml
 ```
 
 ## 3. enter the pod container to do validation
