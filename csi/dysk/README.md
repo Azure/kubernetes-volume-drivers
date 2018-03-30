@@ -1,4 +1,4 @@
-# dysk FlexVolume driver for Kubernetes (Preview)
+# dysk CSI driver for Kubernetes (Preview)
  - supported Kubernetes version: available from v1.10.0
  - supported agent OS: Linux 
 
@@ -33,7 +33,7 @@ kubectl get po --namespace=flex
 kubectl create secret generic dyskcreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/dysk"
 ```
 
-## 2. create a pod with dysk flexvolume mount on linux
+## 2. create a pod with csi dysk driver mount on linux
 #### Example#1: Tie a flexvolume explicitly to a pod (ReadWriteOnce)
 - download `nginx-flex-dysk.yaml` file and modify `container`, `blob` fields
 ```
@@ -56,7 +56,7 @@ vi pv-dysk-flexvol.yaml
 kubectl create -f pv-dysk-flexvol.yaml
 ```
 
- - create a dysk flexvolume persistent volume claim(PVC)
+ - create a csi-dysk persistent volume claim(PVC)
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/pvc-dysk-flexvol.yaml
 ```
@@ -67,7 +67,7 @@ kubectl get pv
 kubectl get pvc
 ```
  
- - create a pod with dysk flexvolume PVC
+ - create a pod with csi-dysk PVC
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/nginx-flex-dysk-readonly.yaml
 ```
@@ -78,16 +78,16 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 watch kubectl describe po nginx-flex-dysk
 ```
  - enter the pod container
-kubectl exec -it nginx-flex-dysk -- bash
+kubectl exec -it nginx-csi-dysk -- bash
 
 ```
-root@nginx-flex-dysk:/# df -h
+root@nginx-csi-dysk:/# df -h
 Filesystem         Size  Used Avail Use% Mounted on
-overlay            291G  6.3G  285G   3% /
+overlay            291G  3.6G  288G   2% /
 tmpfs              3.4G     0  3.4G   0% /dev
 tmpfs              3.4G     0  3.4G   0% /sys/fs/cgroup
-/dev/dyskpoosf9g0  992M  1.3M  924M   1% /data
-/dev/sda1          291G  6.3G  285G   3% /etc/hosts
+/dev/sda1          291G  3.6G  288G   2% /etc/hosts
+/dev/dyskPKFDLeec  4.8G   10M  4.6G   1% /data
 shm                 64M     0   64M   0% /dev/shm
 tmpfs              3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
 tmpfs              3.4G     0  3.4G   0% /sys/firmware
