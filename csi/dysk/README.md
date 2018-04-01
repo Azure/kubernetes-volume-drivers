@@ -112,12 +112,12 @@ overlay            291G  3.6G  288G   2% /
 tmpfs              3.4G     0  3.4G   0% /dev
 tmpfs              3.4G     0  3.4G   0% /sys/fs/cgroup
 /dev/sda1          291G  3.6G  288G   2% /etc/hosts
-/dev/dyskPKFDLeec  4.8G   10M  4.6G   1% /data
+/dev/dyskPKFDLeec  4.8G   10M  4.6G   1% /mnt/disk
 shm                 64M     0   64M   0% /dev/shm
 tmpfs              3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
 tmpfs              3.4G     0  3.4G   0% /sys/firmware
 ```
-In the above example, there is a `/data` directory mounted as dysk filesystem.
+In the above example, there is a `/mnt/disk` directory mounted as dysk filesystem.
 
 
 ### Links
