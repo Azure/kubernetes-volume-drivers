@@ -72,6 +72,7 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 >  - access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX)
 >  - `Pod.Spec.Volumes.PersistentVolumeClaim.readOnly` field should be set as `true` when `accessModes` of PV is set as `ReadOnlyMany`
  - Prerequisite
+
 An azure disk should be created and formatted in the specified storage account, the disk in exapmle#1 could be used.
 
  - download `pv-csi-dysk-readonly.yaml` file, modify `container`, `blob`, `volumeHandle` fields and create a dysk csi persistent volume(PV)
@@ -103,9 +104,9 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 watch kubectl describe po nginx-csi-dysk
 ```
  - enter the pod container
-kubectl exec -it nginx-csi-dysk -- bash
 
 ```
+kubectl exec -it nginx-csi-dysk -- bash
 root@nginx-csi-dysk:/# df -h
 Filesystem         Size  Used Avail Use% Mounted on
 overlay            291G  3.6G  288G   2% /
