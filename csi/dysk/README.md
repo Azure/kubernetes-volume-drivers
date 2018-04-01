@@ -47,6 +47,7 @@ kubectl create secret generic dyskcreds --from-literal username=USERNAME --from-
 ```
 
 ## 2. create a pod with csi dysk driver mount on linux
+#### Example#1: Dynamic Provisioning (ReadWriteOnce)
  - Create a dysk CSI storage class
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/storageclass-csi-dysk.yaml
@@ -64,6 +65,36 @@ watch kubectl describe pvc pvc-csi-dysk
  - create a pod with dysk CSI PVC
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/nginx-pod-csi-dysk.yaml
+```
+
+#### Example#2: Static Provisioning (ReadOnlyMany)
+> Note:
+>  - access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX)
+>  - `Pod.Spec.Volumes.PersistentVolumeClaim.readOnly` field should be set as `true` when `accessModes` of PV is set as `ReadOnlyMany`
+ - Prerequisite
+An azure disk should be created and formatted in the specified storage account, the disk in exapmle#1 could be used.
+
+ - download `pv-csi-dysk-readonly.yaml` file, modify `container`, `blob`, `volumeHandle` fields and create a dysk csi persistent volume(PV)
+```
+wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pv-csi-dysk-readonly.yaml
+vi pv-csi-dysk-readonly.yaml
+kubectl create -f pv-csi-dysk-readonly.yaml
+```
+
+ - create a dysk csi persistent volume claim(PVC)
+```
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pv-csi-dysk-readonly.yaml
+```
+
+ - check status of PV & PVC until its Status changed to `Bound`
+```
+kubectl get pv
+kubectl get pvc
+```
+ 
+ - create a pod with dysk csi PVC
+```
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/nginx-pod-csi-dysk-readonly.yaml
 ```
 
 ## 3. enter the pod container to do validation
