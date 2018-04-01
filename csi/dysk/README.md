@@ -73,7 +73,7 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 >  - `Pod.Spec.Volumes.PersistentVolumeClaim.readOnly` field should be set as `true` when `accessModes` of PV is set as `ReadOnlyMany`
  - Prerequisite
 
-An azure disk should be created and formatted in the specified storage account, the disk in exapmle#1 could be used.
+An azure disk should be created and formatted in the specified storage account, disk in exapmle#1 could be used.
 
  - download `pv-csi-dysk-readonly.yaml` file, modify `container`, `blob`, `volumeHandle` fields and create a dysk csi persistent volume(PV)
 ```
