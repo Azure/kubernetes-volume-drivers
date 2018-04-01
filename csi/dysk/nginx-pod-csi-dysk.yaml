@@ -12,7 +12,7 @@ spec:
     - while true; do echo $(date) >> /mnt/disk/outfile; sleep 1; done
     volumeMounts:
     - name: disk01
-      mountPath: /data
+      mountPath: /mnt/disk
   volumes:
   - name: disk01
     persistentVolumeClaim:
