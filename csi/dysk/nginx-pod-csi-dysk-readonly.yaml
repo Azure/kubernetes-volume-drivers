@@ -16,5 +16,5 @@ spec:
   volumes:
   - name: disk01
     persistentVolumeClaim:
-      claimName: pvc-csi-dysk
+      claimName: pvc-csi-dysk-readonly
       readOnly: true
