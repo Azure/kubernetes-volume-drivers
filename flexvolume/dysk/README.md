@@ -7,7 +7,7 @@ This driver allows Kubernetes to use [fast kernel-mode mount/unmount AzureDisk](
 
 # Prerequisite
  - A storage account should be created in the same region as the kubernetes cluster
- - An azure disk should be created in the specified storage account, below example will create a vhd(`dysk01.vhd`) in default container `dysks`
+ - An azure disk should be created in the specified storage account: below example will create a vhd(`dysk01.vhd`) in default container `dysks`
 ```
 docker run --rm \
 	-it --privileged \
