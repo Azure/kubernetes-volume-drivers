@@ -2,9 +2,7 @@
 
 ```
 make dysk
-cp _output/dyskplugin pkg/dysk/extras/docker/
-cd pkg/dysk/extras/docker/
-docker build --no-cache -t andyzhangx/csi-dysk:1.0.0 .
+docker build --no-cache -t andyzhangx/csi-dysk:1.0.0 -f ./app/dyskplugin/Dockerfile .
 #docker login
 docker push andyzhangx/csi-dysk:1.0.0
 ```
