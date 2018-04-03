@@ -17,8 +17,8 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 
  - check daemonset status:
 ```
-kubectl describe daemonset dysk-flexvol-installer --namespace=flex
-kubectl get po --namespace=flex
+watch kubectl describe daemonset dysk-flexvol-installer --namespace=flex
+watch kubectl get po --namespace=flex
 ```
 
  - install dysk CSI components
