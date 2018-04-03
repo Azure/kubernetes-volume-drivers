@@ -84,7 +84,7 @@ kubectl create -f pv-csi-dysk-readonly.yaml
 
  - create a dysk csi persistent volume claim(PVC)
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pv-csi-dysk-readonly.yaml
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pvc-csi-dysk-readonly.yaml
 ```
 
  - check status of PV & PVC until its Status changed to `Bound`
