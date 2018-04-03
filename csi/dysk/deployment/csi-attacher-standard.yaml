@@ -1,54 +1,51 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: csi-provisioner
+  name: csi-attacher
 
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: external-provisioner-runner
+  name: external-attacher-runner
 rules:
   - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list"]
+    resources: ["events"]
+    verbs: ["get", "list", "watch", "update"]
   - apiGroups: [""]
     resources: ["persistentvolumes"]
-    verbs: ["get", "list", "watch", "create", "delete"]
-  - apiGroups: [""]
-    resources: ["persistentvolumeclaims"]
     verbs: ["get", "list", "watch", "update"]
-  - apiGroups: ["storage.k8s.io"]
-    resources: ["storageclasses"]
-    verbs: ["get", "list", "watch"]
   - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["list", "watch", "create", "update", "patch"]
-    
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattachments"]
+    verbs: ["get", "list", "watch", "update"]
+
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: csi-provisioner-role
+  name: csi-attacher-role
 subjects:
   - kind: ServiceAccount
-    name: csi-provisioner
+    name: csi-attacher
     namespace: default
 roleRef:
   kind: ClusterRole
-  name: external-provisioner-runner
+  name: external-attacher-runner
   apiGroup: rbac.authorization.k8s.io
-
 ---
+
 kind: Service
 apiVersion: v1
 metadata:
-  name: csi-provisioner
+  name: csi-attacher
   labels:
-    app: csi-provisioner
+    app: csi-attacher
 spec:
   selector:
-    app: csi-provisioner
+    app: csi-attacher
   ports:
     - name: dummy
       port: 12345
@@ -57,23 +54,22 @@ spec:
 kind: StatefulSet
 apiVersion: apps/v1beta1
 metadata:
-  name: csi-provisioner
+  name: csi-attacher
 spec:
-  serviceName: "csi-provisioner"
+  serviceName: "csi-attacher"
   replicas: 1
   template:
     metadata:
       labels:
-        app: csi-provisioner
+        app: csi-attacher
     spec:
-      serviceAccount: csi-provisioner
+      serviceAccount: csi-attacher
       containers:
-        - name: csi-provisioner
-          image: andyzhangx/csi-provisioner:1.0.0
+        - name: csi-attacher
+          image: quay.io/k8scsi/csi-attacher:v0.2.0
           args:
-            - "--provisioner=csi-dysk"
-            - "--csi-address=$(ADDRESS)"
             - "--v=5"
+            - "--csi-address=$(ADDRESS)"
           env:
             - name: ADDRESS
               value: /var/lib/kubelet/plugins/csi-dysk/csi.sock
@@ -84,4 +80,5 @@ spec:
       volumes:
         - name: socket-dir
           hostPath:
-            path: /var/lib/kubelet/plugins
+            path: /var/lib/kubelet/plugins/csi-dysk
+            type: DirectoryOrCreate
