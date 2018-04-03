@@ -30,7 +30,7 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 
  - check pods status:
 ```
-kubectl get po
+watch kubectl get po
 ```
 example output:
 ```
