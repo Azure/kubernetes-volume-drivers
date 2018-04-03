@@ -120,6 +120,11 @@ tmpfs              3.4G     0  3.4G   0% /sys/firmware
 ```
 In the above example, there is a `/mnt/disk` directory mounted as dysk filesystem.
 
+ - check pod with readOnly disk mount
+ ```
+ root@nginx-csi-dysk:/mnt/disk# touch /mnt/disk/a
+touch: cannot touch '/mnt/disk/a': Read-only file system
+ ```
 
 ### Links
  - [dysk - Fast kernel-mode mount/unmount of AzureDisk](https://github.com/khenidak/dysk)
