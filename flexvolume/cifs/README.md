@@ -79,10 +79,12 @@ kubectl create -f pv-cifs-flexvol.yaml
 ## 3. enter the pod container to do validation
  - watch the status of pod until its Status changed from `Pending` to `Running`
 ```
-watch kubectl describe po nginx-flex-dysk
+watch kubectl describe po nginx-flex-cifs
 ```
  - enter the pod container
-kubectl exec -it nginx-flex-dysk -- bash
+```
+kubectl exec -it nginx-flex-cifs -- bash
+```
 
 ```
 root@nginx-flex-cifs:/# df -h
