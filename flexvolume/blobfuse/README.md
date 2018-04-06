@@ -53,6 +53,7 @@ sudo chmod a+x blobfuse
 ```
 kubectl create secret generic blobfusecreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/blobfuse"
 ```
+ > Note: `username` is storage account name (just name not FQDN) and password is the storage account key
 
 ## 2. create a pod with blobfuse flexvolume mount on linux
 #### Option#1 Ties a flexvolume volume explicitly to a pod
