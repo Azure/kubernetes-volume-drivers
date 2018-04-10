@@ -3,14 +3,14 @@
 ```
 cd ~/go/src/github.com/kubernetes-csi/drivers
 make dysk
-docker build --no-cache -t andyzhangx/csi-dysk:1.0.1 -f ./app/dyskplugin/Dockerfile .
+docker build --no-cache -t andyzhangx/csi-dysk:1.0.0 -f ./app/dyskplugin/Dockerfile .
 #docker login
-docker push andyzhangx/csi-dysk:1.0.1
+docker push andyzhangx/csi-dysk:1.0.0
 ```
 
 ## 2. Test csi-dysk image
 ```
-docker run -it --name csi-dysk andyzhangx/csi-dysk:1.0.1 --nodeid=abc bash
+docker run -it --name csi-dysk andyzhangx/csi-dysk:1.0.0 --nodeid=abc bash
 docker stop csi-dysk && docker rm csi-dysk
 ```
 
