@@ -80,4 +80,5 @@ spec:
       volumes:
         - name: socket-dir
           hostPath:
-            path: /var/lib/kubelet/plugins
+            path: /var/lib/kubelet/plugins/csi-dysk
+            type: DirectoryOrCreate
