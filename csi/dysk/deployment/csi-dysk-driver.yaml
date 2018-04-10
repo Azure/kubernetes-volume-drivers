@@ -90,7 +90,7 @@ spec:
             - name: CSI_ENDPOINT
               value: unix://var/lib/kubelet/plugins/csi-dysk/csi.sock
           volumeMounts:
-            - name: plugin-dir
+            - name: socket-dir
               mountPath: /var/lib/kubelet/plugins/csi-dysk
             - name: mountpoint-dir
               mountPath: /var/lib/kubelet/pods
