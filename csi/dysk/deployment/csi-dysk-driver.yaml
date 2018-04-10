@@ -100,8 +100,8 @@ spec:
       volumes:
         - name: mountpoint-dir
           hostPath:
-            path: /var/lib/kubelet/pods/csi-dysk
-            type: DirectoryOrCreate            
+            path: /var/lib/kubelet/pods/
+            type: DirectoryOrCreate  
         - name: socket-dir
           hostPath:
             path: /var/lib/kubelet/plugins/csi-dysk
