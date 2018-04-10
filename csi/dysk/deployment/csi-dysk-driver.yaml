@@ -95,12 +95,9 @@ spec:
             - name: mountpoint-dir
               mountPath: /var/lib/kubelet/pods
               mountPropagation: "Bidirectional"
-            - mountPath: /dev
-              name: host-dev
+            - name: host-dev
+              mountPath: /dev
       volumes:
-        - name: plugin-dir
-          hostPath:
-            path: /var/lib/kubelet/plugins
         - name: mountpoint-dir
           hostPath:
             path: /var/lib/kubelet/pods
