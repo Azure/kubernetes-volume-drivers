@@ -32,14 +32,14 @@ watch kubectl get po --namespace=dysk
 ```
 example output:
 ```
-NAME                           READY     STATUS    RESTARTS   AGE
-csi-dysk-7w8vm                 2/2       Running   0          18s
-csi-dysk-attacher-0            1/1       Running   0          18s
-csi-dysk-lzsz2                 2/2       Running   0          18s
-csi-dysk-provisioner-0         1/1       Running   0          18s
-dysk-flexvol-installer-64hpv   2/2       Running   0          38s
-dysk-flexvol-installer-m4w6j   2/2       Running   0          38s
-dysk-flexvol-installer-qnjhj   2/2       Running   0          38s
+NAME                           READY     STATUS    RESTARTS   AGE       IP            NODE
+csi-dysk-7w8vm                 2/2       Running   0          3m        10.240.0.4    k8s-agentpool-66825246-0
+csi-dysk-attacher-0            1/1       Running   0          3m        10.240.0.42   k8s-agentpool-66825246-1
+csi-dysk-lzsz2                 2/2       Running   0          3m        10.240.0.35   k8s-agentpool-66825246-1
+csi-dysk-provisioner-0         1/1       Running   0          3m        10.240.0.37   k8s-agentpool-66825246-1
+dysk-flexvol-installer-64hpv   2/2       Running   0          3m        10.240.0.8    k8s-agentpool-66825246-0
+dysk-flexvol-installer-m4w6j   2/2       Running   0          3m        10.240.0.90   k8s-master-66825246-0
+dysk-flexvol-installer-qnjhj   2/2       Running   0          3m        10.240.0.52   k8s-agentpool-66825246-1
 ```
 
 # Basic Usage
