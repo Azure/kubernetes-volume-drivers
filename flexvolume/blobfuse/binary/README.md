@@ -23,3 +23,8 @@ wget -O blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers
 chmod a+x blobfuse
 ./blobfuse
 ```
+
+> clean up container
+```
+docker stop hyperkube && docker rm hyperkube
+```
