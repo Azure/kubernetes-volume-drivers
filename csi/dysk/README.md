@@ -32,13 +32,14 @@ watch kubectl get po --namespace=dysk
 ```
 example output:
 ```
-NAME                           READY     STATUS     RESTARTS   AGE
-csi-dysk-attacher-0            1/1       Running    0          1m
-csi-dysk-provisioner-0         1/1       Running    0          1m
-csi-dysk-w5zcx                 2/2       Running    0          1m
-dysk-flexvol-installer-6m6hk   2/2       Running    0          14m
-dysk-flexvol-installer-tzj46   2/2       Running    0          14m
-
+NAME                           READY     STATUS    RESTARTS   AGE
+csi-dysk-7w8vm                 2/2       Running   0          18s
+csi-dysk-attacher-0            1/1       Running   0          18s
+csi-dysk-lzsz2                 2/2       Running   0          18s
+csi-dysk-provisioner-0         1/1       Running   0          18s
+dysk-flexvol-installer-64hpv   2/2       Running   0          38s
+dysk-flexvol-installer-m4w6j   2/2       Running   0          38s
+dysk-flexvol-installer-qnjhj   2/2       Running   0          38s
 ```
 
 # Basic Usage
