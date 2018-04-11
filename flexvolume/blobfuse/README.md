@@ -30,7 +30,7 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
  - check daemonset status:
 ```
 watch kubectl describe daemonset blobfuse-flexvol-installer --namespace=flex
-watch kubectl get po --namespace=flex
+watch kubectl get po --namespace=flex -o wide
 ```
 
 ### Option#2. Manually install on every agent node (depreciated)
