@@ -17,7 +17,11 @@ Please refer to [config kubelet service to enable FlexVolume driver](https://git
 ## 2. install blobfuse FlexVolume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install blobfuse driver
- - v1.9 & v1.10
+ - v1.10
+```
+kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.10.yaml
+```
+ - v1.9
 ```
 kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
 ```
