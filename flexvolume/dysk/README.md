@@ -35,7 +35,7 @@ watch kubectl get po --namespace=dysk
 > Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
 
 # Basic Usage
-## 1. create a secret which stores dysk account name and password
+## 1. create a secret with dysk account name and key
 ```
 kubectl create secret generic dyskcreds --from-literal accountname=ACCOUNT-NAME --from-literal accountkey="ACCOUNT-KEY" --type="azure/dysk"
 ```
@@ -111,7 +111,7 @@ kubectl create -f pv-dysk-flexvol.yaml
 ```
  - Specify `persistence.accessMode=ReadWriteOnce,persistence.storageClass="-"` in [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) chart
 ```
-helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass="-" stable/wordpress
+helm install --set persistence.accessMode=ReadWriteOnce,persistence.storageClass="-" stable/wordpress
 ```
 
 ### Links
