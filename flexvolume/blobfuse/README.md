@@ -51,7 +51,7 @@ sudo chmod a+x blobfuse
 # Basic Usage
 ## 1. create a secret which stores blobfuse account name and password
 ```
-kubectl create secret generic blobfusecreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/blobfuse"
+kubectl create secret generic blobfusecreds --from-literal accountname=USERNAME --from-literal accountkey="PASSWORD" --type="azure/blobfuse"
 ```
  > Note: `username` is storage account name (just name not FQDN) and password is the storage account key
 

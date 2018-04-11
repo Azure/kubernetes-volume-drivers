@@ -1,7 +1,7 @@
 #!/bin/sh
 
 LOG="/var/log/blobfuse-flexvol-installer.log"
-VER="1.0.1"
+VER="1.0.2"
 BLOBFUSE_VERSION="v0.3.1"
 target_dir="${TARGET_DIR}"
 

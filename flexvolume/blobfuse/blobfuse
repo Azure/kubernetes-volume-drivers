@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE=$DIR/bin/blobfuse
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.1"
+VER="1.0.2"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -29,8 +29,8 @@ ismounted() {
 
 mount() {
 	MNTPATH="$1"
-	ACCOUNTNAME=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/username"] // empty'|base64 -d)
-	ACCOUNTKEY=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/password"] // empty'|base64 -d)
+	ACCOUNTNAME=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountname"] // empty'|base64 -d)
+	ACCOUNTKEY=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
 	CONTAINER="$(echo "$2"|"$JQ" -r '.container //empty')"
 	
 	if [ -z "${CONTAINER}" ]; then
