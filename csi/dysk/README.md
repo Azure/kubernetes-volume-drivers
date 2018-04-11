@@ -17,8 +17,8 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 
  - check daemonset status:
 ```
-watch kubectl describe daemonset dysk-flexvol-installer --namespace=flex
-watch kubectl get po --namespace=flex
+watch kubectl describe daemonset dysk-flexvol-installer --namespace=dysk
+watch kubectl get po --namespace=dysk
 ```
 
  - install dysk CSI components
@@ -28,7 +28,7 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 
  - check pods status:
 ```
-watch kubectl get po
+watch kubectl get po --namespace=dysk
 ```
 example output:
 ```
@@ -39,7 +39,7 @@ csi-provisioner-0   1/1       Running   0          2m
 ```
 
 # Basic Usage
-## 1. create a secret which stores dysk account name and password
+## 1. create a secret with dysk account name and key
 ```
 kubectl create secret generic dyskcreds --from-literal accountname=ACCOUNT-NAME --from-literal accountkey="ACCOUNT-KEY" --type="azure/dysk"
 ```
