@@ -52,6 +52,15 @@ tmpfs           3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
 
 #### Note
  - CSI hostpath driver would mkdir under `/var/lib/kubelet/pods/5a6d98a3-1c57-11e8-a48d-000d3afdbef1/volumes/kubernetes.io~csi/kubernetes-dynamic-pvc-5a7519c9-1c57-11e8-99dd-bab516dca496/mount`, mount to `/data` dir in the above example
+ - clean up all clusterroles & clusterrolebindings:
+```
+kubectl delete clusterrole hostpath:external-provisioner-runner
+kubectl delete clusterrole hostpath:external-attacher-runner
+kubectl delete clusterrole csi-hostpath
+kubectl delete clusterrolebinding csi-hostpath-provisioner-role
+kubectl delete clusterrolebinding csi-hostpath-attacher-role
+kubectl delete clusterrolebinding csi-hostpath
+```
 
 #### Links
 [Introducing Container Storage Interface (CSI) Alpha for Kubernetes](http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html)
