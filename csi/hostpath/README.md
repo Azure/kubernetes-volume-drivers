@@ -8,7 +8,7 @@ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-driver
 
  - watch the status of all component pods until its `Status` changed from `Pending` to `Running`
 ```
-azureuser@k8s-master-66825246-0:~$ kubectl get po -o wide --namespace=hostpath
+$ kubectl get po -o wide --namespace=hostpath
 NAME                         READY     STATUS    RESTARTS   AGE       IP            NODE
 csi-hostpath-attacher-0      1/1       Running   0          19m       10.240.0.18   k8s-agentpool-66825246-0
 csi-hostpath-n68n2           2/2       Running   0          19m       10.240.0.4    k8s-agentpool-66825246-0
