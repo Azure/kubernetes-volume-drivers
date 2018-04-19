@@ -123,13 +123,20 @@ In the above example, there is a `/data` directory mounted as blobfuse filesyste
 Since flexvolume does not support dynamic provisioning, storageClass should be set as empty in Helm chart, take [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) as an example:
  - Set up a blobfuse flexvolume PV and also `blobfusecreds` first
 ```
-kubectl create secret generic blobfusecreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/blobfuse"
+kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-NAME --from-literal accountkey="ACCOUNT-KEY" --type="azure/blobfuse"
 kubectl create -f pv-blobfuse-flexvol.yaml
 ```
  - Specify `persistence.accessMode=ReadWriteMany,persistence.storageClass="-"` in [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) chart
 ```
 helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass="-" stable/wordpress
 ```
+
+### Debugging skills
+ - If there is pod mounting error like following:
+```
+MountVolume.SetUp failed for volume "test" : invalid character 'C' looking for beginning of value
+```
+Please attach log file `/var/log/blobfuse-driver.log` and file an issue
 
 ### Links
 [azure-storage-fuse](https://github.com/Azure/azure-storage-fuse)
