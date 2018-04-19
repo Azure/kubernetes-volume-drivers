@@ -53,11 +53,10 @@ sudo chmod a+x blobfuse
 ```
 
 # Basic Usage
-## 1. create a secret which stores blobfuse account name and password
+## 1. create a secret which stores azure storage account name and key
 ```
-kubectl create secret generic blobfusecreds --from-literal accountname=USERNAME --from-literal accountkey="PASSWORD" --type="azure/blobfuse"
+kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-NAME --from-literal accountkey="ACCOUNT-KEY" --type="azure/blobfuse"
 ```
- > Note: `username` is storage account name (just name not FQDN) and password is the storage account key
 
 ## 2. create a pod with blobfuse flexvolume mount on linux
 #### Option#1 Ties a flexvolume volume explicitly to a pod
