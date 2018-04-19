@@ -33,3 +33,10 @@ docker logs flex
 docker login
 docker push andyzhangx/blobfuse-flexvol-installer:1.0.2
 ```
+
+### `blobfuse-flexvol-installer` image release notes
+| `blobfuse-flexvol-installer` image version | blobfuse version | release notes |
+| ---- | ---- | ---- |
+| 1.0.0 | 0.2.4 | 1st version  |
+| 1.0.1 | 0.3.1 |  upgrade blobfuse binary |
+| 1.0.1 | 0.3.1 |  use accountname & accountkey in blobfuse driver |
