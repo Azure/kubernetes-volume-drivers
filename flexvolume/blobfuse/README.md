@@ -119,7 +119,7 @@ tmpfs           3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
 In the above example, there is a `/data` directory mounted as blobfuse filesystem.
 
 ### Tips
-##### How to use flexvolume driver in Helm
+#### How to use flexvolume driver in Helm
 Since flexvolume does not support dynamic provisioning, storageClass should be set as empty in Helm chart, take [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) as an example:
  - Set up a blobfuse flexvolume PV and also `blobfusecreds` first
 ```
@@ -131,7 +131,7 @@ kubectl create -f pv-blobfuse-flexvol.yaml
 helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass="-" stable/wordpress
 ```
 
-### Debugging skills
+#### Debugging skills
  - If there is pod mounting error like following:
 ```
 MountVolume.SetUp failed for volume "test" : invalid character 'C' looking for beginning of value
