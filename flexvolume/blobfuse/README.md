@@ -40,11 +40,12 @@ watch kubectl get po --namespace=flex -o wide
 ### Option#2. Manually install on every agent node (depreciated)
 Take k8s v1.9 as an example:
 ```
-version=v1.9
+k8sversion=v1.9
+blobfuseversion=v1.0.0-RC
 sudo mkdir -p /etc/kubernetes/volumeplugins/azure~blobfuse/bin
 cd /etc/kubernetes/volumeplugins/azure~blobfuse/bin
 
-sudo wget -O blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/binary/hyperkube-$version/v0.2.4/blobfuse
+sudo wget -O blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/binary/hyperkube-$k8sversion/$blobfuseversion/blobfuse
 sudo chmod a+x blobfuse
 
 cd /etc/kubernetes/volumeplugins/azure~blobfuse
@@ -132,6 +133,10 @@ helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass
 ```
 
 #### Debugging skills
+ - Check blobfuse flexvolume installation result on the node:
+```
+sudo cat /var/log/blobfuse-flexvol-installer.log
+```
  - If there is pod mounting error like following:
 ```
 MountVolume.SetUp failed for volume "test" : invalid character 'C' looking for beginning of value
