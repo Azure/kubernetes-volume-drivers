@@ -100,6 +100,13 @@ tmpfs                                      3.4G     0  3.4G   0% /sys/firmware
 ```
 In the above example, there is a `/data` directory mounted as cifs filesystem.
 
+#### Debugging skills
+ - If there is pod mounting error like following:
+```
+MountVolume.SetUp failed for volume "test" : invalid character 'C' looking for beginning of value
+```
+Please attach log file `/var/log/cifs-driver.log` and file an issue
+
 ### Links
 [CIFS/SMB wiki](https://en.wikipedia.org/wiki/Server_Message_Block)
 

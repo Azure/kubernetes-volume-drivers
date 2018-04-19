@@ -114,6 +114,13 @@ kubectl create -f pv-dysk-flexvol.yaml
 helm install --set persistence.accessMode=ReadWriteOnce,persistence.storageClass="-" stable/wordpress
 ```
 
+#### Debugging skills
+ - If there is pod mounting error like following:
+```
+MountVolume.SetUp failed for volume "test" : invalid character 'C' looking for beginning of value
+```
+Please attach log file `/var/log/dysk-driver.log` and file an issue
+
 ### Links
 [Flexvolume doc](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
 
