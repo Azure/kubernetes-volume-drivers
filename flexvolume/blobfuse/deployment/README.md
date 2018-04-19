@@ -37,4 +37,4 @@ docker push andyzhangx/blobfuse-flexvol-installer:1.0.3
 | 1.0.0 | 0.2.4 | 1st version  |
 | 1.0.1 | 0.3.1 |  upgrade blobfuse binary |
 | 1.0.2 | 0.3.1 |  use accountname & accountkey in blobfuse driver |
-| 1.0.3 | 1.0.0-RC |  - upgrade blobfuse binary - retuen error if accountname or accountkey is empty|
+| 1.0.3 | 1.0.0-RC |  1. upgrade blobfuse binary 2. retuen error if accountname or accountkey is empty|
