@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE=$DIR/bin/blobfuse
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.2"
+VER="1.0.3"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -32,23 +32,24 @@ mount() {
 	ACCOUNTNAME=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountname"] // empty'|base64 -d)
 	ACCOUNTKEY=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
 	CONTAINER="$(echo "$2"|"$JQ" -r '.container //empty')"
+	READ_WRITE="$(echo "$2"|"$JQ" -r '.["kubernetes.io/readwrite"] //empty')"
 	
 	if [ -z "${ACCOUNTNAME}" ]; then
-		echo "`date` ERR: accountname is empty" >> $LOG
+		echo "`date` ERROR: accountname is empty" >> $LOG
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:${errorLog}\"}"
 		exit 1
 	fi
 
 	if [ -z "${ACCOUNTKEY}" ]; then
-		echo "`date` ERR: accountkey is empty" >> $LOG
+		echo "`date` ERROR: accountkey is empty" >> $LOG
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:${errorLog}\"}"
 		exit 1
 	fi
 
 	if [ -z "${CONTAINER}" ]; then
-		echo "`date` ERR: container is empty" >> $LOG
+		echo "`date` ERROR: container is empty" >> $LOG
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:${errorLog}\"}"
 		exit 1
@@ -60,6 +61,11 @@ mount() {
 		exit 0
 	fi
 
+	read_only_param=""
+	if [ $READ_WRITE = "ro" ]; then
+		read_only_param="-o ro"
+	fi
+
 	echo "`date` EXEC: mkdir -p ${MNTPATH}" >> $LOG
 	mkdir -p ${MNTPATH} >>$LOG 2>&1
 
@@ -69,8 +75,8 @@ mount() {
 	echo "`date` INF: export storage account - ${output_comand} " >> $LOG
 	
 	#mounting
-	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmp/blobfuse/ -o allow_other" >>$LOG
-	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmp/blobfuse/ -o allow_other
+	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmp/blobfuse/ -o allow_other ${read_only_param}" >>$LOG
+	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmp/blobfuse/ -o allow_other ${read_only_param}
 	if [ "$?" != "0" ]; then
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device /dev/${diskname} at ${MNTPATH}, accountname:${ACCOUNTNAME}, error log:${errorLog}\" }"
