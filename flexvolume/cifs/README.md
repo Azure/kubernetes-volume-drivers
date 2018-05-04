@@ -9,13 +9,13 @@ This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://e
 ## 1. config kubelet service to enable FlexVolume driver
 > Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0
 
-Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/andyzhangx/kubernetes-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
+Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
 ## 2. install cifs FlexVolume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install cifs driver
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/deployment/cifs-flexvol-installer.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/cifs/deployment/cifs-flexvol-installer.yaml
 ```
  - check daemonset status:
 ```
@@ -29,7 +29,7 @@ watch kubectl get po --namespace=flex -o wide
 sudo mkdir -p /etc/kubernetes/volumeplugins/azure~cifs/
 
 cd /etc/kubernetes/volumeplugins/azure~cifs
-sudo wget -O cifs https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/cifs
+sudo wget -O cifs https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/cifs/cifs
 sudo chmod a+x cifs
 ```
 
@@ -43,7 +43,7 @@ kubectl create secret generic cifscreds --from-literal username=USERNAME --from-
 #### Option#1 Ties a flexvolume volume explicitly to a pod
 - download `nginx-flex-cifs.yaml` file and modify `source` field
 ```
-wget -O nginx-flex-cifs.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/nginx-flex-cifs.yaml
+wget -O nginx-flex-cifs.yaml https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/cifs/nginx-flex-cifs.yaml
 vi nginx-flex-cifs.yaml
 ```
  - create a pod with cifs flexvolume driver mount
@@ -55,14 +55,14 @@ kubectl create -f nginx-flex-cifs.yaml
  > Note: access modes of cifs PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX) and ReadWriteMany(RWX)
  - download `pv-cifs-flexvol.yaml` file, modify `source` field and create a cifs flexvolume persistent volume(PV)
 ```
-wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/pv-cifs-flexvol.yaml
+wget https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/cifs/pv-cifs-flexvol.yaml
 vi pv-cifs-flexvol.yaml
 kubectl create -f pv-cifs-flexvol.yaml
 ```
 
  - create a cifs flexvolume persistent volume claim(PVC)
 ```
- kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/pvc-cifs-flexvol.yaml
+ kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/cifs/pvc-cifs-flexvol.yaml
 ```
 
  - check status of PV & PVC until its Status changed from `Pending` to `Bound`
@@ -73,7 +73,7 @@ kubectl create -f pv-cifs-flexvol.yaml
  
  - create a pod with cifs flexvolume PVC
 ```
- kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/nginx-flex-cifs-pvc.yaml
+ kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/cifs/nginx-flex-cifs-pvc.yaml
  ```
 
 ## 3. enter the pod container to do validation

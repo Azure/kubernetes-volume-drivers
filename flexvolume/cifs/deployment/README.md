@@ -4,9 +4,9 @@
 mkdir cifs-flexvol-installer
 cd cifs-flexvol-installer
 
-wget -O Dockerfile https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/deployment/cifs-flexvol-installer/Dockerfile
-wget -O install.sh https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/deployment/cifs-flexvol-installer/install.sh
-wget -O download_cifs.sh https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/cifs/deployment/cifs-flexvol-installer/download_cifs.sh
+wget -O Dockerfile https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/cifs/deployment/cifs-flexvol-installer/Dockerfile
+wget -O install.sh https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/cifs/deployment/cifs-flexvol-installer/install.sh
+wget -O download_cifs.sh https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/cifs/deployment/cifs-flexvol-installer/download_cifs.sh
 chmod a+x install.sh
 chmod a+x download_cifs.sh
 

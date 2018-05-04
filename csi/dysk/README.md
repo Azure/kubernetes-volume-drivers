@@ -12,7 +12,7 @@ This driver allows Kubernetes to use [fast kernel-mode mount/unmount AzureDisk](
 ## 1. install dysk CSI driver on every agent node
  - create daemonset to install dysk driver
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/dysk/deployment/dysk-flexvol-installer.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/dysk/deployment/dysk-flexvol-installer.yaml
 ```
 
  - check daemonset status:
@@ -23,7 +23,7 @@ watch kubectl get po --namespace=dysk -o wide
 
  - install dysk CSI components
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/deployment/csi-dysk-driver.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/dysk/deployment/csi-dysk-driver.yaml
 ```
 
  - check pods status:
@@ -52,12 +52,12 @@ kubectl create secret generic dyskcreds --from-literal accountname=ACCOUNT-NAME 
 #### Example#1: Dynamic Provisioning (ReadWriteOnce)
  - Create a dysk CSI storage class
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/storageclass-csi-dysk.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/dysk/storageclass-csi-dysk.yaml
 ```
 
  - Create a dysk CSI PVC
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pvc-csi-dysk.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/dysk/pvc-csi-dysk.yaml
 ```
 make sure pvc is created successfully
 ```
@@ -66,7 +66,7 @@ watch kubectl describe pvc pvc-csi-dysk
 
  - create a pod with dysk CSI PVC
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/nginx-pod-csi-dysk.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/dysk/nginx-pod-csi-dysk.yaml
 ```
 
 #### Example#2: Static Provisioning (ReadOnlyMany)
@@ -79,14 +79,14 @@ An azure disk should be created and formatted in the specified storage account, 
 
  - download `pv-csi-dysk-readonly.yaml` file, modify `container`, `blob`, `volumeHandle` fields and create a dysk csi persistent volume(PV)
 ```
-wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pv-csi-dysk-readonly.yaml
+wget https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/dysk/pv-csi-dysk-readonly.yaml
 vi pv-csi-dysk-readonly.yaml
 kubectl create -f pv-csi-dysk-readonly.yaml
 ```
 
  - create a dysk csi persistent volume claim(PVC)
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/pvc-csi-dysk-readonly.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/dysk/pvc-csi-dysk-readonly.yaml
 ```
 
  - check status of PV & PVC until its Status changed to `Bound`
@@ -97,7 +97,7 @@ kubectl get pvc
  
  - create a pod with dysk csi PVC
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/dysk/nginx-pod-csi-dysk-readonly.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/dysk/nginx-pod-csi-dysk-readonly.yaml
 ```
 
 ## 3. enter the pod container to do validation

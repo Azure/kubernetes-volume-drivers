@@ -3,7 +3,7 @@
 ## Install hostpath CSI driver on a kubernetes cluster 
  - Set up [External Attacher](https://github.com/kubernetes-csi/external-attacher), [External Provisioner](https://github.com/kubernetes-csi/external-provisioner), [Driver Registrar](https://github.com/kubernetes-csi/driver-registrar), [hostpath driver](https://github.com/kubernetes-csi/drivers/tree/master/pkg/hostpath) and ClusterRole permissions 
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/hostpath/deployment/csi-hostpath-driver.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/hostpath/deployment/csi-hostpath-driver.yaml
 ```
 
  - watch the status of all component pods until its `Status` changed from `Pending` to `Running`
@@ -19,12 +19,12 @@ csi-hostpath-zp2dg           2/2       Running   0          19m       10.240.0.3
 ## Basic Usage
 ### 1. Create a hostpath CSI storage class
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/hostpath/storageclass-csi-hostpath.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/hostpath/storageclass-csi-hostpath.yaml
 ```
 
 ### 2. Create a hostpath CSI PVC
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/hostpath/pvc-csi-hostpath.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/hostpath/pvc-csi-hostpath.yaml
 ```
 make sure pvc is created successfully
 ```
@@ -33,7 +33,7 @@ watch kubectl describe pvc pvc-csi-hostpath
 
 ### 3. create a pod with hostpath CSI PVC
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/csi/hostpath/nginx-pod-csi-hostpath.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/csi/hostpath/nginx-pod-csi-hostpath.yaml
 ```
 
 ### 4. enter the pod container to do validation

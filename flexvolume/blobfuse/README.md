@@ -12,22 +12,22 @@ An storage account and a container should be created in the same region with the
 ## 1. config kubelet service to enable FlexVolume driver
 > Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0
 
-Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/andyzhangx/kubernetes-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
+Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
 ## 2. install blobfuse FlexVolume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install blobfuse driver
  - v1.10
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.10.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.10.yaml
 ```
  - v1.9
 ```
-kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
 ```
  - v1.8 & v1.7
 ```
- kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.8.yaml
+ kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.8.yaml
 ```
 > Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
 
@@ -45,11 +45,11 @@ blobfuseversion=v1.0.0-RC
 sudo mkdir -p /etc/kubernetes/volumeplugins/azure~blobfuse/bin
 cd /etc/kubernetes/volumeplugins/azure~blobfuse/bin
 
-sudo wget -O blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/binary/hyperkube-$k8sversion/$blobfuseversion/blobfuse
+sudo wget -O blobfuse https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/binary/hyperkube-$k8sversion/$blobfuseversion/blobfuse
 sudo chmod a+x blobfuse
 
 cd /etc/kubernetes/volumeplugins/azure~blobfuse
-sudo wget -O blobfuse https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/blobfuse
+sudo wget -O blobfuse https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/blobfuse
 sudo chmod a+x blobfuse
 ```
 
@@ -63,7 +63,7 @@ kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-N
 #### Option#1 Ties a flexvolume volume explicitly to a pod
 - download `nginx-flex-blobfuse.yaml` file and modify `container` field
 ```
-wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse.yaml
+wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse.yaml
 vi nginx-flex-blobfuse.yaml
 ```
  - create a pod with blobfuse flexvolume driver mount
@@ -75,14 +75,14 @@ kubectl create -f nginx-flex-blobfuse.yaml
  > Note: access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX) and ReadWriteMany(RWX)
  - download `pv-blobfuse-flexvol.yaml` file, modify `container` field and create a blobfuse flexvolume persistent volume(PV)
 ```
-wget https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/pv-blobfuse-flexvol.yaml
+wget https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/pv-blobfuse-flexvol.yaml
 vi pv-blobfuse-flexvol.yaml
 kubectl create -f pv-blobfuse-flexvol.yaml
 ```
 
  - create a blobfuse flexvolume persistent volume claim(PVC)
 ```
- kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/pvc-blobfuse-flexvol.yaml
+ kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/pvc-blobfuse-flexvol.yaml
 ```
 
  - check status of PV & PVC until its Status changed from `Pending` to `Bound`
@@ -93,7 +93,7 @@ kubectl create -f pv-blobfuse-flexvol.yaml
  
  - create a pod with blobfuse flexvolume PVC
 ```
- kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse-pvc.yaml
+ kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse-pvc.yaml
  ```
 
 ## 3. enter the pod container to do validation
