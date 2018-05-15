@@ -1,8 +1,8 @@
 #!/bin/sh
 
 LOG="/var/log/blobfuse-flexvol-installer.log"
-VER="1.0.0"
-BLOBFUSE_VERSION="v0.2.4"
+VER="1.0.1"
+BLOBFUSE_VERSION="v0.3.1"
 target_dir="${TARGET_DIR}"
 
 if [[ -z "${target_dir}" ]]; then
