@@ -2,7 +2,7 @@
 
 LOG="/var/log/blobfuse-flexvol-installer.log"
 VER="1.0.2"
-BLOBFUSE_VERSION="v0.3.1"
+BLOBFUSE_VERSION="v1.0.0-RC"
 target_dir="${TARGET_DIR}"
 
 if [[ -z "${target_dir}" ]]; then

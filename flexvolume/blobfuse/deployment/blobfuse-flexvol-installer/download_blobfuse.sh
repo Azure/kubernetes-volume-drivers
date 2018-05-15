@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BLOBFUSE_VERSION="v0.2.4"
+BLOBFUSE_VERSION="v1.0.0-RC"
 for version in "v1.7" "v1.8" "v1.9"
 do
 	blobfuse_bin_dir=./blobfuse/hyperkube-$version/$BLOBFUSE_VERSION/

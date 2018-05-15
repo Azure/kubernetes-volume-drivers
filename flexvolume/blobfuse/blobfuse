@@ -33,6 +33,20 @@ mount() {
 	ACCOUNTKEY=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
 	CONTAINER="$(echo "$2"|"$JQ" -r '.container //empty')"
 	
+	if [ -z "${ACCOUNTNAME}" ]; then
+		echo "`date` ERR: accountname is empty" >> $LOG
+		errorLog=`tail -n 1 "${LOG}"`
+		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:${errorLog}\"}"
+		exit 1
+	fi
+
+	if [ -z "${ACCOUNTKEY}" ]; then
+		echo "`date` ERR: accountkey is empty" >> $LOG
+		errorLog=`tail -n 1 "${LOG}"`
+		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:${errorLog}\"}"
+		exit 1
+	fi
+
 	if [ -z "${CONTAINER}" ]; then
 		echo "`date` ERR: container is empty" >> $LOG
 		errorLog=`tail -n 1 "${LOG}"`
