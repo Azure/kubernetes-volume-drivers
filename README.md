@@ -1,5 +1,5 @@
-# flexvolume-on-azure
-This repository has all flexvolumes on azure
+# kubernetes flexvolume driver on Azure
+This repository contains all kuernetes flex volume drivers on azure
 
 # Contributing
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
