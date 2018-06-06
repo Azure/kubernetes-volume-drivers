@@ -85,9 +85,8 @@ kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-driv
 watch kubectl describe po nginx-flex-dysk
 ```
  - enter the pod container
-kubectl exec -it nginx-flex-dysk -- bash
-
 ```
+kubectl exec -it nginx-flex-dysk -- bash
 root@nginx-flex-dysk:/# df -h
 Filesystem         Size  Used Avail Use% Mounted on
 overlay            291G  6.3G  285G   3% /
