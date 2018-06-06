@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 DYSKCTL=$DIR/dyskctl
 LOG="/var/log/dysk-driver.log"
-VER="1.0.0"
+VER="1.0.1"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -24,7 +24,10 @@ log() {
 
 ismounted() {
 	MOUNT=`findmnt -n ${MNTPATH} 2>/dev/null | cut -d' ' -f1`
-	[ "${MOUNT}" = "${MNTPATH}" ]
+	if [ "${MOUNT}" = *"${MNTPATH}"* ]; then
+		return 1
+	fi
+	return 0
 }
 
 mount() {
