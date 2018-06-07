@@ -16,11 +16,6 @@ spec:
       labels:
         dyskComponent: dysk-kubernetes-installer
     spec:
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: Equal
-        value: "true"
-        effect: NoSchedule
       containers:
         #this image installs the flex vol driver and its deps
         # mount your flex vols directory to this container 
