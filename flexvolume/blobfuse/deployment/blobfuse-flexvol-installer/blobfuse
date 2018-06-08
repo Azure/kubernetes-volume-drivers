@@ -2,9 +2,9 @@
 
 DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
-BLOBFUSE=$DIR/bin/blobfuse
+BLOBFUSE="/usr/bin/blobfuse"
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.3"
+VER="1.0.4"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -24,7 +24,10 @@ log() {
 
 ismounted() {
 	MOUNT=`findmnt -n ${MNTPATH} 2>/dev/null | cut -d' ' -f1`
-	[ "${MOUNT}" = "${MNTPATH}" ]
+	if [ "${MOUNT}" = *"${MNTPATH}"* ]; then
+		return 1
+	fi
+	return 0
 }
 
 mount() {

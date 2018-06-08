@@ -8,13 +8,12 @@ chmod a+x install.sh
 chmod a+x download_blobfuse.sh
 
 ./download_blobfuse.sh
-docker build --no-cache -t andyzhangx/blobfuse-flexvol-installer:1.0.4 .
+docker build --no-cache -t andyzhangx/blobfuse-flexvol-installer:1.0.5 .
 ```
 ## 2. Test blobfuse-flexvol-installer image
 ```
-docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex andyzhangx/blobfuse-flexvol-installer:1.0.4
+docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex andyzhangx/blobfuse-flexvol-installer:1.0.5
 vi /tmp/volumeplugins/azure~blobfuse/blobfuse
-ls -lt /tmp/volumeplugins/azure~blobfuse/bin
 cat /var/log/blobfuse-flexvol-installer.log
 docker stop flex && docker rm flex
 ```
@@ -28,7 +27,7 @@ docker logs flex
 ## 3. Push blobfuse-flexvol-installer image
 ```
 docker login
-docker push andyzhangx/blobfuse-flexvol-installer:1.0.4
+docker push andyzhangx/blobfuse-flexvol-installer:1.0.5
 ```
 
 ### `blobfuse-flexvol-installer` image release notes
@@ -39,3 +38,4 @@ docker push andyzhangx/blobfuse-flexvol-installer:1.0.4
 | 1.0.2 | 0.3.1 |  use accountname & accountkey in blobfuse driver |
 | 1.0.3 | 1.0.0-RC |  1. upgrade blobfuse binary 2. retuen error if accountname or accountkey is empty|
 | 1.0.4 | 1.0.0-RC |  add readOnly support|
+| 1.0.5 | N/A | support kubelet running outside of container|

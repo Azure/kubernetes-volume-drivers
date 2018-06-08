@@ -19,18 +19,10 @@ spec:
       labels:
         name: blobfuse
     spec:
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: "Equal"
-        value: "true"
-        effect: "NoSchedule"  
       containers:
       - name: blobfuse-flexvol-installer
-        image: andyzhangx/blobfuse-flexvol-installer:1.0.4
+        image: andyzhangx/blobfuse-flexvol-installer:1.0.5
         imagePullPolicy: Always
-        env:
-        - name: KUBELET_VERSION
-          value: v1.9        
         volumeMounts:
         - name: volplugins
           mountPath: /etc/kubernetes/volumeplugins/
@@ -43,6 +35,5 @@ spec:
       - name: volplugins
         hostPath:
           path: /etc/kubernetes/volumeplugins/
-          type: DirectoryOrCreate
       nodeSelector:
         beta.kubernetes.io/os: linux

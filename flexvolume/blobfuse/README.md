@@ -14,14 +14,13 @@ An storage account and a container should be created in the same region with the
 
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
-## 2. install blobfuse FlexVolume driver on every agent node
+## 2. install blobfuse driver on every agent node
+Please refer to [Install from Apt/Yum Package Repositories](https://github.com/Azure/azure-storage-fuse/wiki/1.-Installation#option-1---install-from-aptyum-package-repositories)
+
+## 3. install blobfuse FlexVolume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install blobfuse driver
- - v1.10
-```
-kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.10.yaml
-```
- - v1.9
+ - v1.9 or above
 ```
 kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
 ```
