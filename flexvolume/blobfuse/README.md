@@ -1,7 +1,7 @@
 # blobfuse FlexVolume driver for Kubernetes (Preview)
  - supported Kubernetes version: available from v1.7
  - supported agent OS: Linux
-> Note: `kubelet` **must** run as native daemon (other than containerized kubelet), `kubelet` in [acs-engine v0.16.0 or above](https://github.com/Azure/acs-engine) and [AKS](https://azure.microsoft.com/en-us/services/container-service/) cluster are already running as native daemon.
+> Note: `kubelet` **must** run as native daemon (other than containerized kubelet), `kubelet` in [acs-engine v0.16.0 or above](https://github.com/Azure/acs-engine) and [AKS](https://azure.microsoft.com/en-us/services/container-service/) cluster is already running as native daemon.
 
 # About
 This driver allows Kubernetes to access virtual filesystem backed by the Azure Blob storage.
@@ -54,7 +54,7 @@ kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-N
 
 ## 2. create a pod with blobfuse flexvolume mount on linux
 #### Option#1 Ties a flexvolume volume explicitly to a pod
-- download `nginx-flex-blobfuse.yaml` file and modify `container` field
+- download `nginx-flex-blobfuse.yaml` file and modify `container`, `tmppath`(optional) field
 ```
 wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse.yaml
 vi nginx-flex-blobfuse.yaml
