@@ -18,7 +18,12 @@ Please refer to [config kubelet service to enable FlexVolume driver](https://git
 ## 2. install blobfuse driver on every agent node
 Please refer to [Install from Apt/Yum Package Repositories](https://github.com/Azure/azure-storage-fuse/wiki/1.-Installation#option-1---install-from-aptyum-package-repositories)
 
-## 3. install blobfuse FlexVolume driver on every agent node
+## 3. install `jq` package on every agent node
+```
+sudo apt install jq -y
+```
+
+## 4. install blobfuse FlexVolume driver on every agent node
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install blobfuse driver
  - v1.9 or above
