@@ -1,6 +1,7 @@
 # blobfuse FlexVolume driver for Kubernetes (Preview)
  - supported Kubernetes version: available from v1.7
- - supported agent OS: Linux 
+ - supported agent OS: Linux
+> Note: `kubelet` **must** run as native daemon (other than containerized kubelet), `kubelet` in [acs-engine v0.16.0 or above](https://github.com/Azure/acs-engine) and [AKS](https://azure.microsoft.com/en-us/services/container-service/) cluster are already running as native daemon.
 
 # About
 This driver allows Kubernetes to access virtual filesystem backed by the Azure Blob storage.
@@ -10,7 +11,7 @@ An storage account and a container should be created in the same region with the
 
 # Install blobfuse driver on a kubernetes cluster
 ## 1. config kubelet service to enable FlexVolume driver
-> Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.12.0
+> Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.16.0
 
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
@@ -36,19 +37,12 @@ watch kubectl describe daemonset blobfuse-flexvol-installer --namespace=flex
 watch kubectl get po --namespace=flex -o wide
 ```
 
-### Option#2. Manually install on every agent node (depreciated)
-Take k8s v1.9 as an example:
+### Option#2. Manually install on every agent node
 ```
-k8sversion=v1.9
-blobfuseversion=v1.0.0-RC
-sudo mkdir -p /etc/kubernetes/volumeplugins/azure~blobfuse/bin
-cd /etc/kubernetes/volumeplugins/azure~blobfuse/bin
-
-sudo wget -O blobfuse https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/binary/hyperkube-$k8sversion/$blobfuseversion/blobfuse
-sudo chmod a+x blobfuse
+sudo mkdir -p /etc/kubernetes/volumeplugins/azure~blobfuse
 
 cd /etc/kubernetes/volumeplugins/azure~blobfuse
-sudo wget -O blobfuse https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/blobfuse
+sudo wget -O blobfuse https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer/blobfuse
 sudo chmod a+x blobfuse
 ```
 
