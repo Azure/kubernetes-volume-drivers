@@ -1,6 +1,7 @@
 # dysk FlexVolume driver for Kubernetes (Preview)
  - supported Kubernetes version: available from v1.7
- - supported agent OS: Linux 
+ - supported agent OS: Linux
+> Note: `kubelet` **must** run as native daemon (other than containerized kubelet), `kubelet` in [acs-engine v0.16.0 or above](https://github.com/Azure/acs-engine) and [AKS](https://azure.microsoft.com/en-us/services/container-service/) cluster is already running as native daemon.
 
 # About
 This driver allows Kubernetes to use [fast kernel-mode mount/unmount AzureDisk](https://github.com/khenidak/dysk)
@@ -33,6 +34,11 @@ watch kubectl describe daemonset dysk-flexvol-installer --namespace=dysk
 watch kubectl get po --namespace=dysk -o wide
 ```
 > Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
+
+## 3. install `jq` package on every agent node
+```
+sudo apt install jq -y
+```
 
 # Basic Usage
 ## 1. create a secret with dysk account name and key
