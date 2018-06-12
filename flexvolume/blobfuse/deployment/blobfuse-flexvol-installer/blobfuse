@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE="/usr/bin/blobfuse"
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.4"
+VER="1.0.5"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -15,49 +15,51 @@ usage() {
 }
 
 err() {
+	echo `date` "ERROR:" $* >> $LOG
 	echo $* 1>&2
 }
 
 log() {
+	echo `date` "INFO:" $* >> $LOG
 	echo $* >&1
 }
 
 ismounted() {
 	MOUNT=`findmnt -n ${MNTPATH} 2>/dev/null | cut -d' ' -f1`
-	if [ "${MOUNT}" = *"${MNTPATH}"* ]; then
-		return 1
+	if echo $MOUNT | grep -q ${MNTPATH}; then
+		return 0
 	fi
-	return 0
+	return 1
 }
 
 mount() {
 	MNTPATH="$1"
 	ACCOUNTNAME=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountname"] // empty'|base64 -d)
 	ACCOUNTKEY=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
-	CONTAINER="$(echo "$2"|"$JQ" -r '.container //empty')"
-	READ_WRITE="$(echo "$2"|"$JQ" -r '.["kubernetes.io/readwrite"] //empty')"
+	CONTAINER=$(echo "$2"|"$JQ" -r '.container //empty')
+	TMP_PATH=$(echo "$2"|"$JQ" -r '.tmppath //empty')
+	READ_WRITE=$(echo "$2"|"$JQ" -r '.["kubernetes.io/readwrite"] //empty')
 	
 	if [ -z "${ACCOUNTNAME}" ]; then
-		echo "`date` ERROR: accountname is empty" >> $LOG
-		errorLog=`tail -n 1 "${LOG}"`
-		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:${errorLog}\"}"
+		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:accountname is empty\"}"
 		exit 1
 	fi
 
 	if [ -z "${ACCOUNTKEY}" ]; then
-		echo "`date` ERROR: accountkey is empty" >> $LOG
-		errorLog=`tail -n 1 "${LOG}"`
-		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:${errorLog}\"}"
+		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:accountkey is empty\"}"
 		exit 1
 	fi
 
 	if [ -z "${CONTAINER}" ]; then
-		echo "`date` ERROR: container is empty" >> $LOG
-		errorLog=`tail -n 1 "${LOG}"`
-		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:${errorLog}\"}"
+		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:container is empty\"}"
 		exit 1
 	fi
 	
+	if [ -z "${TMP_PATH}" ]; then
+		TMP_PATH="/tmp/blobfuse/"
+		echo `date` "INFO: tmp-path not specified, use default path: ${TMP_PATH}"  >> $LOG
+	fi
+
 	if ismounted ; then
 		devname=`findmnt -n -o SOURCE ${MNTPATH}`
 		log "{\"status\": \"Success\" , \"message\":\"log:INF: Mountpoint: ${MNTPATH} has ${devname} already mounted\"}"
@@ -78,8 +80,8 @@ mount() {
 	echo "`date` INF: export storage account - ${output_comand} " >> $LOG
 	
 	#mounting
-	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmp/blobfuse/ -o allow_other ${read_only_param}" >>$LOG
-	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=/tmp/blobfuse/ -o allow_other ${read_only_param}
+	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH}-o allow_other ${read_only_param}" >>$LOG
+	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param}
 	if [ "$?" != "0" ]; then
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device /dev/${diskname} at ${MNTPATH}, accountname:${ACCOUNTNAME}, error log:${errorLog}\" }"

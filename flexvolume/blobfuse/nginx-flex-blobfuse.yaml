@@ -18,3 +18,4 @@ spec:
         name: blobfusecreds
       options:
         container: CONTAINER-NAME
+        tmppath: /tmp/blobfuse

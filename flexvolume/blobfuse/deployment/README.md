@@ -1,13 +1,8 @@
 ## 1. Build blobfuse-flexvol-installer image
 
 ```
-mkdir blobfuse-flexvol-installer
 cd blobfuse-flexvol-installer
 
-chmod a+x install.sh
-chmod a+x download_blobfuse.sh
-
-./download_blobfuse.sh
 docker build --no-cache -t andyzhangx/blobfuse-flexvol-installer:1.0.5 .
 ```
 ## 2. Test blobfuse-flexvol-installer image
@@ -38,4 +33,4 @@ docker push andyzhangx/blobfuse-flexvol-installer:1.0.5
 | 1.0.2 | 0.3.1 |  use accountname & accountkey in blobfuse driver |
 | 1.0.3 | 1.0.0-RC |  1. upgrade blobfuse binary 2. retuen error if accountname or accountkey is empty|
 | 1.0.4 | 1.0.0-RC |  add readOnly support|
-| 1.0.5 | N/A | support kubelet running outside of container|
+| 1.0.5 | N/A | support kubelet running outside of container; support `tmp-path` parameter|
