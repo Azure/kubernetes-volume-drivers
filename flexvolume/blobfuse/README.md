@@ -1,7 +1,7 @@
 # blobfuse FlexVolume driver for Kubernetes (Preview)
  - supported Kubernetes version: available from v1.7
  - supported agent OS: Linux
-> Note: `kubelet` **must** run as native daemon (other than containerized kubelet), `kubelet` in [acs-engine v0.16.0 or above](https://github.com/Azure/acs-engine) and [AKS](https://azure.microsoft.com/en-us/services/container-service/) cluster is already running as native daemon.
+> Note: This driver **only** supports `kubelet` running as native daemon (other than containerized kubelet), `kubelet` in [acs-engine v0.16.0 or above](https://github.com/Azure/acs-engine) and [AKS](https://azure.microsoft.com/en-us/services/container-service/) cluster is already running as native daemon. [Check whether kubelet is containerized or running as native daemon](https://github.com/andyzhangx/demo/blob/master/debug/README.md#q-check-whether-kubelet-is-containerized-or-running-as-native-daemon)
 
 # About
 This driver allows Kubernetes to access virtual filesystem backed by the Azure Blob storage.
