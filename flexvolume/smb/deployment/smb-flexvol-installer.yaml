@@ -6,22 +6,22 @@ metadata:
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  name: cifs-flexvol-installer
+  name: smb-flexvol-installer
   namespace: flex
   labels:
-    k8s-app: cifs
+    k8s-app: smb
 spec:
   selector:
     matchLabels:
-      name: cifs
+      name: smb
   template:
     metadata:
       labels:
-        name: cifs
+        name: smb
     spec:
       containers:
-      - name: cifs-flexvol-installer
-        image: andyzhangx/cifs-flexvol-installer:1.0.0
+      - name: smb-flexvol-installer
+        image: andyzhangx/smb-flexvol-installer:1.0.1
         imagePullPolicy: Always
         volumeMounts:
         - name: volplugins

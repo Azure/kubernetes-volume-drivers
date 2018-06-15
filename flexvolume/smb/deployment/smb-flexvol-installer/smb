@@ -1,13 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
 # Notes:
 #  - Please install "jq" package before using this driver.
 
 DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
-MOUNT_CIFS="$DIR/cifs"
-LOG="/var/log/cifs-driver.log"
-VER="1.0.0"
+LOG="/var/log/smb-driver.log"
+VER="1.0.1"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -18,16 +17,21 @@ usage() {
 }
 
 err() {
+	echo `date` "ERROR:" $* >> $LOG
 	echo $* 1>&2
 }
 
 log() {
+	echo `date` "INFO:" $* >> $LOG
 	echo $* >&1
 }
 
 ismounted() {
 	MOUNT=`findmnt -n ${MNTPATH} 2>/dev/null | cut -d' ' -f1`
-	[ "${MOUNT}" = "${MNTPATH}" ]
+	if echo $MOUNT | grep -q ${MNTPATH}; then
+		return 0
+	fi
+	return 1
 }
 
 mount() {

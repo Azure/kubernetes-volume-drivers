@@ -4,7 +4,7 @@ This directory contains all kubernetes [FlexVolume](https://kubernetes.io/docs/c
 | FlexVolume driver | About |
 | ---- | ---- |
 | [blobfuse](./blobfuse) | This driver allows Kubernetes to access virtual filesystem backed by the Azure Blob storage. |
-| [cifs](./cifs) | This driver allows Kubernetes to access SMB server by using CIFS/SMB protocol. |
+| [smb](./smb) | This driver allows Kubernetes to access SMB server by using CIFS/SMB protocol. |
 | [dysk](./dysk) | This driver allows Kubernetes to use [fast kernel-mode mount/unmount AzureDisk](https://github.com/khenidak/dysk) |
 
 ## config kubelet service to enable FlexVolume driver
