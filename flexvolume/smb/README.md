@@ -17,6 +17,8 @@ create daemonset to install smb driver
 ```
 kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/smb/deployment/smb-flexvol-installer.yaml
 ```
+> Note: You may replace `/etc/kubernetes/volumeplugins` with `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`(by default) in `smb-flexvol-installer.yaml` if it's not a k8s cluster on Azure.
+
  - check daemonset status:
 ```
 watch kubectl describe daemonset smb-flexvol-installer --namespace=flex
@@ -29,7 +31,7 @@ watch kubectl get po --namespace=flex -o wide
 sudo mkdir -p /etc/kubernetes/volumeplugins/microsoft.com~smb/
 
 cd /etc/kubernetes/volumeplugins/microsoft.com~smb
-sudo wget -O smb https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/smb/smb
+sudo wget -O smb https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/smb/deployment/smb-flexvol-installer/smb
 sudo chmod a+x smb
 ```
 
