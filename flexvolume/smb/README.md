@@ -41,7 +41,7 @@ sudo apt install jq -y
 # Basic Usage
 ## 1. create a secret which stores smb account name and password
 ```
-kubectl create secret generic smbcreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="azure/smb"
+kubectl create secret generic smbcreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="microsoft.com/smb"
 ```
 
 ## 2. create a pod with smb flexvolume mount on linux

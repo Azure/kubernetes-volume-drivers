@@ -9,7 +9,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   flexVolume:
-    driver: "azure/smb"
+    driver: "microsoft.com/smb"
     secretRef:
       name: smbcreds
     options:
