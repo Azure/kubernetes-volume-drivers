@@ -41,8 +41,12 @@ mount() {
 	MOUNT_OPTIONS=$(echo "$2"|"$JQ" -r '.mountOptions // empty')
 	USERNAME=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/username"] // empty'|base64 -d)
 	PASSWORD=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/password"] // empty'|base64 -d)
+	DOMAIN=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/domain"] // empty'|base64 -d)
 
 	ALL_OPTIONS="username=${USERNAME},password=${PASSWORD},${READ_MODE}"
+	if [ -n "$DOMAIN" ]; then
+		ALL_OPTIONS="${ALL_OPTIONS},domain=${DOMAIN}"
+	fi
 	if [ -n "$MOUNT_OPTIONS" ]; then
 		ALL_OPTIONS="${ALL_OPTIONS},${MOUNT_OPTIONS}"
 	fi
