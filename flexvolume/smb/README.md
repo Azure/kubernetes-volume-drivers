@@ -35,9 +35,9 @@ sudo wget -O smb https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 sudo chmod a+x smb
 ```
 
-## 3. install `jq` package on every agent node
+## 3. install `jq`, `cifs-utils` packages on every agent node
 ```
-sudo apt install jq -y
+sudo apt install jq cifs-utils -y
 ```
 
 # Basic Usage
