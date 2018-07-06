@@ -14,18 +14,31 @@ An storage account and a container should be created in the same region with the
 > Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.16.0
 
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
- 
-## 2. install blobfuse on every agent node
+
+## 2. Install blobfuse driver on every agent VM
+### Option#1 Use `az vm extension` to install blobfuse driver on every agent VM
+```
+#az login
+az vm extension set \
+  --resource-group RESOURCE_GROUP_NAME \
+  --vm-name VM_NAME \
+  --name customScript \
+  --publisher Microsoft.Azure.Extensions \
+  --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/install-blobfuse-flexvol-ubuntu.sh"],"commandToExecute": "./install-blobfuse-flexvol-ubuntu.sh"}'
+```
+
+### Option#2. install blobfuse driver manually
+### 1) install blobfuse on every agent node
 Please refer to [Install from Apt/Yum Package Repositories](https://github.com/Azure/azure-storage-fuse/wiki/1.-Installation#option-1---install-from-aptyum-package-repositories)
 
-## 3. install `jq` package on every agent node
+### 2) install `jq` package on every agent node
 > Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.16.0
 ```
 sudo apt install jq -y
 ```
 
-## 4. install blobfuse FlexVolume driver on every agent node
-### Option#1. Automatically install by k8s daemonset
+### 3) install blobfuse FlexVolume driver on every agent node
+#### Option#1. Automatically install by k8s daemonset
 create daemonset to install blobfuse FlexVolume driver
  - v1.9 or above
 ```
@@ -43,7 +56,7 @@ watch kubectl describe daemonset blobfuse-flexvol-installer --namespace=flex
 watch kubectl get po --namespace=flex -o wide
 ```
 
-### Option#2. Manually install on every agent node
+#### Option#2. Manually install on every agent node
 ```
 sudo mkdir -p /etc/kubernetes/volumeplugins/azure~blobfuse
 
