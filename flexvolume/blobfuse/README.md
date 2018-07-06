@@ -18,7 +18,7 @@ Please refer to [config kubelet service to enable FlexVolume driver](https://git
 ## 2. Install blobfuse driver on every agent VM
 ### Option#1. Use `az vm extension` to install blobfuse driver on every agent VM
 ```
-#az login
+# use "az login" first and replace "RESOURCE_GROUP_NAME", "VM_NAME" in following command for every agent VM
 az vm extension set \
   --resource-group RESOURCE_GROUP_NAME \
   --vm-name VM_NAME \
