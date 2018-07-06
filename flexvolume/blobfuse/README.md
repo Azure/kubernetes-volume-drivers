@@ -16,7 +16,7 @@ An storage account and a container should be created in the same region with the
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
 
 ## 2. Install blobfuse driver on every agent VM
-### Option#1 Use `az vm extension` to install blobfuse driver on every agent VM
+### Option#1. Use `az vm extension` to install blobfuse driver on every agent VM
 ```
 #az login
 az vm extension set \
