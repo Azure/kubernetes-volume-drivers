@@ -27,6 +27,10 @@ az vm extension set \
   --publisher Microsoft.Azure.Extensions \
   --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/install-blobfuse-flexvol-ubuntu.sh"],"commandToExecute": "./install-blobfuse-flexvol-ubuntu.sh"}'
 ```
+ - Or log on every agent VM and run following command:
+```
+curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/install-blobfuse-flexvol-ubuntu.sh | sh -s --
+```
 
 ### Option#2. install blobfuse driver manually
 ### 1) install blobfuse on every agent node
