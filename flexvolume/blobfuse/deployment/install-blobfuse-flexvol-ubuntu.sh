@@ -3,7 +3,7 @@ VER="1.0.1"
 
 echo "install blobfuse, jq packages ..."
 PKG_TARGET=/tmp/packages-microsoft-prod.deb
-wget -O $PKG_TARGET https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb > 
+wget -O $PKG_TARGET https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
 dpkg -i $PKG_TARGET
 apt update
 apt-get install blobfuse fuse jq -y
