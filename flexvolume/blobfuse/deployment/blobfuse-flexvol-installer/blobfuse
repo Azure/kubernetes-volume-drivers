@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE="/usr/bin/blobfuse"
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.5"
+VER="1.0.6"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -38,6 +38,7 @@ mount() {
 	ACCOUNTKEY=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
 	CONTAINER=$(echo "$2"|"$JQ" -r '.container //empty')
 	TMP_PATH=$(echo "$2"|"$JQ" -r '.tmppath //empty')
+	MOUNT_OPTIONS=$(echo "$2"|"$JQ" -r '.mountoptions //empty')
 	READ_WRITE=$(echo "$2"|"$JQ" -r '.["kubernetes.io/readwrite"] //empty')
 	
 	if [ -z "${ACCOUNTNAME}" ]; then
@@ -80,8 +81,8 @@ mount() {
 	echo "`date` INF: export storage account - ${output_comand} " >> $LOG
 	
 	#mounting
-	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH}-o allow_other ${read_only_param}" >>$LOG
-	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param}
+	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param} ${MOUNT_OPTIONS}" >>$LOG
+	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param} ${MOUNT_OPTIONS}
 	if [ "$?" != "0" ]; then
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device /dev/${diskname} at ${MNTPATH}, accountname:${ACCOUNTNAME}, error log:${errorLog}\" }"

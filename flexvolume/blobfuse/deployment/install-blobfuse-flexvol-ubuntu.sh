@@ -8,8 +8,9 @@ dpkg -i /tmp/packages-microsoft-prod.deb
 apt-get install blobfuse fuse jq -y
 
 echo "install blobfuse flexvolume driver ..."
-mkdir -p /etc/kubernetes/volumeplugins/azure~blobfuse
-wget -O /etc/kubernetes/volumeplugins/azure~blobfuse/blobfuse https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer/blobfuse
-chmod a+x /etc/kubernetes/volumeplugins/azure~blobfuse/blobfuse
+PLUGIN_DIR=/etc/kubernetes/volumeplugins/azure~blobfuse
+mkdir -p $PLUGIN_DIR
+wget -O $PLUGIN_DIR/blobfuse https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer/blobfuse
+chmod a+x $PLUGIN_DIR/blobfuse
 
 echo "install complete."
