@@ -19,4 +19,4 @@ spec:
       options:
         container: CONTAINER-NAME
         tmppath: /tmp/blobfuse
-        mountoptions: "--file-cache-timeout-in-seconds=120"
+        mountoptions: "--file-cache-timeout-in-seconds=120 --use-https=true"

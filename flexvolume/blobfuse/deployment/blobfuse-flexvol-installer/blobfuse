@@ -34,13 +34,13 @@ ismounted() {
 
 mount() {
 	MNTPATH="$1"
-	ACCOUNTNAME=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountname"] // empty'|base64 -d)
-	ACCOUNTKEY=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
-	CONTAINER=$(echo "$2"|"$JQ" -r '.container //empty')
-	TMP_PATH=$(echo "$2"|"$JQ" -r '.tmppath //empty')
-	MOUNT_OPTIONS=$(echo "$2"|"$JQ" -r '.mountoptions //empty')
-	READ_WRITE=$(echo "$2"|"$JQ" -r '.["kubernetes.io/readwrite"] //empty')
-	
+	ACCOUNTNAME=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountname"] // empty'|base64 -d)
+	ACCOUNTKEY=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
+	CONTAINER=$(echo "$JSON"|"$JQ" -r '.container //empty')
+	TMP_PATH=$(echo "$JSON"|"$JQ" -r '.tmppath //empty')
+	MOUNT_OPTIONS=$(echo "$JSON"|"$JQ" -r '.mountoptions //empty')
+	READ_WRITE=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/readwrite"] //empty')
+
 	if [ -z "${ACCOUNTNAME}" ]; then
 		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:accountname is empty\"}"
 		exit 1
@@ -144,6 +144,7 @@ shift
 
 case "$op" in
 	mount)
+		JSON=$2
 		mount $*
 		;;
 	unmount)
