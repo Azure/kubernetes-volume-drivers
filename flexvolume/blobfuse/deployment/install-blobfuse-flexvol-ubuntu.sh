@@ -1,5 +1,5 @@
 #!/bin/sh
-VER="1.0.0"
+VER="1.0.1"
 
 echo "install blobfuse, jq packages ..."
 PKG_TARGET=/tmp/packages-microsoft-prod.deb
