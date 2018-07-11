@@ -1,9 +1,9 @@
 #!/bin/sh
 VER="1.0.0"
 
-echo "install jq packages ..."
+echo "install jq,cifs-utils packages ..."
 apt update
-apt-get install jq -y
+apt-get install jq cifs-utils -y
 
 echo "install smb flexvolume driver ..."
 PLUGIN_DIR=/etc/kubernetes/volumeplugins/microsoft.com~smb
