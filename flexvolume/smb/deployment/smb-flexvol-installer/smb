@@ -6,7 +6,7 @@
 DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 LOG="/var/log/smb-driver.log"
-VER="1.0.1"
+VER="1.0.2"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -36,12 +36,12 @@ ismounted() {
 
 mount() {
 	MNTPATH="$1"
-	VOLUME_SRC=$(echo "$2"|"$JQ" -r '.source')
-	READ_MODE=$(echo "$2"|"$JQ" -r '.["kubernetes.io/readwrite"]')
-	MOUNT_OPTIONS=$(echo "$2"|"$JQ" -r '.mountOptions // empty')
-	USERNAME=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/username"] // empty'|base64 -d)
-	PASSWORD=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/password"] // empty'|base64 -d)
-	DOMAIN=$(echo "$2"|"$JQ" -r '.["kubernetes.io/secret/domain"] // empty'|base64 -d)
+	VOLUME_SRC=$(echo "$JSON"|"$JQ" -r '.source')
+	READ_MODE=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/readwrite"]')
+	MOUNT_OPTIONS=$(echo "$JSON"|"$JQ" -r '.mountOptions // empty')
+	USERNAME=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/username"] // empty'|base64 -d)
+	PASSWORD=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/password"] // empty'|base64 -d)
+	DOMAIN=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/domain"] // empty'|base64 -d)
 
 	ALL_OPTIONS="username=${USERNAME},password=${PASSWORD},${READ_MODE}"
 	if [ -n "$DOMAIN" ]; then
@@ -108,6 +108,7 @@ shift
 
 case "$op" in
 	mount)
+		JSON=$2
 		mount $*
 		;;			
 	unmount)
