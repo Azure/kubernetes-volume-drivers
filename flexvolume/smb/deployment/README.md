@@ -24,3 +24,10 @@ docker logs flex
 docker login
 docker push andyzhangx/smb-flexvol-installer:1.0.2
 ```
+
+### `smb-flexvol-installer` image release notes
+| `smb-flexvol-installer` image version | release notes |
+| ---- | ---- |
+| 1.0.0 | 1st version  |
+| 1.0.1 | change cifs name to smb |
+| 1.0.2 | fix potential blank space issue in smb mountoptions |
