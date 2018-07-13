@@ -27,7 +27,8 @@ az vm extension set \
   --publisher Microsoft.Azure.Extensions \
   --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/install-blobfuse-flexvol-ubuntu.sh"],"commandToExecute": "./install-blobfuse-flexvol-ubuntu.sh"}'
 ```
- - Or log on every agent VM and run following command directly:
+ - Or log on every agent VM and run following command directly
+ > Note: below script only applies to Ubuntu
 ```
 curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/install-blobfuse-flexvol-ubuntu.sh | sh -s --
 ```
@@ -43,25 +44,6 @@ sudo apt install jq -y
 ```
 
 ### 3) install blobfuse FlexVolume driver on every agent node
-#### Option#1. Automatically install by k8s daemonset
-create daemonset to install blobfuse FlexVolume driver
- - v1.9 or above
-```
-kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
-```
- - v1.8 & v1.7
-```
- kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.8.yaml
-```
-> Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
-
- - check daemonset status:
-```
-watch kubectl describe daemonset blobfuse-flexvol-installer --namespace=flex
-watch kubectl get po --namespace=flex -o wide
-```
-
-#### Option#2. Manually install on every agent node
 ```
 sudo mkdir -p /etc/kubernetes/volumeplugins/azure~blobfuse
 
