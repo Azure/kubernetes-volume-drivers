@@ -27,6 +27,7 @@ az vm extension set \
 
 ### Option#2. install smb FlexVolume driver manually
  - run following command on every agent node
+ > Note: below script only applies to Ubuntu
 ```
 curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/smb/deployment/install-smb-flexvol-ubuntu.sh | sh -s --
 ```
