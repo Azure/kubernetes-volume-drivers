@@ -16,21 +16,22 @@ An storage account and a container should be created in the same region with the
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
 
 ## 2. Install blobfuse driver on every agent VM
-### Option#1. Use [Azure Custom Script Extension](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-linux) to install blobfuse driver on every agent VM
- - use `az login` first and replace `RESOURCE_GROUP_NAME`, `VM_NAME` in following command for every agent VM
- > Note: for AKS cluster, all VM resources are under a shadow resource group naming as `MC_{RESOUCE-GROUP-NAME}{CLUSTER-NAME}{REGION}`; check `/var/lib/waagent/custom-script/download/1` directory if there is failure
+### Option#1. Automatically install by k8s daemonset
+create daemonset to install blobfuse driver
+ - v1.9 or above
 ```
-az vm extension set \
-  --resource-group RESOURCE_GROUP_NAME \
-  --vm-name VM_NAME \
-  --name customScript \
-  --publisher Microsoft.Azure.Extensions \
-  --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/install-blobfuse-flexvol-ubuntu.sh"],"commandToExecute": "./install-blobfuse-flexvol-ubuntu.sh"}'
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
 ```
- - Or log on every agent VM and run following command directly
- > Note: below script only applies to Ubuntu
+ - v1.8 & v1.7
 ```
-curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/install-blobfuse-flexvol-ubuntu.sh | sh -s --
+ kubectl create -f https://raw.githubusercontent.com/andyzhangx/kubernetes-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.8.yaml
+```
+> Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
+
+ - check daemonset status:
+```
+watch kubectl describe daemonset blobfuse-flexvol-installer --namespace=flex
+watch kubectl get po --namespace=flex -o wide
 ```
 
 ### Option#2. install blobfuse driver manually
