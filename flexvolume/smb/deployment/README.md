@@ -22,7 +22,8 @@ docker logs flex
 ## 3. Push smb-flexvol-installer image
 ```
 docker login
-docker push andyzhangx/smb-flexvol-installer:1.0.2
+docker tag andyzhangx/smb-flexvol-installer:1.0.2 andyzhangx/smb-flexvol-installer:latest
+docker push andyzhangx/smb-flexvol-installer:latest
 ```
 
 ### `smb-flexvol-installer` image release notes
