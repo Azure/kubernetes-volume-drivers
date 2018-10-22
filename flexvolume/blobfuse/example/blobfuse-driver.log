@@ -1,0 +1,9 @@
+Mon Oct 22 05:44:35 UTC 2018 INFO: {"status": "Success", "capabilities": {"attach": false}}
+Mon Oct 22 05:45:36 UTC 2018 EXEC: mkdir -p /var/lib/kubelet/pods/b31cc112-d5bd-11e8-85db-fe56e25f3d37/volumes/azure~blobfuse/pv-blobfuse-flexvol
+Mon Oct 22 05:45:36 UTC 2018 INF: export storage account - export AZURE_STORAGE_ACCOUNT=andydevdiag AZURE_STORAGE_ACCESS_KEY=...
+Mon Oct 22 05:45:36 UTC 2018 EXEC: /usr/bin/blobfuse /var/lib/kubelet/pods/b31cc112-d5bd-11e8-85db-fe56e25f3d37/volumes/azure~blobfuse/pv-blobfuse-flexvol --container-name=public --tmp-path=/tmp/blobfuse -o allow_other  --file-cache-timeout-in-seconds=120
+Mon Oct 22 05:45:37 UTC 2018 INFO: {"status": "Success" , "message":"log:Mon Oct 22 05:45:36 UTC 2018 EXEC: /usr/bin/blobfuse /var/lib/kubelet/pods/b31cc112-d5bd-11e8-85db-fe56e25f3d37/volumes/azure~blobfuse/pv-blobfuse-flexvol --container-name=public --tmp-path=/tmp/blobfuse -o allow_other --file-cache-timeout-in-seconds=120" }
+Mon Oct 22 05:55:12 UTC 2018 EXEC: umount /var/lib/kubelet/pods/b31cc112-d5bd-11e8-85db-fe56e25f3d37/volumes/azure~blobfuse/pv-blobfuse-flexvol, devname: blobfuse
+blobfuse
+Mon Oct 22 05:55:12 UTC 2018 EXEC: rmdir /var/lib/kubelet/pods/b31cc112-d5bd-11e8-85db-fe56e25f3d37/volumes/azure~blobfuse/pv-blobfuse-flexvol
+Mon Oct 22 05:55:12 UTC 2018 INFO: {"status": "Success"}
