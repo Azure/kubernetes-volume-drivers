@@ -13,17 +13,17 @@ Please refer to [config kubelet service to enable FlexVolume driver](https://git
  
 ## 2. install smb FlexVolume driver on every agent VM
  > Note: You may replace `/etc/kubernetes/volumeplugins` with `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`(by default) in `install-smb-flexvol-ubuntu.sh` if it's not a k8s cluster on Azure.
-### Option#1. Use [Azure Custom Script Extension](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-linux) to install smb driver on every agent VM
- - use `az login` first and replace `RESOURCE_GROUP_NAME`, `VM_NAME` in following command for every agent VM
- > Note: for AKS cluster, all VM resources are under a shadow resource group naming as `MC_{RESOUCE-GROUP-NAME}{CLUSTER-NAME}{REGION}`; check `/var/lib/waagent/custom-script/download/1` directory if there is failure
+### Option#1. Automatically install by k8s daemonset
+create daemonset to install smb driver
 ```
-az vm extension set \
-  --resource-group RESOURCE_GROUP_NAME \
-  --vm-name VM_NAME \
-  --name customScript \
-  --publisher Microsoft.Azure.Extensions \
-  --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/smb/deployment/install-smb-flexvol-ubuntu.sh"],"commandToExecute": "./install-smb-flexvol-ubuntu.sh"}'
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/smb/deployment/smb-flexvol-installer.yaml
 ```
+ - check daemonset status:
+```
+watch kubectl describe daemonset smb-flexvol-installer --namespace=flex
+watch kubectl get po --namespace=flex -o wide
+```
+> Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
 
 ### Option#2. install smb FlexVolume driver manually
  - run following command on every agent node
