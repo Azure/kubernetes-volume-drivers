@@ -1,4 +1,4 @@
-# dysk CSI driver for Kubernetes (Preview)
+# dysk CSI driver for Kubernetes (Preview: alpha stage)
  - supported Kubernetes version: available from v1.10.0
  - supported agent OS: Linux 
 
