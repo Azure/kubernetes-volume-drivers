@@ -1,4 +1,5 @@
 # hostpath CSI driver example
+## Note: CSI driver here only works before v1.12.0 since there is a CSI breaking change in v1.12.0, find details [here](https://github.com/Azure/kubernetes-volume-drivers/issues/8)
 
 ## Install hostpath CSI driver on a kubernetes cluster 
  - Set up [External Attacher](https://github.com/kubernetes-csi/external-attacher), [External Provisioner](https://github.com/kubernetes-csi/external-provisioner), [Driver Registrar](https://github.com/kubernetes-csi/driver-registrar), [hostpath driver](https://github.com/kubernetes-csi/drivers/tree/master/pkg/hostpath) and ClusterRole permissions 
