@@ -1,8 +1,11 @@
-# dysk CSI driver for Kubernetes (Preview: alpha stage)
+# dysk CSI driver for Kubernetes (Alpha)
+
+**WARNING**: This driver is in ALPHA currently. Do NOT use this driver in a production environment in its current state.
+
  - supported Kubernetes version: v1.10.0 ~ v.11.x
  - supported agent OS: Linux 
 
-## Note: CSI driver here only works before v1.12.0 since there is a CSI breaking change in v1.12.0, find details [here](https://github.com/Azure/kubernetes-volume-drivers/issues/8)
+> Note: CSI driver here only works before v1.12.0 since there is a CSI breaking change in v1.12.0, find details [here](https://github.com/Azure/kubernetes-volume-drivers/issues/8)
 
 # About
 This driver allows Kubernetes to use [fast kernel-mode mount/unmount AzureDisk](https://github.com/khenidak/dysk)
