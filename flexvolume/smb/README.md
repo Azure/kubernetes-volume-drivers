@@ -12,7 +12,7 @@ This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://e
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
 ## 2. install smb FlexVolume driver on every agent VM
- > Note: You may replace `/etc/kubernetes/volumeplugins` with `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`(by default) in `install-smb-flexvol-ubuntu.sh` if it's not a k8s cluster on Azure.
+ > Note: You may replace `/etc/kubernetes/volumeplugins` with `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`(by default) in `install-smb-flexvol-ubuntu.sh` if it's not a k8s cluster created by [AKS](https://azure.microsoft.com/en-us/services/container-service/) or [acs-engine](https://github.com/Azure/acs-engine)
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install smb driver
 ```
