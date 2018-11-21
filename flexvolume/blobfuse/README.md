@@ -16,7 +16,6 @@ Please refer to [config kubelet service to enable FlexVolume driver](https://git
 
 ## 2. Install blobfuse driver on every agent VM
 ### Install by kubernetes daemonset
-create daemonset to install blobfuse driver
  - v1.9 or above
 ```
 kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
