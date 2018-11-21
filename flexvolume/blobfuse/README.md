@@ -1,7 +1,6 @@
 # blobfuse FlexVolume driver for Kubernetes
  - supported Kubernetes version: available from v1.7
  - supported agent OS: Linux
-> Note: This driver **only** supports `kubelet` running as native daemon (other than containerized kubelet), `kubelet` in [acs-engine v0.16.0 or above](https://github.com/Azure/acs-engine) and [AKS](https://azure.microsoft.com/en-us/services/container-service/) cluster is already running as native daemon. [Check whether kubelet is containerized or running as native daemon](https://github.com/andyzhangx/demo/blob/master/debug/README.md#q-check-whether-kubelet-is-containerized-or-running-as-native-daemon)
 
 # About
 This driver allows Kubernetes to access virtual filesystem backed by the Azure Blob storage.
@@ -37,6 +36,7 @@ watch kubectl get po --namespace=flex -o wide
 ### Option#2. install blobfuse driver manually
 ### 1) install blobfuse on every agent node
 Please refer to [Install from Apt/Yum Package Repositories](https://github.com/Azure/azure-storage-fuse/wiki/1.-Installation#option-1---install-from-aptyum-package-repositories)
+ > Note: on a k8s cluster set up by AKS or acs-engine blobfuse(`1.0.2`) is already installed.
 
 ### 2) install `jq` package on every agent node
 > Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) or from [acs-engine](https://github.com/Azure/acs-engine) v0.16.0
