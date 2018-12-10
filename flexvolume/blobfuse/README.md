@@ -85,18 +85,13 @@ watch kubectl describe po nginx-flex-blobfuse
  - enter the pod container
 ```
 kubectl exec -it nginx-flex-blobfuse -- bash
-```
-
-```
 root@nginx-flex-blobfuse:/# df -h
 Filesystem      Size  Used Avail Use% Mounted on
 overlay          30G  5.5G   24G  19% /
 tmpfs           3.4G     0  3.4G   0% /dev
 tmpfs           3.4G     0  3.4G   0% /sys/fs/cgroup
 blobfuse         30G  5.5G   24G  19% /data
-/dev/sda1        30G  5.5G   24G  19% /etc/hosts
-shm              64M     0   64M   0% /dev/shm
-tmpfs           3.4G   12K  3.4G   1% /run/secrets/kubernetes.io/serviceaccount
+...
 ```
 In the above example, there is a `/data` directory mounted as blobfuse filesystem.
 
