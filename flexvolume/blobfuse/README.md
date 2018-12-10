@@ -5,6 +5,13 @@
 # About
 This driver allows Kubernetes to access virtual filesystem backed by the Azure Blob storage.
 
+ ### blobfuse flexvolume Parameters
+Name | Meaning | Example | Mandatory 
+--- | --- | --- | ---
+container | identical to `container-name` in [blobfuse mount options](https://github.com/Azure/azure-storage-fuse#mount-options) | `test` | Yes
+tmppath | identical to `tmp-path` in [blobfuse mount options](https://github.com/Azure/azure-storage-fuse#mount-options) | `/tmp/blobfuse` | No
+mountoptions | other mount options | `--file-cache-timeout-in-seconds=120 --use-https=true` | No
+
 # Prerequisite
 An storage account and a container should be created in the same region with the kubernetes cluster and storage account name, account key, container name should be provided in below example.
 
@@ -94,13 +101,6 @@ blobfuse         30G  5.5G   24G  19% /data
 ...
 ```
 In the above example, there is a `/data` directory mounted as blobfuse filesystem.
-
- ### blobfuse flexvolume Parameters
-Name | Meaning | Example | Mandatory 
---- | --- | --- | ---
-container | identical to `container-name` in [blobfuse mount options](https://github.com/Azure/azure-storage-fuse#mount-options) | `test` | Yes
-tmppath | identical to `tmp-path` in [blobfuse mount options](https://github.com/Azure/azure-storage-fuse#mount-options) | `/tmp/blobfuse` | No
-mountoptions | other mount options | `--file-cache-timeout-in-seconds=120 --use-https=true` | No
 
 ### Tips
 #### How to use flexvolume driver in Helm
