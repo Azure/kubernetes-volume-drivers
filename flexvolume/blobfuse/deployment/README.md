@@ -1,13 +1,14 @@
 ## 1. Build blobfuse-flexvol-installer image
 
 ```
+REPO_NAME=<YOUR-REPO-NAME>
 cd blobfuse-flexvol-installer
 
-docker build --no-cache -t andyzhangx/blobfuse-flexvol-installer:1.0.7 .
+docker build --no-cache -t $REPO_NAME/blobfuse-flexvol-installer:1.0.7 .
 ```
 ## 2. Test blobfuse-flexvol-installer image
 ```
-docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex andyzhangx/blobfuse-flexvol-installer:1.0.7
+docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex $REPO_NAME/blobfuse-flexvol-installer:1.0.7
 vi /tmp/volumeplugins/azure~blobfuse/blobfuse
 cat /var/log/blobfuse-flexvol-installer.log
 docker stop flex && docker rm flex
@@ -22,8 +23,8 @@ docker logs flex
 ## 3. Push blobfuse-flexvol-installer image
 ```
 docker login
-docker tag andyzhangx/blobfuse-flexvol-installer:1.0.7 andyzhangx/blobfuse-flexvol-installer:latest
-docker push andyzhangx/blobfuse-flexvol-installer:latest
+docker tag $REPO_NAME/blobfuse-flexvol-installer:1.0.7 $REPO_NAME/blobfuse-flexvol-installer:latest
+docker push $REPO_NAME/blobfuse-flexvol-installer:latest
 ```
 
 ### `blobfuse-flexvol-installer` image release notes
