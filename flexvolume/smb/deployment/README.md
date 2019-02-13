@@ -2,13 +2,14 @@
 
 ```
 REPO_NAME=<YOUR-REPO-NAME>
+VER=1.0.2
 cd smb-flexvol-installer
 
-docker build --no-cache -t $REPO_NAME/smb-flexvol-installer:1.0.2 .
+docker build --no-cache -t $REPO_NAME/smb-flexvol-installer:$VER .
 ```
 ## 2. Test smb-flexvol-installer image
 ```
-docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex $REPO_NAME/smb-flexvol-installer:1.0.2
+docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex $REPO_NAME/smb-flexvol-installer:$VER
 vi /tmp/volumeplugins/microsoft.com~smb/smb
 cat /var/log/smb-flexvol-installer.log
 docker stop flex && docker rm flex
@@ -23,7 +24,7 @@ docker logs flex
 ## 3. Push smb-flexvol-installer image
 ```
 docker login
-docker tag $REPO_NAME/smb-flexvol-installer:1.0.2 $REPO_NAME/smb-flexvol-installer:latest
+docker tag $REPO_NAME/smb-flexvol-installer:$VER $REPO_NAME/smb-flexvol-installer:latest
 docker push $REPO_NAME/smb-flexvol-installer:latest
 ```
 
