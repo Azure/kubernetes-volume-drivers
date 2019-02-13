@@ -32,8 +32,8 @@ kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-driv
 
  - check daemonset status:
 ```
-watch kubectl describe daemonset dysk-flexvol-installer --namespace=dysk
-watch kubectl get po --namespace=dysk -o wide
+watch kubectl describe daemonset dysk-flexvol-installer --namespace=kube-system
+watch kubectl get po --namespace=kube-system -o wide
 ```
 > Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
 

@@ -1,15 +1,10 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: dysk
----
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   labels:
     dyskComponent: kernel-flexvol-installer
   name: dysk-flexvol-installer
-  namespace: dysk
+  namespace: kube-system
 spec:
   template:
     metadata:

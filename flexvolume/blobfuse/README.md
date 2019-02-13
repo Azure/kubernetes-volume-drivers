@@ -38,8 +38,8 @@ kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-driv
 
  - check daemonset status:
 ```
-watch kubectl describe daemonset blobfuse-flexvol-installer --namespace=flex
-watch kubectl get po --namespace=flex -o wide
+watch kubectl describe daemonset blobfuse-flexvol-installer --namespace=kube-system
+watch kubectl get po --namespace=kube-system -o wide
 ```
 
 > install blobfuse driver manually, follow step [here](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/blobfuse/install-blobfuse-manually.md)

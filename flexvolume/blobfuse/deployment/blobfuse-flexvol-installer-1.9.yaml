@@ -1,13 +1,8 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: flex
----
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: blobfuse-flexvol-installer
-  namespace: flex
+  namespace: kube-system
   labels:
     k8s-app: blobfuse
 spec:
