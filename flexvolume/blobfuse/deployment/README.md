@@ -2,13 +2,14 @@
 
 ```
 REPO_NAME=<YOUR-REPO-NAME>
+VER=1.0.8
 cd blobfuse-flexvol-installer
 
-docker build --no-cache -t $REPO_NAME/blobfuse-flexvol-installer:1.0.7 .
+docker build --no-cache -t $REPO_NAME/blobfuse-flexvol-installer:$VER .
 ```
 ## 2. Test blobfuse-flexvol-installer image
 ```
-docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex $REPO_NAME/blobfuse-flexvol-installer:1.0.7
+docker run -d -v /tmp/volumeplugins/:/etc/kubernetes/volumeplugins/ -v /var/log:/var/log --name flex $REPO_NAME/blobfuse-flexvol-installer:$VER
 vi /tmp/volumeplugins/azure~blobfuse/blobfuse
 cat /var/log/blobfuse-flexvol-installer.log
 docker stop flex && docker rm flex
@@ -23,7 +24,7 @@ docker logs flex
 ## 3. Push blobfuse-flexvol-installer image
 ```
 docker login
-docker tag $REPO_NAME/blobfuse-flexvol-installer:1.0.7 $REPO_NAME/blobfuse-flexvol-installer:latest
+docker tag $REPO_NAME/blobfuse-flexvol-installer:$VER $REPO_NAME/blobfuse-flexvol-installer:latest
 docker push $REPO_NAME/blobfuse-flexvol-installer:latest
 ```
 
@@ -37,4 +38,5 @@ docker push $REPO_NAME/blobfuse-flexvol-installer:latest
 | 1.0.4 | 1.0.0-RC |  add readOnly support|
 | 1.0.5 | N/A | support kubelet running outside of container; support `tmp-path` parameter|
 | 1.0.6 | N/A | support user specified `mountoptions` parameter|
-| 1.0.7 | N/A | fix mountoptions don't allow blank space issue#4 |
+| 1.0.7 | N/A | fix: mountoptions don't allow blank space issue#4 |
+| 1.0.8 | N/A | fix: invalid character 's' after object key:value pair#9 |
