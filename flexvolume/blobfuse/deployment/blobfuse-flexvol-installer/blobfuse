@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE="/usr/bin/blobfuse"
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.7"
+VER="1.0.8"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -89,8 +89,7 @@ mount() {
 		exit 1
 	fi
 
-	errorLog=`tail -n 1 "${LOG}"`
-	log "{\"status\": \"Success\" , \"message\":\"log:${errorLog}\" }"
+	log '{"status": "Success"}'
 	exit 0
 }
 
