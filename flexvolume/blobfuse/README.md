@@ -123,6 +123,11 @@ helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass
 ```
 sudo cat /var/log/blobfuse-flexvol-installer.log
 ```
+ - Get blobfuse driver version:
+```
+kubectl get po -n kube-system | grep blobfuse
+kubectl describe po blobfuse-flexvol-installer-xxxxx -n kube-system | grep blobfuse-flexvolume
+```
  - If there is pod mounting error like following:
 ```
 MountVolume.SetUp failed for volume "test" : invalid character 'C' looking for beginning of value

@@ -109,6 +109,15 @@ source | smb server address | `//STORAGE-ACCOUNT.file.core.windows.net/SHARE-NAM
 mountoptions | mount options | `vers=3.0,dir_mode=0777,file_mode=0777` | No
 
 #### Debugging skills
+ - Check smb flexvolume installation result on the node:
+```
+sudo cat /var/log/smb-flexvol-installer.log
+```
+ - Get smb driver version:
+```
+kubectl get po -n kube-system | grep smb
+kubectl describe po smb-flexvol-installer-xxxxx -n kube-system | grep smb-flexvolume
+```
  - If there is pod mounting error like following:
 ```
 MountVolume.SetUp failed for volume "test" : invalid character 'C' looking for beginning of value
