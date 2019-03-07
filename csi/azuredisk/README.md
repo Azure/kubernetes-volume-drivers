@@ -1,2 +1,2 @@
-# azuredisk CSI driver for Kubernetes (Alpha)
-Please go to https://github.com/csi-driver/azuredisk-csi-driver
+# Azure disk Container Storage Interface (CSI) Storage Plugin
+Please go to https://github.com/kubernetes-sigs/azuredisk-csi-driver
