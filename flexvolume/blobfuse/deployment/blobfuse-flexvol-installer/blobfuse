@@ -38,6 +38,7 @@ mount() {
 	ACCOUNTKEY=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
 	ACCOUNTSASTOKEN=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountsastoken"] // empty'|base64 -d)
 	CONTAINER=$(echo "$JSON"|"$JQ" -r '.container //empty')
+	DRIVERPATH=$(echo "$JSON"|"$JQ" -r '.driverpath //empty')
 	TMP_PATH=$(echo "$JSON"|"$JQ" -r '.tmppath //empty')
 	MOUNT_OPTIONS=$(echo "$JSON"|"$JQ" -r '.mountoptions //empty')
 	READ_WRITE=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/readwrite"] //empty')
@@ -63,6 +64,11 @@ mount() {
 		exit 0
 	fi
 
+        if [ ! -z "${DRIVERPATH}" ]; then
+                BLOBFUSE=$DRIVERPATH
+                echo "`date` INF: set driver path as $BLOBFUSE " >> $LOG
+        fi
+
 	read_only_param=""
 	if [ $READ_WRITE = "ro" ]; then
 		read_only_param="-o ro"
@@ -75,14 +81,16 @@ mount() {
 
 	if [ ! -z "${ACCOUNTKEY}" ]; then
 		export AZURE_STORAGE_ACCESS_KEY=${ACCOUNTKEY}
+		echo "`date` INF: AZURE_STORAGE_ACCESS_KEY is set " >> $LOG
 	fi
 
 	if [ ! -z "${ACCOUNTSASTOKEN}" ]; then
 		export AZURE_STORAGE_SAS_TOKEN=${ACCOUNTSASTOKEN}
+		echo "`date` INF: AZURE_STORAGE_SAS_TOKEN is set " >> $LOG
 	fi
 
 	# we don't output ACCOUNTKEY here
-	output_comand="export AZURE_STORAGE_ACCOUNT=${ACCOUNTNAME} AZURE_STORAGE_ACCESS_KEY=..."
+	output_comand="export AZURE_STORAGE_ACCOUNT=${ACCOUNTNAME}"
 	echo "`date` INF: export storage account - ${output_comand} " >> $LOG
 	
 	#mounting
