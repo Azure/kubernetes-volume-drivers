@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE="blobfuse"
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.8"
+VER="1.0.9"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -36,6 +36,7 @@ mount() {
 	MNTPATH="$1"
 	ACCOUNTNAME=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountname"] // empty'|base64 -d)
 	ACCOUNTKEY=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
+	ACCOUNTSASTOKEN=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountsastoken"] // empty'|base64 -d)
 	CONTAINER=$(echo "$JSON"|"$JQ" -r '.container //empty')
 	TMP_PATH=$(echo "$JSON"|"$JQ" -r '.tmppath //empty')
 	MOUNT_OPTIONS=$(echo "$JSON"|"$JQ" -r '.mountoptions //empty')
@@ -43,11 +44,6 @@ mount() {
 
 	if [ -z "${ACCOUNTNAME}" ]; then
 		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:accountname is empty\"}"
-		exit 1
-	fi
-
-	if [ -z "${ACCOUNTKEY}" ]; then
-		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:accountkey is empty\"}"
 		exit 1
 	fi
 
@@ -75,7 +71,16 @@ mount() {
 	echo "`date` EXEC: mkdir -p ${MNTPATH}" >> $LOG
 	mkdir -p ${MNTPATH} >>$LOG 2>&1
 
-	export AZURE_STORAGE_ACCOUNT=${ACCOUNTNAME} AZURE_STORAGE_ACCESS_KEY=${ACCOUNTKEY}
+	export AZURE_STORAGE_ACCOUNT=${ACCOUNTNAME}
+
+	if [ ! -z "${ACCOUNTKEY}" ]; then
+		export AZURE_STORAGE_ACCESS_KEY=${ACCOUNTKEY}
+	fi
+
+	if [ ! -z "${ACCOUNTSASTOKEN}" ]; then
+		export AZURE_STORAGE_SAS_TOKEN=${ACCOUNTSASTOKEN}
+	fi
+
 	# we don't output ACCOUNTKEY here
 	output_comand="export AZURE_STORAGE_ACCOUNT=${ACCOUNTNAME} AZURE_STORAGE_ACCESS_KEY=..."
 	echo "`date` INF: export storage account - ${output_comand} " >> $LOG
