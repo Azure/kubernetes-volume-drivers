@@ -2,7 +2,7 @@
 
 DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
-BLOBFUSE="/usr/bin/blobfuse"
+BLOBFUSE="blobfuse"
 LOG="/var/log/blobfuse-driver.log"
 VER="1.0.8"
 
@@ -131,6 +131,7 @@ unmount() {
 op=$1
 
 if [ "$op" = "init" ]; then
+	echo "ENV Path: $PATH" >> $LOG
 	log '{"status": "Success", "capabilities": {"attach": false}}'
 	exit 0
 fi
