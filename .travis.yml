@@ -1,0 +1,13 @@
+language: go
+go_import_path: github.com/Azure/kubernetes-volume-drivers
+
+env:
+  global:
+
+go:
+  - "1.11.4"
+
+before_install:
+
+script:
+  - flexvolume/blobfuse/test/run-test.sh
