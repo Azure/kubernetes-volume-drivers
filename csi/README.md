@@ -5,5 +5,6 @@ This directory contains all kubernetes [CSI](https://kubernetes-csi.github.io/do
 | ---- | ---- |
 | [azuredisk](./azuredisk) | This driver allows Kubernetes to use [azure disk](https://azure.microsoft.com/en-us/services/storage/disks/) volume |
 | [azurefile](./azurefile) | This driver allows Kubernetes to use [azure file](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction) volume |
+| [blobfuse](./blobfuse) | This driver allows Kubernetes to use [blobfuse](https://github.com/Azure/azure-storage-fuse) volume |
 | [dysk](./dysk) | This driver allows Kubernetes to use [fast kernel-mode mount/unmount AzureDisk](https://github.com/khenidak/dysk) |
 | [hostpath](./hostpath) | This driver allows Kubernetes to use hostPath |
