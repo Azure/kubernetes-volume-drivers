@@ -1,5 +1,5 @@
-# dysk FlexVolume driver for Kubernetes (Alpha)
-**WARNING**: This driver is in ALPHA currently. Do NOT use this driver in a production environment in its current state.
+# dysk FlexVolume driver for Kubernetes (Deprecated)
+**WARNING**: This driver is Deprecated. Do NOT use this driver in a production environment in its current state.
 
  - supported Kubernetes version: available from v1.7
  - supported agent OS: Linux
