@@ -1,6 +1,6 @@
-# dysk CSI driver for Kubernetes (Alpha)
+# dysk CSI driver for Kubernetes (Deprecated)
 
-**WARNING**: This driver is in ALPHA currently. Do NOT use this driver in a production environment in its current state.
+**WARNING**: This driver is in Deprecated currently. Do NOT use this driver in a production environment in its current state.
 
  - supported Kubernetes version: v1.10.0 ~ v.11.x
  - supported agent OS: Linux 
