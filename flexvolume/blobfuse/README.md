@@ -31,11 +31,6 @@ Please refer to [config kubelet service to enable FlexVolume driver](https://git
 ```
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
 ```
-> for version v1.8 & v1.7
-> ```
-> kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.8.yaml
-> ```
-> Note: for deployment on v1.7, it requires restarting kubelet on every node(`sudo systemctl restart kubelet`) after daemonset running complete due to [Dynamic Plugin Discovery](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md#dynamic-plugin-discovery) not supported on k8s v1.7
 
  - check daemonset status:
 ```
@@ -46,9 +41,14 @@ watch kubectl get po --namespace=kube-system -o wide
 > install blobfuse driver manually, follow step [here](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/blobfuse/install-blobfuse-manually.md)
 
 # Basic Usage
-## 1. create a secret which stores azure storage account name and key
+## 1. create a secret which stores azure storage account
+ - create a secret which stores azure storage account name and account key
 ```
 kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-NAME --from-literal accountkey="ACCOUNT-KEY" --type="azure/blobfuse"
+```
+ - create a secret which stores azure storage account name and account SAS token
+```
+kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-NAME --from-literal accountsastoken="sastoken" --type="azure/blobfuse"
 ```
 
 ## 2. create a pod with blobfuse flexvolume mount on linux
