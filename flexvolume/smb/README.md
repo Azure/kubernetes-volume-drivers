@@ -1,4 +1,4 @@
-# CIFS/SMB FlexVolume driver for Kubernetes (Preview)
+# CIFS/SMB FlexVolume driver for Kubernetes
  - supported Kubernetes version: available from v1.7
  - supported agent OS: Linux 
  > For Windows support, refer to https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows
