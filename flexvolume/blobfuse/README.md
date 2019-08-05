@@ -135,6 +135,14 @@ MountVolume.SetUp failed for volume "test" : invalid character 'C' looking for b
 ```
 Please attach log file `/var/log/blobfuse-driver.log` and file an issue
 
+ > In most error cases, the failure is due to incorrect storage account name, key or container, follow below guide to check on agent node:
+```
+mkdir test
+export AZURE_STORAGE_ACCOUNT=
+export AZURE_STORAGE_ACCESS_KEY=
+blobfuse test --container-name=CONTAINER-NAME --tmp-path=/tmp/blobfuse -o allow_other --file-cache-timeout-in-seconds=120
+```
+
 ### Links
 [azure-storage-fuse](https://github.com/Azure/azure-storage-fuse)
 
