@@ -144,8 +144,7 @@ blobfuse test --container-name=CONTAINER-NAME --tmp-path=/tmp/blobfuse -o allow_
 ```
 
 ### Links
-[azure-storage-fuse](https://github.com/Azure/azure-storage-fuse)
-
-[Flexvolume doc](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
-
-[Persistent Storage Using FlexVolume Plug-ins](https://docs.openshift.org/latest/install_config/persistent_storage/persistent_storage_flex_volume.html)
+ - [azure-storage-fuse](https://github.com/Azure/azure-storage-fuse)
+ - [blobfuse CSI driver](https://github.com/csi-driver/blobfuse-csi-driver)
+ - [Flexvolume doc](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
+ - [Persistent Storage Using FlexVolume Plug-ins](https://docs.openshift.org/latest/install_config/persistent_storage/persistent_storage_flex_volume.html)
