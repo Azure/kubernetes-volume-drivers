@@ -9,6 +9,10 @@ This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://e
 ### Latest Container Image:
 `mcr.microsoft.com/k8s/flexvolume/smb-flexvolume:1.0.2`
 
+# Prerequisite
+Make sure `jq`, `cifs-utils` packages have already been installed on every agent node of Kubernetes cluster
+> these packages have already been installed Kubernetes cluster created by [AKS](https://azure.microsoft.com/en-us/services/container-service/) or [aks-engine](https://github.com/Azure/aks-engine)  
+
 # Install smb FlexVolume driver on a kubernetes cluster
 ## 1. config kubelet service to enable FlexVolume driver
 > Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) and [aks-engine](https://github.com/Azure/aks-engine)
@@ -16,7 +20,7 @@ This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://e
 Please refer to [config kubelet service to enable FlexVolume driver](https://github.com/Azure/kubernetes-volume-drivers/blob/master/flexvolume/README.md#config-kubelet-service-to-enable-flexvolume-driver)
  
 ## 2. install smb FlexVolume driver on every agent VM
- > Note: You may replace `/etc/kubernetes/volumeplugins` with `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`(by default) in `install-smb-flexvol-ubuntu.sh` if it's not a k8s cluster created by [AKS](https://azure.microsoft.com/en-us/services/container-service/) or [acs-engine](https://github.com/Azure/acs-engine)
+ > Note: You may replace `/etc/kubernetes/volumeplugins` with `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`(by default) in `install-smb-flexvol-ubuntu.sh` if it's not a Kubernetes cluster created by [AKS](https://azure.microsoft.com/en-us/services/container-service/) or [aks-engine](https://github.com/Azure/aks-engine)
 ### Option#1. Automatically install by k8s daemonset
 create daemonset to install smb driver
 ```
@@ -41,6 +45,7 @@ curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/mas
 ```
 kubectl create secret generic smbcreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="microsoft.com/smb"
 ```
+> append `\` before special characters(e.g. `$!`), if `echo` command works well, then password could be parsed in smb plugin, follow details [here](https://github.com/Azure/kubernetes-volume-drivers/issues/34#issuecomment-528722899)
 
 ## 2. create a pod with smb flexvolume mount on linux
 #### Option#1 Ties a flexvolume volume explicitly to a pod
