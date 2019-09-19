@@ -17,9 +17,10 @@ mountoptions | other mount options | `--file-cache-timeout-in-seconds=120 --use-
 `mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.9`
 
 # Prerequisite
-An azure storage account and a container should be created in the same region with the kubernetes cluster and storage account name, account key, container name should be provided in below example.
+ - An azure storage account and a container should be created in the same region with the kubernetes cluster and storage account name, account key, container name should be provided in below example.
+ - Make sure [blobfuse driver](https://github.com/Azure/azure-storage-fuse) has already been installed on every agent node of Kubernetes cluster
 
-# Install blobfuse driver on a kubernetes cluster
+# Install blobfuse FlexVolume driver on a kubernetes cluster
 ## 1. config kubelet service to enable FlexVolume driver
 > Note: skip this step in [AKS](https://azure.microsoft.com/en-us/services/container-service/) and [aks-engine](https://github.com/Azure/aks-engine)
 
