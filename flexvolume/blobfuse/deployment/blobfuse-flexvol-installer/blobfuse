@@ -145,7 +145,7 @@ op=$1
 
 if [ "$op" = "init" ]; then
 	echo "ENV Path: $PATH" >> $LOG
-	log '{"status": "Success", "capabilities": {"attach": false}}'
+	log '{"status": "Success", "capabilities": {"attach": false, "fsGroup": false}}'
 	exit 0
 fi
 
