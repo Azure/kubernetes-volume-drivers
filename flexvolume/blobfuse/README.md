@@ -14,7 +14,7 @@ driverpath | location of `blobfuse` binary | `/usr/bin/blobfuse` | No
 mountoptions | other mount options | `--file-cache-timeout-in-seconds=120 --use-https=true` | No
 
 ### Latest Container Image:
-`mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.9`
+`mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.10`
 
 # Prerequisite
  - An azure storage account and a container should be created in the same region with the kubernetes cluster and storage account name, account key, container name should be provided in below example.
