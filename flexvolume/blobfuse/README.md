@@ -13,6 +13,10 @@ tmppath | identical to `tmp-path` in [blobfuse mount options](https://github.com
 driverpath | location of `blobfuse` binary | `/usr/bin/blobfuse` | No
 mountoptions | other mount options | `--file-cache-timeout-in-seconds=120 --use-https=true` | No
 
+ - `fsGroup` securityContext setting
+
+Blobfuse driver does not honor `fsGroup` securityContext setting, instead user could use `-o gid=1000` in `mountoptions` to set ownership, example [pv-blobfuse-flexvol-gid.yaml](./pv-blobfuse-flexvol-gid.yaml), check https://github.com/Azure/azure-storage-fuse#mount-options for more mountoptions.
+
 ### Latest Container Image:
 `mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.10`
 
