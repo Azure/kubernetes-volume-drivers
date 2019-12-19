@@ -37,6 +37,7 @@ mount() {
 	ACCOUNTNAME=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountname"] // empty'|base64 -d)
 	ACCOUNTKEY=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountkey"] // empty'|base64 -d)
 	ACCOUNTSASTOKEN=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/accountsastoken"] // empty'|base64 -d)
+	BLOBENDPOINT=$(echo "$JSON"|"$JQ" -r '.["kubernetes.io/secret/blobendpoint"] // empty'|base64 -d)
 	CONTAINER=$(echo "$JSON"|"$JQ" -r '.container //empty')
 	DRIVERPATH=$(echo "$JSON"|"$JQ" -r '.driverpath //empty')
 	TMP_PATH=$(echo "$JSON"|"$JQ" -r '.tmppath //empty')
@@ -83,7 +84,12 @@ mount() {
 		export AZURE_STORAGE_ACCESS_KEY=${ACCOUNTKEY}
 		echo "`date` INF: AZURE_STORAGE_ACCESS_KEY is set " >> $LOG
 	fi
-
+	
+	if [ ! -z "${BLOBENDPOINT}" ]; then
+		export AZURE_BLOB_ENDPOINT=${BLOBENDPOINT}
+		echo "`date` INF: BLOBENDPOINT is set " >> $LOG
+	fi
+	
 	if [ ! -z "${ACCOUNTSASTOKEN}" ]; then
 		export AZURE_STORAGE_SAS_TOKEN=${ACCOUNTSASTOKEN}
 		echo "`date` INF: AZURE_STORAGE_SAS_TOKEN is set " >> $LOG
