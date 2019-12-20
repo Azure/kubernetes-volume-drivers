@@ -2,7 +2,7 @@
 
 ```
 REPO_NAME=<YOUR-REPO-NAME>
-VER=1.0.10
+VER=1.0.11
 cd blobfuse-flexvol-installer
 
 docker build --no-cache -t $REPO_NAME/blobfuse-flexvol-installer:$VER .
@@ -42,3 +42,4 @@ docker push $REPO_NAME/blobfuse-flexvol-installer:latest
 | 1.0.8 | N/A | fix: invalid character 's' after object key:value pair#9 |
 | 1.0.9 | N/A | add `driverpath`, `accountsastoken` parameters |
 | 1.0.10 | N/A | ignore `fsGroup` setting([PR#40](https://github.com/Azure/kubernetes-volume-drivers/pull/40)) |
+| 1.0.11 | N/A | add endpoint support([PR#42](https://github.com/Azure/kubernetes-volume-drivers/pull/42)) |

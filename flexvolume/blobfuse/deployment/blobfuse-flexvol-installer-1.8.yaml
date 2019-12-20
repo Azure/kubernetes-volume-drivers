@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: blobfuse-flexvol-installer
-        image: mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.10
+        image: mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.11
         imagePullPolicy: Always
         volumeMounts:
         - name: volplugins
