@@ -56,6 +56,18 @@ kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-N
 kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-NAME --from-literal accountsastoken="sastoken" --type="azure/blobfuse"
 ```
 
+> Sovereign Cloud support, add `blobendpoint` parameter in above commands
+```
+kubectl create secret generic blobfusecreds --from-literal blobendpoint="<youraccountname>.blob.core.chinacloudapi.cn" ...
+```
+available sovereign cloud names(more details could be found [here](https://github.com/Azure/azure-storage-fuse/wiki/2.-Configuring-and-Running#sovereign-clouds)):
+```
+<youraccountname>.blob.core.usgovcloudapi.net
+<youraccountname>.blob.core.chinacloudapi.cn
+<youraccountname>.blob.core.cloudapi.de
+```
+
+
 ## 2. create a pod with blobfuse flexvolume mount on linux
 #### Option#1 Ties a flexvolume volume explicitly to a pod
 - download `nginx-flex-blobfuse.yaml` file and modify `container`, `tmppath`(optional) field
