@@ -14,5 +14,4 @@ spec:
       name: smbcreds
     options:
       source: "//STORAGE-ACCOUNT.file.core.windows.net/SHARE-NAME"
-      mountoptions: "vers=3.0,dir_mode=0777,file_mode=0777"
-
+      mountoptions: "vers=3.0,dir_mode=0777,file_mode=0777"  # more options: https://linux.die.net/man/8/mount.cifs
