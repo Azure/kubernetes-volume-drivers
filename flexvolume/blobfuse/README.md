@@ -18,7 +18,7 @@ mountoptions | other mount options | `--file-cache-timeout-in-seconds=120 --use-
 Blobfuse driver does not honor `fsGroup` securityContext setting, instead user could use `-o gid=1000` in `mountoptions` to set ownership, example [pv-blobfuse-flexvol-gid.yaml](./pv-blobfuse-flexvol-gid.yaml), check https://github.com/Azure/azure-storage-fuse#mount-options for more mountoptions.
 
 ### Latest Container Image:
-`mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.11`
+`mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.12`
 
 # Prerequisite
  - An azure storage account and a container should be created in the same region with the kubernetes cluster and storage account name, account key, container name should be provided in below example.
