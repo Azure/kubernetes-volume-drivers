@@ -86,7 +86,7 @@ mount() {
 	fi
 	
 	if [ ! -z "${BLOBENDPOINT}" ]; then
-		export AZURE_BLOB_ENDPOINT=${BLOBENDPOINT}
+		export AZURE_STORAGE_BLOB_ENDPOINT=${BLOBENDPOINT}
 		echo "`date` INF: BLOBENDPOINT is set " >> $LOG
 	fi
 	
