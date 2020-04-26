@@ -1,5 +1,5 @@
 # blobfuse FlexVolume driver for Kubernetes
- - supported Kubernetes version: available from v1.7
+ - supported Kubernetes version: v1.7.0 or above
  - supported agent OS: Linux
 
 # About
@@ -136,7 +136,7 @@ kubectl create -f pv-blobfuse-flexvol.yaml
 helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass="-" stable/wordpress
 ```
 
-#### Debugging skills
+#### Troubleshooting
  - Check blobfuse flexvolume installation result on the node:
 ```
 sudo cat /var/log/blobfuse-flexvol-installer.log
