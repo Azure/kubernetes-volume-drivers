@@ -17,6 +17,7 @@ RUN \
   apt-get clean && \
   pip3 install --no-cache-dir staticx && \
   staticx `which mount.cifs` ${SOURCE_DIR}/mount.cifs && \
+  chmod +s ${SOURCE_DIR}/mount.cifs && \
   staticx `which jq` ${SOURCE_DIR}/jq
 
 ###################################################
