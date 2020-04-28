@@ -4,8 +4,8 @@
 #  - Please install "jq" package before using this driver.
 
 DIR=$(dirname "$(readlink -f "$0")")
-JQ="${DIR}/jq" && [[ -f ${JQ} ]] || JQ="/usr/bin/jq"
-MOUNT_CIFS="${DIR}/mount.cifs" && [[ -f ${MOUNT_CIFS} ]] || MOUNT_CIFS="/usr/sbin/mount.cifs"
+JQ="${DIR}/jq" && [ -f ${JQ} ] || JQ="/usr/bin/jq"
+MOUNT_CIFS="${DIR}/mount.cifs" && [ -f ${MOUNT_CIFS} ] || MOUNT_CIFS="/usr/sbin/mount.cifs"
 LOG="/var/log/smb-driver.log"
 VER="1.0.2"
 
