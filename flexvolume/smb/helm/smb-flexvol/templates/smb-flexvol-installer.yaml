@@ -4,7 +4,7 @@ metadata:
   name: {{ include "smb-flexvol.fullname" . }}-smb-flexvol-installer
   labels:
     k8s-app: smb
-    {{ include "smb-flexvol.labels" . | indent 4 }}
+{{ include "smb-flexvol.labels" . | indent 4 }}
   namespace: kube-system
 spec:
   selector:
@@ -24,7 +24,7 @@ spec:
         image: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume
         env:
           - name: INSTALL_DEPS
-            value: {{ .Values.smbFlexVolInstaller.installDependencies }}
+            value: "{{ .Values.smbFlexVolInstaller.installDependencies }}"
         imagePullPolicy: Always
         volumeMounts:
         - name: volplugins
