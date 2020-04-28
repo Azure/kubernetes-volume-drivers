@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "smb-flexvol.fullname" . }}-smb-flexvol-installer
+  labels:
+    k8s-app: smb
+    {{ include "smb-flexvol.labels" . | indent 4 }}
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: smb
+      app.kubernetes.io/name: {{ include "smb-flexvol.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        name: smb
+        app.kubernetes.io/name: {{ include "smb-flexvol.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: smb-flexvol-installer
+        image: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: volplugins
+          mountPath: /etc/kubernetes/volumeplugins/
+        - name: varlog
+          mountPath: /var/log/      
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log/              
+      - name: volplugins
+        hostPath:
+          path: {{ .Values.flexVolumePluginPath }}
+          type: DirectoryOrCreate
+      nodeSelector:
+        beta.kubernetes.io/os: linux

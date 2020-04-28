@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "smb-flexvol.fullname" . }}
+  labels:
+{{ include "smb-flexvol.labels" . | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "smb-flexvol.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  capacity:
+    storage: {{ .Values.smb.storageCapacity }}
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  flexVolume:
+    driver: "microsoft.com/smb"
+    secretRef:
+      name: {{ .Values.smb.credsSecretName }}
+    options:
+      source: //{{ .Values.smb.server }}/{{ .Values.smb.share }}
+      mountoptions: {{ .Values.smb.mountOptions }}
