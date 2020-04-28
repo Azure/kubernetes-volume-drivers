@@ -1,5 +1,5 @@
 smbVolume:
-  enabled: true
+  enabled: false
   server: "STORAGE-ACCOUNT.file.core.windows.net"
   share: "SHARE-NAME"
   credsSecretName: # name of k8s secrets to ref
@@ -8,7 +8,7 @@ smbVolume:
   mountOptions: "vers=3.0,dir_mode=0777,file_mode=0777"  
 
 smbVolumeClaim:
-  enabled: true
+  enabled: false
   request: 10Gi
 
 smbFlexVolInstaller:
@@ -22,7 +22,7 @@ smbFlexVolInstaller:
 # flexVolumePluginPath: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/
 
 # Azure AKS:
-flexVolumePluginPath: /etc/kubernetes/volumeplugins
+# flexVolumePluginPath: /etc/kubernetes/volumeplugins
 
 # Google GKE:
 flexVolumePluginPath: /etc/kubernetes/volumeplugins/
