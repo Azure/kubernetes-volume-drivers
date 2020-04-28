@@ -25,6 +25,4 @@ smbFlexVolInstaller:
 flexVolumePluginPath: /etc/kubernetes/volumeplugins
 
 # Google GKE:
-# flexVolumePluginPath: /etc/kubernetes/volumeplugins/
-
-labels: {}
+flexVolumePluginPath: /etc/kubernetes/volumeplugins/
