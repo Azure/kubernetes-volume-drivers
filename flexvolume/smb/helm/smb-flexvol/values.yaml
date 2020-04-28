@@ -1,5 +1,5 @@
 # Set the name of the deployed PersistentVolume[Claim]
-nameOverride: ""
+nameOverride: "ceres-flights"
 fullnameOverride: ""
 
 smbVolume:
@@ -20,15 +20,25 @@ smbFlexVolInstaller:
   # Usually required unless running on Azure AKS which already has these
   installDependencies: true
   image: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume
+  # Tolerate tained nodes when deploying the DaemonSet?
+  tolerations:
+  - key: "hub.jupyter.org_dedicated"
+    value: "user"
+    effect: "NoSchedule"
+  nodeSelector:
+    hub.jupyter.org/node-purpose: user
 
-# You MUST configure the path your k8s platform searches for flex volume plugins
-# See https://rook.io/docs/rook/master/flexvolume.html for helpful per-platform tips
 
-# "Default" location:
-# flexVolumePluginPath: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/
+  # You MUST configure the path your k8s platform searches for flex volume plugins
+  # See https://rook.io/docs/rook/master/flexvolume.html for helpful per-platform tips
 
-# Azure AKS:
-# flexVolumePluginPath: /etc/kubernetes/volumeplugins
+  flexVolumePluginPath: /home/kubernetes/flexvolume
 
-# Google GKE:
-flexVolumePluginPath: /home/kubernetes/flexvolume
+  # "Default" location:
+  # flexVolumePluginPath: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/
+
+  # Azure AKS:
+  # flexVolumePluginPath: /etc/kubernetes/volumeplugins
+
+  # Google GKE:
+  # flexVolumePluginPath: /home/kubernetes/flexvolume
