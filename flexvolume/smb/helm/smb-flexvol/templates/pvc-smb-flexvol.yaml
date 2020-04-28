@@ -1,3 +1,5 @@
+{{ if .Values.smbVolumeClaim.enabled }}
+
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -13,6 +15,8 @@ spec:
   - ReadWriteMany
   resources:
     requests:
-      storage: {{ .Values.storageRequest }}
+      storage: {{ .Values.smbVolumeClaim.request }}
   volumeName: {{ include "smb-flexvol.fullname" . }}
   storageClassName: ""
+
+{{ end }}

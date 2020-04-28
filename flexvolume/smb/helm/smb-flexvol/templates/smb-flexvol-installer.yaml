@@ -22,6 +22,9 @@ spec:
       containers:
       - name: smb-flexvol-installer
         image: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume
+        env:
+          - name: INSTALL_DEPS
+            value: {{ .Values.smbFlexVolInstaller.installDependencies }}
         imagePullPolicy: Always
         volumeMounts:
         - name: volplugins

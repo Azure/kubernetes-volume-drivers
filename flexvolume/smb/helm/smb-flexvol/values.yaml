@@ -1,12 +1,19 @@
-smb:
+smbVolume:
+  enabled: true
   server: "STORAGE-ACCOUNT.file.core.windows.net"
   share: "SHARE-NAME"
   credsSecretName: # name of k8s secrets to ref
-  storageCapacity: 100Gi
+  capacity: 100Gi
   # more mount options: https://linux.die.net/man/8/mount.cifs:
   mountOptions: "vers=3.0,dir_mode=0777,file_mode=0777"  
 
-storageRequest: 10Gi
+smbVolumeClaim:
+  enabled: true
+  request: 10Gi
+
+smbFlexVolInstaller:
+  # Install statically linked jq and cifs-utils on each k8s node?
+  installDependencies: true
 
 # You MUST configure the path your k8s platform searches for flex volume plugins
 # See https://rook.io/docs/rook/master/flexvolume.html for helpful per-platform tips
