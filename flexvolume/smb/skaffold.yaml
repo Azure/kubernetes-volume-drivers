@@ -1,0 +1,19 @@
+# Config file for the Skaffold build/dev tool: https://skaffold.dev/
+
+apiVersion: skaffold/v2beta1
+kind: Config
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+    - image: smb-flexvol-installer
+      context: deployment/smb-flexvol-installer
+deploy:
+  helm:
+    releases:
+    - name: smb-flexvol
+      chartPath: helm/smb-flexvol
+      values:
+        smbFlexVolInstaller.image: smb-flexvol-installer
+      imageStrategy:
+        helm: {}
