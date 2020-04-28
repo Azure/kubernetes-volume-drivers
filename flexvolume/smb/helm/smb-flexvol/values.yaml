@@ -2,11 +2,16 @@
 nameOverride: "ceres-flights"
 fullnameOverride: ""
 
+testPod:
+  enabled: false
+
 smbVolume:
   enabled: false
-  server: "STORAGE-ACCOUNT.file.core.windows.net"
-  share: "SHARE-NAME"
-  credsSecretName: # name of k8s secrets to ref
+  #server: "STORAGE-ACCOUNT.file.core.windows.net"
+  #share: "SHARE-NAME"
+  server: "shitpost"
+  share: "ceres-flights"
+  credsSecretName: "smbcreds" # name of k8s secrets to ref
   capacity: 100Gi
   # more mount options: https://linux.die.net/man/8/mount.cifs:
   mountOptions: "vers=3.0,dir_mode=0777,file_mode=0777"  
