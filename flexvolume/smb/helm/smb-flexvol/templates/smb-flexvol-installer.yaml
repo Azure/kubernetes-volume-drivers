@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: smb-flexvol-installer
-        image: {{ .Values.smbFlexVolInstaller.image }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         env:
           - name: INSTALL_DEPS
             value: "{{ .Values.smbFlexVolInstaller.installDependencies }}"

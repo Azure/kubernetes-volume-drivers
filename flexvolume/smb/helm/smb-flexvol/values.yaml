@@ -19,7 +19,9 @@ smbFlexVolInstaller:
   # Install statically linked jq and cifs-utils on each k8s node?
   # Usually required unless running on Azure AKS which already has these
   installDependencies: true
-  image: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume
+  image:
+    repository: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume
+    tag: latest
   # Tolerate tained nodes when deploying the DaemonSet?
   tolerations:
   - key: "hub.jupyter.org_dedicated"
