@@ -13,6 +13,14 @@ fi
 smb_vol_dir="${target_dir}/microsoft.com~smb"
 mkdir -p ${smb_vol_dir} >> $LOG 2>&1
 
+if [ "$INSTALL_DEPS" = true ] ; then
+  echo "installing statically linked dependencies (jq, cifs-utils)" >> $LOG
+  # copy any other static deps
+  cp ${SOURCE_DIR}/* ${smb_vol_dir} >> $LOG 2>&1
+else
+  echo "skipping installing deps: jq and cifs-utils must be pre-installed" >> $LOG
+fi
+
 #copy smb script
 cp /bin/smb ${smb_vol_dir}/smb >> $LOG 2>&1
 chmod a+x ${smb_vol_dir}/smb >> $LOG 2>&1
