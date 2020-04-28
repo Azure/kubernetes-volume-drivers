@@ -1,3 +1,7 @@
+# Set the name of the deployed PersistentVolume[Claim]
+nameOverride: ""
+fullnameOverride: ""
+
 smbVolume:
   enabled: false
   server: "STORAGE-ACCOUNT.file.core.windows.net"
@@ -13,7 +17,9 @@ smbVolumeClaim:
 
 smbFlexVolInstaller:
   # Install statically linked jq and cifs-utils on each k8s node?
+  # Usually required unless running on Azure AKS which already has these
   installDependencies: true
+  image: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume
 
 # You MUST configure the path your k8s platform searches for flex volume plugins
 # See https://rook.io/docs/rook/master/flexvolume.html for helpful per-platform tips
