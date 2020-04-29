@@ -13,7 +13,7 @@ This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://e
 
 See `./helm/README.md` for instructions on deploying an SMB share to your Kubernetes cluster using Helm.
 The Helm chart compresses the steps below, including installing jq and cifs-utils on each cluster node,
-into one config file (`./helm/values.yaml`) and one deployment step. 
+into one config file (`./helm/smb-flexvol/values.yaml`) and one deployment step. 
 
 # Prerequisite
 Make sure `jq`, `cifs-utils` packages have already been installed on every agent node of Kubernetes cluster
