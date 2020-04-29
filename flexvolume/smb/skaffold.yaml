@@ -3,6 +3,11 @@
 # Skaffold is particularly helpful for iterative development 
 # of the smb-flexvol-installer / helm chart combination.
 #
+# First set your docker image repo to something you can push to, e.g. one of these:
+# - Azure: `skaffold config set default-repo mcr.microsoft.com/MYORG`
+# - DockerHub: `skaffold config set default-repo docker.io/MYORG`
+# - GCR: `skaffold config set default-repo gcr.io/MYORG`
+#
 # Changes to the helm chart or docker installer can be deployed using:
 # `skaffold run`
 #
