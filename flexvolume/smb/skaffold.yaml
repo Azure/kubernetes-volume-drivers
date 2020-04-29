@@ -6,7 +6,7 @@ build:
   tagPolicy:
     sha256: {}
   artifacts:
-    - image: gcr.io/ceres-imaging-science/smb-flexvol-installer
+    - image: smb-flexvolume
       context: deployment/smb-flexvol-installer
 deploy:
   helm:
@@ -14,6 +14,6 @@ deploy:
     - name: smb-flexvol
       chartPath: helm/smb-flexvol
       values:
-        smbFlexVolInstaller.image: gcr.io/ceres-imaging-science/smb-flexvol-installer
+        smbFlexVolInstaller.image: smb-flexvolume
       imageStrategy:
         helm: {}

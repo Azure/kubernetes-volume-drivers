@@ -5,6 +5,7 @@ kind: Pod
 metadata:
   name: {{ include "smb-flexvol.fullname" . }}-testpod
   labels:
+    role: testpod
 {{ include "smb-flexvol.labels" . | indent 4 }}
 spec:
   nodeSelector:
@@ -17,7 +18,7 @@ spec:
     command: ["sleep", "infinity"]
     volumeMounts:
     - name: flexvol-mount
-      mountPath: /data
+      mountPath: {{ .Values.testPod.mountPath }}
   volumes:
   - name: flexvol-mount
     persistentVolumeClaim:
