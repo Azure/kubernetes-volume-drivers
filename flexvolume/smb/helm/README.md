@@ -10,24 +10,24 @@ a "Test" Pod for debugging the setup, and most importantly, a DaemonSet
 which can install the SMB drivers (and dependencies: jq and cifs-utils)
 on each node in your K8S cluster.
 
-## Configure the smbVolume to use your SMB server:
+## Configure the smbVolume for your SMB server/share and deploy:
 
-1. Configure settings in values.yaml marked `MUST CONFIGURE`:
+1. Configure all settings in `values.yaml` marked *MUST CONFIGURE*:
   - Set `smbVolume.server`, `smbVolume.share` to access //smbVolume.server/smbVolume.share
-  - Create an smbcreds secret on your k8s cluster with login for your smb share:
+  - Create an `smbcreds` secret on your k8s cluster with your SMB login credentials:
    ```
    kubectl create secret generic smbcreds --from-literal username=USERNAME --from-literal password="PASSWORD" --type="microsoft.com/smb"
    ```
   - Set `smbFlexVolInstaller.flexVolumePluginPath` to the correct path
     for your kubernetes platform provider (Azure AKS, minikube, etc, 
-    see https://rook.io/docs/rook/master/flexvolume.html for example paths)
+    see https://rook.io/docs/rook/master/flexvolume.html or comments in values.yaml)
 
-2. Deploy to your k8s cluster: 
+2. Deploy the chart to your k8s cluster: 
    ```
    helm install --wait ./helm/smb-flexvol
    ```
 
-## Now you can use the testPod to validate settings:
+## Use the testpod to validate your setup:
 
 We recommend experimenting with your smbVolume and smbVolumeClaim in the testPod
 until everything is working how you want.
