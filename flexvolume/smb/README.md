@@ -11,8 +11,8 @@ This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://e
 
 # Consider using the Helm chart for an all-in-one install
 
-See `./helm/README.md` for instructions in deploying an SMB share using the helm chart.
-The Helm chart compresses the steps below, including installing jq and cifs-utils on nodes,
+See `./helm/README.md` for instructions on deploying an SMB share to your Kubernetes cluster using Helm.
+The Helm chart compresses the steps below, including installing jq and cifs-utils on each cluster node,
 into one config file (`./helm/values.yaml`) and one deployment step. 
 
 # Prerequisite
