@@ -145,4 +145,4 @@ Please attach log file `/var/log/smb-driver.log` and file an issue
 
 ### Developer Tip for working on Helm Chart + Docker FlexVol-Installer 
 
-Skaffold can make it easier iteratively debug the helm chart / docker installer. See `./skaffold.yaml` for details.
+Skaffold can make it easier to iteratively debug the helm chart / docker installer. See `./skaffold.yaml` for details.
