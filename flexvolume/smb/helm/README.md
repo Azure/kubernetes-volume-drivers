@@ -12,7 +12,7 @@ on each node in your K8S cluster.
 
 ## Configure the smbVolume for your SMB server/share and deploy:
 
-1. Configure all settings in `values.yaml` marked *MUST CONFIGURE*:
+1. Edit `values.yaml` and configure lines marked *MUST CONFIGURE*:
   - Set `smbVolume.server`, `smbVolume.share` to access //smbVolume.server/smbVolume.share
   - Create an `smbcreds` secret on your k8s cluster with your SMB login credentials:
    ```
@@ -41,3 +41,5 @@ until everything is working how you want.
   ```
   kubectl exec -it $(kubectl get pod -l "role=testpod" -o name) -- bash
   ```
+
+That's it! Happy helming!

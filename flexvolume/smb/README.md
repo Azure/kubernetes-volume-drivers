@@ -142,3 +142,7 @@ Please attach log file `/var/log/smb-driver.log` and file an issue
 [Flexvolume doc](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
 
 [Persistent Storage Using FlexVolume Plug-ins](https://docs.openshift.org/latest/install_config/persistent_storage/persistent_storage_flex_volume.html)
+
+### Developer Tip for working on Helm Chart + Docker FlexVol-Installer 
+
+Skaffold can make it easier iteratively debug the helm chart / docker installer. See `./skaffold.yaml` for details.
