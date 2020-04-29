@@ -7,7 +7,7 @@ MNTPATH="/tmp/smb-mnt"
 
 echo "begin to run smb test ..."
 echo "$DRIVER init test..."
-$DRIVER init
+sudo $DRIVER init
 retcode=$?
 if [ $retcode -gt 0 ]; then
         exit $retcode
@@ -17,7 +17,7 @@ fi
 
 mkdir -p $MNTPATH
 echo "$DRIVER unmount test..."
-$DRIVER unmount $MNTPATH
+sudo $DRIVER unmount $MNTPATH
 if [ $retcode -gt 0 ]; then
         exit $retcode
 fi
