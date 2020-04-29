@@ -1,11 +1,11 @@
 smbVolume:
   enabled: true
 
-  # MUST CONFIGURE:
-  #server: "STORAGE-ACCOUNT.file.core.windows.net"
+  # MUST CONFIGURE: used as //server/share
+  server: "STORAGE-ACCOUNT.file.core.windows.net"
 
-  # MUST CONFIGURE:
-  #share: "SHARE-NAME"
+  # MUST CONFIGURE: used as //server/share
+  share: "SHARE-NAME"
 
   # MUST CONFIGURE: create a secret with this name, see README
   credsSecretName: "smbcreds" # name of k8s secrets to ref
@@ -16,9 +16,8 @@ smbVolume:
 
 smbFlexVolInstaller:
 
-  # MUST CONFIGURE:
-  # Set this to the path *your* k8s platform searches for FlexVolume plugins
-  flexVolumePluginPath: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/
+  # MUST CONFIGURE: the path *your* k8s platform searches for FlexVolume plugins
+  flexVolumePluginPath: /etc/kubernetes/volumeplugins
 
   # Azure AKS:
   # flexVolumePluginPath: /etc/kubernetes/volumeplugins
