@@ -9,9 +9,15 @@ This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://e
 ### Latest Container Image:
 `mcr.microsoft.com/k8s/flexvolume/smb-flexvolume:1.0.2`
 
+# Consider using the Helm chart for an all-in-one install
+
+See `./helm/README.md` for instructions in deploying an SMB share using the helm chart.
+The Helm chart compresses the steps below, including installing jq and cifs-utils on nodes,
+into one config file (`./helm/values.yaml`) and one deployment step. 
+
 # Prerequisite
 Make sure `jq`, `cifs-utils` packages have already been installed on every agent node of Kubernetes cluster
-> these packages have already been installed in Kubernetes cluster created by [AKS](https://azure.microsoft.com/en-us/services/container-service/) or [aks-engine](https://github.com/Azure/aks-engine)  
+> these packages have already been installed in Kubernetes cluster created by [AKS](https://azure.microsoft.com/en-us/services/container-service/) or [aks-engine](https://github.com/Azure/aks-engine).
 
 # Install smb FlexVolume driver on a kubernetes cluster
 ## 1. config kubelet service to enable FlexVolume driver
