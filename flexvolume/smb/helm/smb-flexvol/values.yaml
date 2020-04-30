@@ -45,6 +45,10 @@ smbFlexVolInstaller:
   nodeSelector:
   #  hub.jupyter.org/node-purpose: user
 
+  # You can disable this if your nodes already have jq and mount.cifs installed
+  # Hint: pretty much only Azure AKS has these installed by default
+  installDependencies: true
+
 testPod:
   enabled: true
   # Path on the testPod to mount the smbVolume
