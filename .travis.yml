@@ -1,14 +1,18 @@
 language: go
 go_import_path: github.com/Azure/kubernetes-volume-drivers
+dist: bionic
 
 env:
   global:
 
 go:
-  - "1.11.4"
+  - "1.12.1"
 
 before_install:
 
 script:
+  - hack/verify-all.sh
   - flexvolume/blobfuse/test/run-test.sh
   - flexvolume/smb/test/run-test.sh
+  - docker build --no-cache -t smb:test flexvolume/smb/deployment/smb-flexvol-installer/
+  - docker build --no-cache -t blobfuse:test flexvolume/blobfuse/deployment/blobfuse-flexvol-installer/

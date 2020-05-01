@@ -1,10 +1,11 @@
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pvc-blobfuse-flexvol
 spec:
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   resources:
     requests:
       storage: 10Gi
