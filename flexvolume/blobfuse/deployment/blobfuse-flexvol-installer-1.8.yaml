@@ -1,3 +1,4 @@
+---
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
@@ -15,20 +16,20 @@ spec:
         name: blobfuse
     spec:
       containers:
-      - name: blobfuse-flexvol-installer
-        image: mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.12
-        imagePullPolicy: Always
-        volumeMounts:
-        - name: volplugins
-          mountPath: /etc/kubernetes/volumeplugins/
-        - name: varlog
-          mountPath: /var/log/      
+        - name: blobfuse-flexvol-installer
+          image: mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.12
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: volplugins
+              mountPath: /etc/kubernetes/volumeplugins/
+            - name: varlog
+              mountPath: /var/log/
       volumes:
-      - name: varlog
-        hostPath:
-          path: /var/log/              
-      - name: volplugins
-        hostPath:
-          path: /etc/kubernetes/volumeplugins/
+        - name: varlog
+          hostPath:
+            path: /var/log/
+        - name: volplugins
+          hostPath:
+            path: /etc/kubernetes/volumeplugins/
       nodeSelector:
         beta.kubernetes.io/os: linux
