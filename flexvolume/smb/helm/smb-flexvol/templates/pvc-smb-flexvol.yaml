@@ -1,0 +1,22 @@
+{{ if .Values.smbVolumeClaim.enabled }}
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "smb-flexvol.fullname" . }}
+  labels:
+{{ include "smb-flexvol.labels" . | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "smb-flexvol.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.smbVolumeClaim.request }}
+  volumeName: {{ include "smb-flexvol.fullname" . }}
+  storageClassName: ""
+
+{{ end }}

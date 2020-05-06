@@ -9,9 +9,15 @@ This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://e
 ### Latest Container Image:
 `mcr.microsoft.com/k8s/flexvolume/smb-flexvolume:1.0.2`
 
+# Consider using the Helm chart for an all-in-one install
+
+See `./helm/README.md` for instructions on deploying an SMB share to your Kubernetes cluster using Helm.
+The Helm chart compresses the steps below, including installing jq and cifs-utils on each cluster node,
+into one config file (`./helm/smb-flexvol/values.yaml`) and one deployment step. 
+
 # Prerequisite
 Make sure `jq`, `cifs-utils` packages have already been installed on every agent node of Kubernetes cluster
-> these packages have already been installed in Kubernetes cluster created by [AKS](https://azure.microsoft.com/en-us/services/container-service/) or [aks-engine](https://github.com/Azure/aks-engine)  
+> these packages have already been installed in Kubernetes cluster created by [AKS](https://azure.microsoft.com/en-us/services/container-service/) or [aks-engine](https://github.com/Azure/aks-engine).
 
 # Install smb FlexVolume driver on a kubernetes cluster
 ## 1. config kubelet service to enable FlexVolume driver
@@ -136,3 +142,7 @@ Please attach log file `/var/log/smb-driver.log` and file an issue
 [Flexvolume doc](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
 
 [Persistent Storage Using FlexVolume Plug-ins](https://docs.openshift.org/latest/install_config/persistent_storage/persistent_storage_flex_volume.html)
+
+### Developer Tip for working on Helm Chart + Docker FlexVol-Installer 
+
+Skaffold can make it easier to iteratively debug the helm chart / docker installer. See `./skaffold.yaml` for details.

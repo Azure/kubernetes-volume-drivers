@@ -1,0 +1,27 @@
+{{ if .Values.testPod.enabled }}
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "smb-flexvol.fullname" . }}-testpod
+  labels:
+    role: testpod
+{{ include "smb-flexvol.labels" . | indent 4 }}
+spec:
+  nodeSelector:
+{{ toYaml .Values.smbFlexVolInstaller.nodeSelector | indent 4 }}
+  tolerations:
+{{ toYaml .Values.smbFlexVolInstaller.tolerations | indent 4 }}
+  containers:
+  - name: testpod
+    image: debian
+    command: ["sleep", "infinity"]
+    volumeMounts:
+    - name: flexvol-mount
+      mountPath: {{ .Values.testPod.mountPath }}
+  volumes:
+  - name: flexvol-mount
+    persistentVolumeClaim:
+      claimName: {{ include "smb-flexvol.fullname" . }}
+
+{{ end }}

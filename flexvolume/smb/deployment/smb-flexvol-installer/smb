@@ -4,7 +4,8 @@
 #  - Please install "jq" package before using this driver.
 
 DIR=$(dirname "$(readlink -f "$0")")
-JQ="/usr/bin/jq"
+JQ="${DIR}/jq" && [ -f ${JQ} ] || JQ="/usr/bin/jq"
+MOUNT_CIFS="${DIR}/mount.cifs" && [ -f ${MOUNT_CIFS} ] || MOUNT_CIFS="/usr/sbin/mount.cifs"
 LOG="/var/log/smb-driver.log"
 VER="1.0.2"
 
@@ -60,9 +61,9 @@ mount() {
 	mkdir -p ${MNTPATH} >>$LOG 2>&1
 
 	#mounting
-	echo "`date` EXEC: /bin/mount -t cifs ${VOLUME_SRC} ${MNTPATH}" >>$LOG
+	echo "`date` EXEC: ${MOUNT_CIFS} ${VOLUME_SRC} ${MNTPATH}" >>$LOG
 	
-	/bin/mount -t cifs "${VOLUME_SRC}" "${MNTPATH}" -o "${ALL_OPTIONS}" >>$LOG 2>&1
+	"${MOUNT_CIFS}" "${VOLUME_SRC}" "${MNTPATH}" -o "${ALL_OPTIONS}" >>$LOG 2>&1
 	if [ $? -ne 0 ]; then
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device ${DMDEV} at ${MNTPATH}, user:${USERNAME}, ${VOLUME_SRC}, error log:${errorLog}\" }"

@@ -1,0 +1,63 @@
+smbVolume:
+  enabled: true
+
+  # MUST CONFIGURE: used as //server/share
+  server: "STORAGE-ACCOUNT.file.core.windows.net"
+
+  # MUST CONFIGURE: used as //server/share
+  share: "SHARE-NAME"
+
+  # MUST CONFIGURE: create a secret with this name, see README
+  credsSecretName: "smbcreds" # name of k8s secrets to ref
+  
+  # more mount options: https://linux.die.net/man/8/mount.cifs:
+  mountOptions: "vers=3.0,dir_mode=0777,file_mode=0777" 
+  capacity: 100Gi
+
+smbFlexVolInstaller:
+
+  # MUST CONFIGURE: the path *your* k8s platform searches for FlexVolume plugins
+  flexVolumePluginPath: /etc/kubernetes/volumeplugins
+
+  # Azure AKS:
+  # flexVolumePluginPath: /etc/kubernetes/volumeplugins
+
+  # "Default" location:
+  # flexVolumePluginPath: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/
+
+  # Google GKE:
+  # flexVolumePluginPath: /home/kubernetes/flexvolume
+
+  # Other platform?
+  # See:  https://rook.io/docs/rook/master/flexvolume.html 
+
+  image:
+    repository: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume
+    tag: latest
+
+  # Permit the DaemonSet to deploy on tainted nodes
+  tolerations:
+  # - key: "hub.jupyter.org_dedicated"
+  #  value: "user"
+  #  effect: "NoSchedule"
+
+  # Select nodes on which to deploy the DaemonSet
+  nodeSelector:
+  #  hub.jupyter.org/node-purpose: user
+
+  # You can disable this if your nodes already have jq and mount.cifs installed
+  # Hint: pretty much only Azure AKS has these installed by default
+  installDependencies: true
+
+testPod:
+  enabled: true
+  # Path on the testPod to mount the smbVolume
+  mountPath: /data
+
+smbVolumeClaim:
+  enabled: true
+  request: 10Gi
+
+
+nameOverride:
+fullnameOverride:
