@@ -34,7 +34,7 @@ until everything is working how you want.
 
 3. Check if your smbVolume mounted to testPod.mountPath (/data by default):
   ```
-  kubectl exec $(kubectl get pod -l "role=testpod" -o name) -- ls /data`
+  kubectl exec $(kubectl get pod -l "role=testpod" -o name) -- ls /data
   ```
 
 4. Debug interactively on the testPod if necessary:
