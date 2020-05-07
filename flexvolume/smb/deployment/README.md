@@ -2,7 +2,7 @@
 
 ```
 REPO_NAME=<YOUR-REPO-NAME>
-VER=1.0.2
+VER=1.0.3
 cd smb-flexvol-installer
 
 docker build --no-cache -t $REPO_NAME/smb-flexvol-installer:$VER .
@@ -34,3 +34,4 @@ docker push $REPO_NAME/smb-flexvol-installer:latest
 | 1.0.0 | 1st version  |
 | 1.0.1 | change cifs name to smb |
 | 1.0.2 | fix potential blank space issue in smb mountoptions |
+| 1.0.3 | install `jq`, `cifs-utils` by smb-flexvolume image |
