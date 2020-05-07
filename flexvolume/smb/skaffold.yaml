@@ -1,6 +1,6 @@
 # Config file for the Skaffold build/dev tool: https://skaffold.dev/
 #
-# Skaffold is particularly helpful for iterative development 
+# Skaffold is particularly helpful for iterative development
 # of the smb-flexvol-installer / helm chart combination.
 #
 # First set your docker image repo to something you can push to, e.g. one of these:
@@ -13,7 +13,7 @@
 #
 # Continuous "dev cycle" deploys can be run using:
 # `skaffold dev`
-
+---
 apiVersion: skaffold/v2beta1
 kind: Config
 build:
@@ -25,9 +25,9 @@ build:
 deploy:
   helm:
     releases:
-    - name: smb-flexvol
-      chartPath: helm/smb-flexvol
-      values:
-        smbFlexVolInstaller.image: smb-flexvolume
-      imageStrategy:
-        helm: {}
+      - name: smb-flexvol
+        chartPath: helm/smb-flexvol
+        values:
+          smbFlexVolInstaller.image: smb-flexvolume
+        imageStrategy:
+          helm: {}
