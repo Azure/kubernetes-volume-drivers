@@ -7,10 +7,6 @@ metadata:
   labels:
 {{ include "smb-flexvol.labels" . | indent 4 }}
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ include "smb-flexvol.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
   capacity:
     storage: {{ .Values.smbVolume.capacity }}
   accessModes:
