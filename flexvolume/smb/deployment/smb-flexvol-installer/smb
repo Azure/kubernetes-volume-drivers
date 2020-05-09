@@ -5,7 +5,7 @@
 
 DIR=$(dirname "$(readlink -f "$0")")
 JQ="${DIR}/jq" && [ -f ${JQ} ] || JQ="/usr/bin/jq"
-MOUNT_CIFS="${DIR}/mount.cifs" && [ -f ${MOUNT_CIFS} ] || MOUNT_CIFS="/usr/sbin/mount.cifs"
+MOUNT_CIFS="${DIR}/mount.cifs" && [ -f ${MOUNT_CIFS} ] || MOUNT_CIFS="/bin/mount -t cifs"
 LOG="/var/log/smb-driver.log"
 VER="1.0.3"
 
