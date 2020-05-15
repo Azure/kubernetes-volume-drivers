@@ -120,7 +120,7 @@ Name | Meaning | Example | Mandatory
 source | smb server address | `//STORAGE-ACCOUNT.file.core.windows.net/SHARE-NAME` for auzre file format | Yes
 mountoptions | mount options | `vers=3.0,dir_mode=0777,file_mode=0777` | No
 
-#### Debugging skills
+#### Debugging tips
  - Check smb flexvolume installation result on the node:
 ```
 sudo cat /var/log/smb-flexvol-installer.log
