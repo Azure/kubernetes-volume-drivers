@@ -6,7 +6,7 @@ fi
 
 LOG=/tmp/yamllint.log
 
-for path in "flexvolume/smb/*.yaml" "flexvolume/smb/deployment/*.yaml" "flexvolume/blobfuse/*.yaml" "flexvolume/blobfuse/deployment/*.yaml"
+for path in "flexvolume/smb/*.yaml" "flexvolume/smb/deployment/*.yaml" "flexvolume/blobfuse/*.yaml" "flexvolume/blobfuse/deployment/*.yaml" "local/*.yaml"
 do
     echo "checking yamllint under path: $path ..."
     yamllint -f parsable $path | grep -v "line too long" > $LOG

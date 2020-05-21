@@ -1,0 +1,50 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-localdisk
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: fast-disks
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: deployment-localdisk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+      name: deployment-localdisk
+    spec:
+      containers:
+        - name: deployment-localdisk
+          image: nginx
+          command:
+            - "/bin/sh"
+            - "-c"
+            - while true; do echo $(date) >> /mnt/localdisk/outfile; sleep 1; done
+          volumeMounts:
+            - name: localdisk
+              mountPath: "/mnt/localdisk"
+              readOnly: false
+      volumes:
+        - name: localdisk
+          persistentVolumeClaim:
+            claimName: pvc-localdisk
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
