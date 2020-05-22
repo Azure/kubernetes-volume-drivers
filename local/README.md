@@ -3,8 +3,9 @@ The goal of this repository is to enable Kubernetes workloads using local disks,
 
 This repository leverages [local volume static provisioner](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner) to manage the PersistentVolume lifecycle for pre-allocated disks by detecting, formatting and creating PVs for each local disk on the agent node, and cleaning up the disks when released.
 
-### Supported Kubernetes version: 1.14+
-### Supported OS: Linux
+### Supported matrix
+ - Kubernetes version: 1.14+
+ - OS: Linux
 
 ## Usage
 ### 1. Install local volume static provisioner on a Kubernetes cluster
