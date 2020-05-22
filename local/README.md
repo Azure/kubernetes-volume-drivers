@@ -25,7 +25,7 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-storageclass.yaml
 ```
 
-### 3. New persistent volumes would be created after provisioner daemonset started
+ - Persistent volumes would be created after provisioner daemonset started
 > In following example, one PV would be created per one NVMe disk
 ```console
 # kubectl get pv
@@ -62,12 +62,12 @@ status:
   phase: Available
 ```
 
-### 4. Create a PVC and pod to consume that PV
+### 3. Create a PVC and pod to consume that PV
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/deployment.yaml
 ```
 
-### 5. Enter the pod to verify
+### 4. Enter the pod to verify
 > in below example, NVMe disk has been formatted as `ext4` file system 
 ```console
 # k exec -it deployment-localdisk-56cf8d4c5c-clwbl bash
