@@ -3,7 +3,11 @@ The goal of this repository is to enable Kubernetes workloads using local disks,
 
 This repository leverages [local volume static provisioner](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner) to manage the PersistentVolume lifecycle for pre-allocated disks by detecting, formatting and creating PVs for each local disk on the agent node, and cleaning up the disks when released.
 
-### Install local volume static provisioner on a Kubernetes cluster
+### Supported Kubernetes version: 1.14+
+### Supported OS: Linux
+
+## Usage
+### 1. Install local volume static provisioner on a Kubernetes cluster
 #### Option#1: discover NVMe SSD(`/dev/nvme*`) disks
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-provisioner-nvmedisk.yaml
@@ -15,12 +19,12 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 ```
 > you can also download [local-pv-provisioner-nvmedisk.yaml](https://github.com/Azure/kubernetes-volume-drivers/blob/master/local/local-pv-provisioner-nvmedisk.yaml) and modify `namePattern` field to match other pre-allocated disks.
 
-### Create a new local volume storage class
+### 2. Create a new local volume storage class
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-storageclass.yaml
 ```
 
-### New persistent volumes would be created after provisioner daemonset started
+### 3. New persistent volumes would be created after provisioner daemonset started
 > In following example, one PV would be created per one NVMe disk
 ```console
 # kubectl get pv
@@ -57,12 +61,12 @@ status:
   phase: Available
 ```
 
-### Create a PVC and pod to consume that PV
+### 4. Create a PVC and pod to consume that PV
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/deployment.yaml
 ```
 
-### enter the pod to do validation
+### 5. Enter the pod to verify
 > in below example, NVMe disk has been formatted as `ext4` file system 
 ```console
 # k exec -it deployment-localdisk-56cf8d4c5c-clwbl bash
