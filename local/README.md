@@ -80,7 +80,7 @@ Filesystem      Size  Used Avail Use% Mounted on
 ```
 
 #### Notes
-If `reclaimPolicy` is set as `Delete` in local volume storage class, data will be cleaned up after PVC deleted, local volume PV would be in `Released` status, after around 5min by default, PV status would be changed to `Bound`, user could tune [minResyncPeriod](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/provisioner.md#configuration) value to make PV status refresh more quickly.
+If `reclaimPolicy` is set as `Delete` in [local volume storage class](https://github.com/Azure/kubernetes-volume-drivers/blob/6846c13ebc6a8d8682f6265ae4ae588857de31ab/local/local-pv-storageclass.yaml#L8), data will be cleaned up after PVC deleted, local volume PV would be in `Released` status, after around 5min by default, PV status would be changed to `Bound`, user could tune [minResyncPeriod](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/provisioner.md#configuration) value to make PV status refresh more quickly.
 
 ### Links
  - [Local Volume](https://kubernetes.io/docs/concepts/storage/volumes/#local)
