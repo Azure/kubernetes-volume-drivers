@@ -67,7 +67,6 @@ available sovereign cloud names(more details could be found [here](https://githu
 <youraccountname>.blob.core.cloudapi.de
 ```
 
-
 ## 2. create a pod with blobfuse flexvolume mount on linux
 #### Option#1 Ties a flexvolume volume explicitly to a pod
 - download `nginx-flex-blobfuse.yaml` file and modify `container`, `tmppath`(optional) field
@@ -157,6 +156,8 @@ Please attach log file `/var/log/blobfuse-driver.log` and file an issue
 mkdir test
 export AZURE_STORAGE_ACCOUNT=
 export AZURE_STORAGE_ACCESS_KEY=
+# only for sovereign cloud
+# export AZURE_STORAGE_BLOB_ENDPOINT=<youraccountname>.blob.core.chinacloudapi.cn
 blobfuse test --container-name=CONTAINER-NAME --tmp-path=/tmp/blobfuse -o allow_other --file-cache-timeout-in-seconds=120
 ```
 
