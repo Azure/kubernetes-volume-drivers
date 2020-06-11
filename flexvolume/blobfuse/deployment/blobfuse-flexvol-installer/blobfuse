@@ -98,6 +98,9 @@ mount() {
 	# we don't output ACCOUNTKEY here
 	output_comand="export AZURE_STORAGE_ACCOUNT=${ACCOUNTNAME}"
 	echo "`date` INF: export storage account - ${output_comand} " >> $LOG
+
+	# mkdir to fix issue: https://github.com/Azure/kubernetes-volume-drivers/issues/58 on blobfuse 1.2.3
+	mkdir -p ${TMP_PATH}
 	
 	#mounting
 	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param} ${MOUNT_OPTIONS}" >>$LOG
