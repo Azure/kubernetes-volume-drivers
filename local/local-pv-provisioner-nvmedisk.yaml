@@ -35,8 +35,7 @@ spec:
     spec:
       serviceAccountName: local-storage-admin
       containers:
-        - image: "andyzhangx/local-volume-provisioner:v2.3.5"
-          imagePullPolicy: "Always"
+        - image: "mcr.microsoft.com/k8s/local-volume-provisioner:v2.3.5-alpha"
           name: provisioner
           securityContext:
             privileged: true
