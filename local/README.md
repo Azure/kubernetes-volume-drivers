@@ -14,7 +14,7 @@ This repository leverages [local volume static provisioner](https://github.com/k
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-provisioner-nvmedisk.yaml
 ```
 
-#### Option#2: discover temp disk(`/dev/sdb1`) disk
+#### Option#2: discover temp(`/dev/sdb1`) disk
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-provisioner-tempdisk.yaml
 ```
