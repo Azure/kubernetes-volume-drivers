@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    component: sysctl-install-blobfuse
+  name: sysctl-install-blobfuse
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      component: sysctl-install-blobfuse
+      tier: node
+  template:
+    metadata:
+      labels:
+        component: sysctl-install-blobfuse
+        tier: node
+    spec:
+      containers:
+      - command:
+        - nsenter
+        - --target
+        - "1"
+        - --mount
+        - --uts
+        - --ipc
+        - --net
+        - --pid
+        - --
+        - sh
+        - -c
+        - |
+          apt-get install blobfuse=1.1.1 -y --allow-downgrades
+          sleep 600000000s
+        image: alpine
+        imagePullPolicy: IfNotPresent
+        name: sysctl-install-blobfuse
+        resources:
+          requests:
+            cpu: 10m
+        securityContext:
+          privileged: true
+      dnsPolicy: ClusterFirst
+      hostPID: true
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      restartPolicy: Always
+  updateStrategy:
+    type: OnDelete
