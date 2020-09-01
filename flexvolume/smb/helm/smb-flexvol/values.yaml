@@ -1,4 +1,5 @@
 smbVolume:
+  # Deploy an SMB PersistentVolume directed at your server and share
   enabled: true
 
   # MUST CONFIGURE: used as //server/share
@@ -15,6 +16,9 @@ smbVolume:
   capacity: 100Gi
 
 smbFlexVolInstaller:
+  # Deploy the smb-flexvol daemonset (think: 'driver') to cluster nodes
+  # enabling SMB mounting support on targeted nodes
+  enabled: true
 
   # MUST CONFIGURE: the path *your* k8s platform searches for FlexVolume plugins
   flexVolumePluginPath: /etc/kubernetes/volumeplugins
@@ -55,6 +59,7 @@ testPod:
   mountPath: /data
 
 smbVolumeClaim:
+  # If you want an SMB volume deployed, you'll need the claim deployed as well
   enabled: true
   request: 10Gi
 
