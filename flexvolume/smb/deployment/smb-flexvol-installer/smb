@@ -97,7 +97,7 @@ unmount() {
 op=$1
 
 if [ "$op" = "init" ]; then
-	log '{"status": "Success", "capabilities": {"attach": false}}'
+	log '{"status": "Success", "capabilities": {"attach": false, "fsGroup": false}}'
 	exit 0
 fi
 
