@@ -15,6 +15,7 @@ spec:
       labels:
         name: blobfuse
     spec:
+      priorityClassName: system-node-critical
       containers:
         - name: blobfuse-flexvol-installer
           image: mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.13
