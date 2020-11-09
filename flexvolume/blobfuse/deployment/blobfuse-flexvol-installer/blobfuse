@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE="blobfuse"
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.13"
+VER="1.0.14"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -55,7 +55,7 @@ mount() {
 	fi
 	
 	if [ -z "${TMP_PATH}" ]; then
-		TMP_PATH="/mnt/blobfuse/"
+		TMP_PATH="/mnt/blobfuse$RANDOM/"
 		echo `date` "INFO: tmp-path not specified, use default path: ${TMP_PATH}"  >> $LOG
 	fi
 

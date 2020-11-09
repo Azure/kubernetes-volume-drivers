@@ -2,7 +2,7 @@
 
 ```
 REPO_NAME=<YOUR-REPO-NAME>
-VER=1.0.13
+VER=1.0.14
 cd blobfuse-flexvol-installer
 
 docker build --no-cache -t $REPO_NAME/blobfuse-flexvol-installer:$VER .
@@ -45,3 +45,4 @@ docker push $REPO_NAME/blobfuse-flexvol-installer:latest
 | 1.0.11 | N/A | add endpoint support([PR#42](https://github.com/Azure/kubernetes-volume-drivers/pull/42)) |
 | 1.0.12 | N/A | fix sovereign cloud issue |
 | 1.0.13 | N/A | fix blobfuse mkdir issue([PR#60](https://github.com/Azure/kubernetes-volume-drivers/pull/60)) |
+| 1.0.14 | N/A | default `tmp-path` to `/mnt`([PR#60](https://github.com/Azure/kubernetes-volume-drivers/pull/86)) |
