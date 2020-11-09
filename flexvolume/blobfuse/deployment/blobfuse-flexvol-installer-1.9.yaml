@@ -25,6 +25,10 @@ spec:
               mountPath: /etc/kubernetes/volumeplugins/
             - name: varlog
               mountPath: /var/log/
+            - name: tmp
+              mountPath: /tmp/
+            - name: mnt
+              mountPath: /mnt/
       volumes:
         - name: varlog
           hostPath:
@@ -32,5 +36,11 @@ spec:
         - name: volplugins
           hostPath:
             path: /etc/kubernetes/volumeplugins/
+        - name: tmp
+          hostPath:
+            path: /tmp/
+        - name: mnt
+          hostPath:
+            path: /mnt/
       nodeSelector:
         beta.kubernetes.io/os: linux
