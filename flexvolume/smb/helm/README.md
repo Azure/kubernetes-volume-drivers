@@ -32,9 +32,11 @@ on each node in your K8S cluster.
 We recommend experimenting with your smbVolume and smbVolumeClaim in the testPod
 until everything is working how you want.
 
+Note: the below commands require kubectl version >=v1.15
+
 3. Check if your smbVolume mounted to testPod.mountPath (/data by default):
   ```
-  kubectl exec $(kubectl get pod -l "role=testpod" -o name) -- ls /data`
+  kubectl exec $(kubectl get pod -l "role=testpod" -o name) -- ls /data
   ```
 
 4. Debug interactively on the testPod if necessary:
