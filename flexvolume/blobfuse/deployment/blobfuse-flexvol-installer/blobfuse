@@ -55,7 +55,7 @@ mount() {
 	fi
 	
 	if [ -z "${TMP_PATH}" ]; then
-		TMP_PATH="/tmp/blobfuse/"
+		TMP_PATH="/mnt/blobfuse/"
 		echo `date` "INFO: tmp-path not specified, use default path: ${TMP_PATH}"  >> $LOG
 	fi
 
