@@ -7,7 +7,7 @@
 This driver allows Kubernetes to access SMB server by using [CIFS/SMB](https://en.wikipedia.org/wiki/Server_Message_Block) protocol.
 
 ### Latest Container Image:
-`mcr.microsoft.com/k8s/flexvolume/smb-flexvolume:1.0.3`
+`mcr.microsoft.com/k8s/flexvolume/smb-flexvolume:1.0.4`
 
 # Consider using the Helm chart for an all-in-one install
 

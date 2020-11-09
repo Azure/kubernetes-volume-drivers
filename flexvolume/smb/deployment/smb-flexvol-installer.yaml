@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: smb-flexvol-installer
-          image: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume:1.0.3
+          image: mcr.microsoft.com/k8s/flexvolume/smb-flexvolume:1.0.4
           imagePullPolicy: IfNotPresent
           env:
             - name: INSTALL_DEPS
