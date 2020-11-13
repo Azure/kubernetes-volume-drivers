@@ -139,8 +139,8 @@ unmount() {
 		exit 1
 	fi
 
-	echo "`date` EXEC: rmdir ${MNTPATH}" >> $LOG
-	rmdir "${MNTPATH}" >> $LOG 2>&1
+	echo "`date` EXEC: rm -r ${MNTPATH}" >> $LOG
+	rm -r "${MNTPATH}" >> $LOG 2>&1
 
 	log '{"status": "Success"}'
 	exit 0
