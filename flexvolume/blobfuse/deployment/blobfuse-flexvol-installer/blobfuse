@@ -4,7 +4,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE="blobfuse"
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.15"
+VER="1.0.16"
 
 usage() {
 	err "Invalid usage. Usage: "
