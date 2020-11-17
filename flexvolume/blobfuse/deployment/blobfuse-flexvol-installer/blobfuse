@@ -141,6 +141,11 @@ unmount() {
 
 	echo "`date` EXEC: rmdir ${MNTPATH}" >> $LOG
 	rmdir "${MNTPATH}" >> $LOG 2>&1
+	if [ "$?" != "0" ]; then
+		parentDir="$(dirname "$MNTPATH")"
+		echo "`date` EXEC: remove parent dir ${parentDir}" >> $LOG
+		rmdir "${parentDir}" >> $LOG 2>&1
+	fi
 
 	log '{"status": "Success"}'
 	exit 0
