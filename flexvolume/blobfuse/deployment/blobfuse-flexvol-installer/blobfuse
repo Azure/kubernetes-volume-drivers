@@ -141,6 +141,10 @@ unmount() {
 
 	echo "`date` EXEC: rmdir ${MNTPATH}" >> $LOG
 	rmdir "${MNTPATH}" >> $LOG 2>&1
+	if [ "$?" != "0" ]; then
+		echo "`date` EXEC: rm -r --one-file-system ${MNTPATH}" >> $LOG
+		rm -r --one-file-system "${MNTPATH}" >> $LOG 2>&1
+	fi
 
 	log '{"status": "Success"}'
 	exit 0
