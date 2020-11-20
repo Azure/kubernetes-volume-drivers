@@ -1,5 +1,5 @@
 # Blobfuse FlexVolume driver for Kubernetes (Deprecated)
-**WARNING**: This driver is maintainance mode. Please use [Blob CSI driver](https://github.com/kubernetes-sigs/blob-csi-driver) to access Azure blob storage in Kubernetes.
+**WARNING**: This driver is maintenance mode. Please use [Blob CSI driver](https://github.com/kubernetes-sigs/blob-csi-driver) to access Azure blob storage in Kubernetes.
 
  - supported Kubernetes version: v1.7.0 or above
  - supported agent OS: Linux
