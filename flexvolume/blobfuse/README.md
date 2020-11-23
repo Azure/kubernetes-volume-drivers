@@ -35,12 +35,12 @@ Please refer to [config kubelet service to enable FlexVolume driver](https://git
 ## 2. Install blobfuse driver on every agent VM
 ### Install by kubernetes daemonset
  - v1.9 or above
-```
+```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/deployment/blobfuse-flexvol-installer-1.9.yaml
 ```
 
  - check daemonset status:
-```
+```console
 watch kubectl describe daemonset blobfuse-flexvol-installer --namespace=kube-system
 watch kubectl get po --namespace=kube-system -o wide
 ```
@@ -50,16 +50,16 @@ watch kubectl get po --namespace=kube-system -o wide
 # Basic Usage
 ## 1. create a secret which stores azure storage account
  - create a secret which stores azure storage account name and account key
-```
+```console
 kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-NAME --from-literal accountkey="ACCOUNT-KEY" --type="azure/blobfuse"
 ```
  - create a secret which stores azure storage account name and account SAS token
-```
+```console
 kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-NAME --from-literal accountsastoken="sastoken" --type="azure/blobfuse"
 ```
 
 > Sovereign Cloud support, add `blobendpoint` parameter in above commands
-```
+```console
 kubectl create secret generic blobfusecreds --from-literal blobendpoint="<youraccountname>.blob.core.chinacloudapi.cn" ...
 ```
 available sovereign cloud names(more details could be found [here](https://github.com/Azure/azure-storage-fuse/wiki/2.-Configuring-and-Running#sovereign-clouds)):
@@ -72,47 +72,47 @@ available sovereign cloud names(more details could be found [here](https://githu
 ## 2. create a pod with blobfuse flexvolume mount on linux
 #### Option#1 Ties a flexvolume volume explicitly to a pod
 - download `nginx-flex-blobfuse.yaml` file and modify `container`, `tmppath`(optional) field
-```
+```console
 wget -O nginx-flex-blobfuse.yaml https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse.yaml
 vi nginx-flex-blobfuse.yaml
 ```
  - create a pod with blobfuse flexvolume driver mount
-```
+```console
 kubectl create -f nginx-flex-blobfuse.yaml
 ```
 
 #### Option#2 Create blobfuse flexvolume PV & PVC and then create a pod based on PVC
  > Note: access modes of blobfuse PV supports ReadWriteOnce(RWO), ReadOnlyMany(ROX) and ReadWriteMany(RWX)
  - download `pv-blobfuse-flexvol.yaml` file, modify `container` field and create a blobfuse flexvolume persistent volume(PV)
-```
+```console
 wget https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/pv-blobfuse-flexvol.yaml
 vi pv-blobfuse-flexvol.yaml
 kubectl create -f pv-blobfuse-flexvol.yaml
 ```
 
  - create a blobfuse flexvolume persistent volume claim(PVC)
-```
+```console
  kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/pvc-blobfuse-flexvol.yaml
 ```
 
  - check status of PV & PVC until its Status changed from `Pending` to `Bound`
- ```
+ ```console
  kubectl get pv
  kubectl get pvc
  ```
  
  - create a pod with blobfuse flexvolume PVC
-```
+```console
  kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/flexvolume/blobfuse/nginx-flex-blobfuse-pvc.yaml
  ```
 
 ## 3. enter the pod container to do validation
  - watch the status of pod until its Status changed from `Pending` to `Running`
-```
+```console
 watch kubectl describe po nginx-flex-blobfuse
 ```
  - enter the pod container
-```
+```console
 kubectl exec -it nginx-flex-blobfuse -- bash
 root@nginx-flex-blobfuse:/# df -h
 Filesystem      Size  Used Avail Use% Mounted on
@@ -128,33 +128,40 @@ In the above example, there is a `/data` directory mounted as blobfuse filesyste
 #### How to use flexvolume driver in Helm
 Since flexvolume does not support dynamic provisioning, storageClass should be set as empty in Helm chart, take [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) as an example:
  - Set up a blobfuse flexvolume PV and also `blobfusecreds` first
-```
+```console
 kubectl create secret generic blobfusecreds --from-literal accountname=ACCOUNT-NAME --from-literal accountkey="ACCOUNT-KEY" --type="azure/blobfuse"
 kubectl create -f pv-blobfuse-flexvol.yaml
 ```
  - Specify `persistence.accessMode=ReadWriteMany,persistence.storageClass="-"` in [wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress) chart
-```
+```console
 helm install --set persistence.accessMode=ReadWriteMany,persistence.storageClass="-" stable/wordpress
 ```
 
 #### Troubleshooting
- - Check blobfuse flexvolume installation result on the node:
-```
+ - Check blobfuse flexvolume installation result on the node
+```console
 sudo cat /var/log/blobfuse-flexvol-installer.log
 ```
- - Get blobfuse driver version:
-```
+ - Get blobfuse driver version
+```console
 kubectl get po -n kube-system | grep blobfuse
 kubectl describe po blobfuse-flexvol-installer-xxxxx -n kube-system | grep blobfuse-flexvolume
 ```
- - If there is pod mounting error like following:
+ - If there is pod mounting error like following
 ```
 MountVolume.SetUp failed for volume "test" : invalid character 'C' looking for beginning of value
 ```
 Please attach log file `/var/log/blobfuse-driver.log` and file an issue
 
- > In most error cases, the failure is due to incorrect storage account name, key or container, follow below guide to check on agent node:
+ - Get `/var/log/syslog` log
+
+ - Get blobfuse mount on the agent node
+```console
+mount | grep blobfuse | uniq
 ```
+
+ > In most error cases, the failure is due to incorrect storage account name, key or container, follow below guide to check on agent node:
+```console
 mkdir test
 export AZURE_STORAGE_ACCOUNT=
 export AZURE_STORAGE_ACCESS_KEY=
