@@ -1,5 +1,5 @@
 # Kubernetes volume drivers on Azure
-This repository contains all kuernetes volume drivers on Azure:
+This repository lists all Kubernetes volume drivers on Azure:
 
 | driver type | about |
 | ---- | ---- |
