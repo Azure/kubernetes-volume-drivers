@@ -1,4 +1,4 @@
-# kubernetes volume drivers on Azure
+# Kubernetes volume drivers on Azure
 This repository contains all kuernetes volume drivers on Azure:
 
 | driver type | about |
@@ -7,6 +7,10 @@ This repository contains all kuernetes volume drivers on Azure:
 | [FlexVolume](./flexvolume) | This directory contains all kubernetes [FlexVolume](https://kubernetes.io/docs/concepts/storage/volumes/#flexvolume) drivers on Azure |
 | [LocalVolume](./local) | This directory contains all kubernetes [Local Persistent Volume](https://kubernetes.io/docs/concepts/storage/volumes/#local) support on Azure |
 | [NFS](./local) | This directory contains [NFS Server Provisioner](https://github.com/kubernetes-incubator/external-storage/tree/master/nfs) support on Azure |
+
+## Support
+
+Please see our [support policy][support-policy].
 
 # Contributing
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
@@ -20,3 +24,5 @@ provided by the bot. You will only need to do this once across all repos using o
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+[support-policy]: Support.md
