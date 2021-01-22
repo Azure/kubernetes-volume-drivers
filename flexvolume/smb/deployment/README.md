@@ -2,7 +2,7 @@
 
 ```
 REPO_NAME=<YOUR-REPO-NAME>
-VER=1.0.4
+VER=1.0.5
 cd smb-flexvol-installer
 
 docker build --no-cache -t $REPO_NAME/smb-flexvol-installer:$VER .
@@ -36,3 +36,4 @@ docker push $REPO_NAME/smb-flexvol-installer:latest
 | 1.0.2 | fix potential blank space issue in smb mountoptions |
 | 1.0.3 | install `jq`, `cifs-utils` by smb-flexvolume image |
 | 1.0.4 | [ignore `fsGroup` setting](https://github.com/Azure/kubernetes-volume-drivers/pull/84) |
+| 1.0.5 | fix: use busybox:1.32.0 to prevent security vulnerability issue |

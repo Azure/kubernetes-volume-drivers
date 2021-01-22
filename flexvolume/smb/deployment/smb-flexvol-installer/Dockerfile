@@ -21,7 +21,7 @@ RUN \
   staticx `which jq` ${SOURCE_DIR}/jq
 
 ###################################################
-FROM busybox
+FROM busybox:1.32.0
 ###################################################
 
 ARG INSTALL_DEPS=false
