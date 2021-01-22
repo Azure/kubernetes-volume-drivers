@@ -1,7 +1,7 @@
 #!/bin/sh
 
 LOG="/var/log/smb-flexvol-installer.log"
-VER="1.0.4"
+VER="1.0.5"
 target_dir="${TARGET_DIR}"
 mkdir -p $(dirname $LOG)
 echo "begin to install smb FlexVolume driver ${VER} ..." >> $LOG
