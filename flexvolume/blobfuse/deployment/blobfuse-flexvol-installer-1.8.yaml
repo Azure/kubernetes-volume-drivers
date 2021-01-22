@@ -18,7 +18,7 @@ spec:
       priorityClassName: system-node-critical
       containers:
         - name: blobfuse-flexvol-installer
-          image: mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.16
+          image: mcr.microsoft.com/k8s/flexvolume/blobfuse-flexvolume:1.0.17
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: volplugins

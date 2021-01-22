@@ -2,7 +2,7 @@
 
 ```
 REPO_NAME=<YOUR-REPO-NAME>
-VER=1.0.16
+VER=1.0.17
 cd blobfuse-flexvol-installer
 
 docker build --no-cache -t $REPO_NAME/blobfuse-flexvol-installer:$VER .
@@ -48,3 +48,4 @@ docker push $REPO_NAME/blobfuse-flexvol-installer:latest
 | 1.0.14 | N/A | <br> - default `tmp-path` to `/mnt`([PR#60](https://github.com/Azure/kubernetes-volume-drivers/pull/86)) <br> - use random folder(`/mnt/blobfuse$RANDOM`) for `tmp-path` by default |
 | 1.0.15 | N/A | fix: pod stuck in terminating issue([PR#89](https://github.com/Azure/kubernetes-volume-drivers/pull/89)) |
 | 1.0.16 | N/A | fix: remove sub dir issue in blobfuse unmount([PR#93](https://github.com/Azure/kubernetes-volume-drivers/pull/93)) |
+| 1.0.17 | N/A | fix: use busybox:1.32.0 to prevent security vulnerability issue |
