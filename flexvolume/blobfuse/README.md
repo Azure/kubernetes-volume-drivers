@@ -160,7 +160,7 @@ Please attach log file `/var/log/blobfuse-driver.log` and file an issue
 mount | grep blobfuse | uniq
 ```
 
- > In most error cases, the failure is due to incorrect storage account name, key or container, follow below guide to check on agent node:
+ - In most failure cases, the failure is due to incorrect storage account name, key or container, follow below guide to check on agent node:
 ```console
 mkdir test
 export AZURE_STORAGE_ACCOUNT=
