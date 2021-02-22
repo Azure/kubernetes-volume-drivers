@@ -11,7 +11,7 @@ This driver allows Kubernetes to access virtual filesystem backed by the Azure B
 Name | Meaning | Example | Mandatory 
 --- | --- | --- | ---
 container | identical to `container-name` in [blobfuse mount options](https://github.com/Azure/azure-storage-fuse#mount-options) | `test` | Yes
-tmppath | identical to `tmp-path` in [blobfuse mount options](https://github.com/Azure/azure-storage-fuse#mount-options) | `/mnt/blobfuse`(by default) | No
+tmppath | identical to `tmp-path` in [blobfuse mount options](https://github.com/Azure/azure-storage-fuse#mount-options) | `/mnt/blobfuse{random-num}`(by default) | No
 driverpath | location of `blobfuse` binary | `/usr/bin/blobfuse` | No
 mountoptions | other mount options | `--file-cache-timeout-in-seconds=120 --use-https=true` | No
 
