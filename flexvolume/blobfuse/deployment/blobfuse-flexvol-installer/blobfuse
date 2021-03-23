@@ -5,6 +5,8 @@ JQ="/usr/bin/jq"
 BLOBFUSE="blobfuse"
 LOG="/var/log/blobfuse-driver.log"
 VER="1.0.17"
+MOUNTLOCKFILE=/tmp/mount-lock.txt
+UNMOUNTLOCKFILE=/tmp/unmount-lock.txt
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -31,6 +33,20 @@ ismounted() {
 	fi
 	return 1
 }
+addLock() {
+		lockfile=$1
+		if [ -e ${lockfile} ] && kill -0 `cat ${lockfile}`; then
+		echo "already running"
+		exit
+	fi
+	echo $$ > ${lockfile}
+
+}
+
+removeLock() {
+	lockfile=$1
+	rm -f ${LOCKFILE}
+}
 
 mount() {
 	MNTPATH="$1"
@@ -53,7 +69,7 @@ mount() {
 		err "{\"status\": \"Failure\", \"message\": \"validation failed, error log:container is empty\"}"
 		exit 1
 	fi
-	
+
 	if [ -z "${TMP_PATH}" ]; then
 		TMP_PATH="/mnt/blobfuse$RANDOM/"
 		echo `date` "INFO: tmp-path not specified, use default path: ${TMP_PATH}"  >> $LOG
@@ -65,15 +81,18 @@ mount() {
 		exit 0
 	fi
 
-        if [ ! -z "${DRIVERPATH}" ]; then
-                BLOBFUSE=$DRIVERPATH
-                echo "`date` INF: set driver path as $BLOBFUSE " >> $LOG
-        fi
+	if [ ! -z "${DRIVERPATH}" ]; then
+			BLOBFUSE=$DRIVERPATH
+			echo "`date` INF: set driver path as $BLOBFUSE " >> $LOG
+	fi
 
 	read_only_param=""
 	if [ $READ_WRITE = "ro" ]; then
 		read_only_param="-o ro"
 	fi
+
+	addLock $MOUNTLOCKFILE
+	trap "rm -f ${MOUNTLOCKFILE}; exit" INT TERM EXIT
 
 	echo "`date` EXEC: mkdir -p ${MNTPATH}" >> $LOG
 	mkdir -p ${MNTPATH} >>$LOG 2>&1
@@ -84,12 +103,12 @@ mount() {
 		export AZURE_STORAGE_ACCESS_KEY=${ACCOUNTKEY}
 		echo "`date` INF: AZURE_STORAGE_ACCESS_KEY is set " >> $LOG
 	fi
-	
+
 	if [ ! -z "${BLOBENDPOINT}" ]; then
 		export AZURE_STORAGE_BLOB_ENDPOINT=${BLOBENDPOINT}
 		echo "`date` INF: BLOBENDPOINT is set " >> $LOG
 	fi
-	
+
 	if [ ! -z "${ACCOUNTSASTOKEN}" ]; then
 		export AZURE_STORAGE_SAS_TOKEN=${ACCOUNTSASTOKEN}
 		echo "`date` INF: AZURE_STORAGE_SAS_TOKEN is set " >> $LOG
@@ -101,7 +120,7 @@ mount() {
 
 	# mkdir to fix issue: https://github.com/Azure/kubernetes-volume-drivers/issues/58 on blobfuse 1.2.3
 	mkdir -p ${TMP_PATH}
-	
+
 	#mounting
 	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param} ${MOUNT_OPTIONS}" >>$LOG
 	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param} ${MOUNT_OPTIONS}
@@ -112,11 +131,14 @@ mount() {
 	fi
 
 	log '{"status": "Success"}'
+	removeLock $MOUNTLOCKFILE
 	exit 0
 }
 
 unmount() {
 	MNTPATH="$1"
+	addLock $MOUNTLOCKFILE
+	trap "rm -f ${MOUNTLOCKFILE}; exit" INT TERM EXIT
 
 	if ! ismounted ; then
 		log '{"status": "Success"}'
@@ -147,6 +169,7 @@ unmount() {
 	fi
 
 	log '{"status": "Success"}'
+	removeLock $MOUNTLOCKFILE
 	exit 0
 }
 
