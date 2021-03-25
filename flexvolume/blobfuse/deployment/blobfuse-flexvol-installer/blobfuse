@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 DIR=$(dirname "$(readlink -f "$0")")
 JQ="/usr/bin/jq"
 BLOBFUSE="blobfuse"
 LOG="/var/log/blobfuse-driver.log"
-VER="1.0.17"
+VER="1.0.18"
+SYSTEMD_RUN="/usr/bin/systemd-run"
 
 usage() {
 	err "Invalid usage. Usage: "
@@ -30,6 +31,18 @@ ismounted() {
 		return 0
 	fi
 	return 1
+}
+
+issystemdinstalled() {
+        if [ ! -f $SYSTEMD_RUN ]; then
+            return 1
+        fi
+        $SYSTEMD_RUN --scope -- true
+        if [ $? = 0 ]; then
+            return 0
+        else
+            return 1
+        fi
 }
 
 mount() {
@@ -103,8 +116,15 @@ mount() {
 	mkdir -p ${TMP_PATH}
 	
 	#mounting
-	echo "`date` EXEC: ${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param} ${MOUNT_OPTIONS}" >>$LOG
-	${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param} ${MOUNT_OPTIONS}
+        mount_cmd="${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param} ${MOUNT_OPTIONS}"
+        if issystemdinstalled ; then
+            echo "`date` EXEC: $SYSTEMD_RUN --scope -- $mount_cmd" >>$LOG
+            $SYSTEMD_RUN --scope -- $mount_cmd
+        else
+            echo "`date` EXEC: $mount_cmd" >>$LOG
+            $mount_cmd
+        fi
+
 	if [ "$?" != "0" ]; then
 		errorLog=`tail -n 1 "${LOG}"`
 		err "{ \"status\": \"Failure\", \"message\": \"Failed to mount device /dev/${diskname} at ${MNTPATH}, accountname:${ACCOUNTNAME}, error log:${errorLog}\" }"
