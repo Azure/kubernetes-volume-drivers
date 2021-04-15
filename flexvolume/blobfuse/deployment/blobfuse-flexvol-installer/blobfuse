@@ -35,13 +35,13 @@ ismounted() {
 
 issystemdinstalled() {
         if [ ! -f $SYSTEMD_RUN ]; then
-            return 1
+		return 1
         fi
         $SYSTEMD_RUN --scope -- true
         if [ $? = 0 ]; then
-            return 0
+		return 0
         else
-            return 1
+		return 1
         fi
 }
 
@@ -118,11 +118,11 @@ mount() {
 	#mounting
         mount_cmd="${BLOBFUSE} ${MNTPATH} --container-name=${CONTAINER} --tmp-path=${TMP_PATH} -o allow_other ${read_only_param} ${MOUNT_OPTIONS}"
         if issystemdinstalled ; then
-            echo "`date` EXEC: $SYSTEMD_RUN --scope -- $mount_cmd" >>$LOG
-            $SYSTEMD_RUN --scope -- $mount_cmd
+		echo "`date` EXEC: $SYSTEMD_RUN --scope -- $mount_cmd" >>$LOG
+		$SYSTEMD_RUN --scope -- $mount_cmd
         else
-            echo "`date` EXEC: $mount_cmd" >>$LOG
-            $mount_cmd
+		echo "`date` EXEC: $mount_cmd" >>$LOG
+		$mount_cmd
         fi
 
 	if [ "$?" != "0" ]; then
