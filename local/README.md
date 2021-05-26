@@ -23,12 +23,19 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
  - Persistent volumes would be created after provisioner daemonset started
 > In following example, one PV would be created per one NVMe disk
 ```console
-# kubectl get pv
+kubectl get pv
+```
+<pre>
 NAME                CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
 local-pv-9042a3d7   1788Gi     RWO            Delete           Available           fast-disks              4s
 local-pv-d25649a0   1788Gi     RWO            Delete           Available           fast-disks              4s
+</pre>
 
-# kubectl get pv local-pv-9042a3d7 -o yaml
+```console
+kubectl get pv local-pv-9042a3d7 -o yaml
+```
+
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -70,14 +77,16 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 ### 4. Enter the pod to verify
 > in below example, NVMe disk has been formatted as `ext4` file system 
 ```console
-# kubectl exec -it deployment-localdisk-56cf8d4c5c-clwbl bash
-root@deployment-localdisk-56cf8d4c5c-clwbl:/# df -h
+kubectl exec -it deployment-localdisk-56cf8d4c5c-clwbl -- df -h
+```
+
+<pre>
 Filesystem      Size  Used Avail Use% Mounted on
 ...
 /dev/sda1        97G   12G   86G  12% /etc/hosts
 /dev/nvme0n1    1.8T   68M  1.8T   1% /mnt/localdisk
 ...
-```
+</pre>
 
 #### Notes
 If `reclaimPolicy` is set as `Delete` in [local volume storage class](https://github.com/Azure/kubernetes-volume-drivers/blob/6846c13ebc6a8d8682f6265ae4ae588857de31ab/local/local-pv-storageclass.yaml#L8), data will be cleaned up after PVC deleted, local volume PV would be in `Released` status, after around 5min by default, PV status would be changed to `Bound`, user could tune [minResyncPeriod](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/provisioner.md#configuration) value to make PV status refresh more quickly.
