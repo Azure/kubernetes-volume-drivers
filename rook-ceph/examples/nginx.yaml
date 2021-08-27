@@ -1,0 +1,31 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: rook-cephfs-pvc
+spec:
+  storageClassName: rook-cephfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    volumeMounts:
+    - mountPath: "/mnt/rook-cephfs"
+      name: rook-cephfs-volume
+  volumes:
+    - name: rook-cephfs-volume
+      persistentVolumeClaim:
+        claimName: rook-cephfs-pvc
