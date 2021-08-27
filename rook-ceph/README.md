@@ -132,7 +132,7 @@ Verify the components are running as expected:
 * Plugins running on non-storage nodes.
 * Provisioner, crashcollector, MGR, MON, OSD, and operator running on storage nodes.
 
-```
+```bash
 kubectl get pod -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName -n rook-ceph
 ```
 
@@ -219,7 +219,7 @@ rook-ceph-mds-myfs-b-58bbb59b5-lrjjj    Running   aks-storagepool2-14514606-vmss
 ```
 
 Create storage class `rook-cephfs`:
-```
+```bash
 kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.7.1/cluster/examples/kubernetes/ceph/csi/cephfs/storageclass.yaml
 
 # Verify storage class.
@@ -243,7 +243,7 @@ Now you can use storage class `rook-cephfs` in your applications to provision pe
 
 Create a pod running `nginx` with a 5GB PV mounted to /mnt/rook-cephfs.
 
-```
+```bash
 kubectl apply -f examples/nginx.yaml
 
 # Wait for running.
@@ -333,7 +333,7 @@ sys	0m0.525s
 
 #### Test scenario: Delete 50k small files
 
-```
+```bash
 time ( du wordpress/ | tail -1 && rm -rf wordpress )
 ```
 
@@ -362,7 +362,7 @@ cd /mnt/rook-cephfs
 #### Test scenario: Random read/write IOPS with 4k block size
 
 Test read IOPS:
-```
+```bash
 fio --randrepeat=0 --verify=0 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=read_iops --filename=fiotest --bs=4K --iodepth=64 --size=2G --readwrite=randread --time_based --ramp_time=2s --runtime=15s
 ```
 
@@ -372,7 +372,7 @@ Test output: Read IOPS is 13.8k.
 ```
 
 Test write IOPS:
-```
+```bash
 fio --randrepeat=0 --verify=0 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=write_iops --filename=fiotest --bs=4K --iodepth=64 --size=2G --readwrite=randwrite --time_based --ramp_time=2s --runtime=15s
 ```
 
@@ -384,7 +384,7 @@ Test output: Write IOPS is 547.
 #### Test scenario: Random read/write bandwidth with 128k block size
 
 Test read bandwidth:
-```
+```bash
 fio --randrepeat=0 --verify=0 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=read_bw --filename=fiotest --bs=128K --iodepth=64 --size=2G --readwrite=randread --time_based --ramp_time=2s --runtime=15s
 ```
 
@@ -394,7 +394,7 @@ Test output: Read bandwidth is 199MiB/s.
 ```
 
 Test write bandwidth:
-```
+```bash
 fio --randrepeat=0 --verify=0 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=write_bw --filename=fiotest --bs=128K --iodepth=64 --size=2G --readwrite=randwrite --time_based --ramp_time=2s --runtime=15s
 ```
 
@@ -419,7 +419,7 @@ Test output: Average read latency is ~0.7ms.
 ```
 
 Test write latency:
-```
+```bash
 fio --randrepeat=0 --verify=0 --ioengine=libaio --direct=1 --name=write_latency --filename=fiotest --bs=4K --iodepth=4 --size=2G --readwrite=randwrite --time_based --ramp_time=2s --runtime=15s
 ```
 
