@@ -6,7 +6,8 @@ This repository lists all Kubernetes volume drivers on Azure:
 | [CSI](./csi) | This directory contains all kubernetes [CSI](https://kubernetes-csi.github.io/docs/Home.html) drivers on Azure |
 | [FlexVolume](./flexvolume) | This directory contains all kubernetes [FlexVolume](https://kubernetes.io/docs/concepts/storage/volumes/#flexvolume) drivers on Azure |
 | [LocalVolume](./local) | This directory contains all kubernetes [Local Persistent Volume](https://kubernetes.io/docs/concepts/storage/volumes/#local) support on Azure |
-| [NFS](./local) | This directory contains [NFS Server Provisioner](https://github.com/kubernetes-incubator/external-storage/tree/master/nfs) support on Azure |
+| [NFS](./nfs) | This directory contains [NFS Server Provisioner](https://github.com/kubernetes-incubator/external-storage/tree/master/nfs) support on Azure |
+| [Rook Ceph](./rook-ceph) | This directory contains [Rook Ceph](https://github.com/rook/rook) support on Azure |
 
 ## Support
 
