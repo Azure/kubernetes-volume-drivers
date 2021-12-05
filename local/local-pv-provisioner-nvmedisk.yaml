@@ -34,6 +34,8 @@ spec:
         app: local-volume-provisioner
     spec:
       serviceAccountName: local-storage-admin
+      nodeSelector:
+        kubernetes.io/os: linux
       containers:
         - image: "mcr.microsoft.com/k8s/local-volume-provisioner:v2.4.0"
           name: provisioner

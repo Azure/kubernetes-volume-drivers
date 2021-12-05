@@ -1,0 +1,21 @@
+name: Verification test
+on:
+    pull_request: {}
+    push: {}
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Verification test
+      run: |
+        hack/verify-all.sh
+        flexvolume/blobfuse/test/run-test.sh
+        flexvolume/smb/test/run-test.sh
+        docker build --no-cache -t smb:test flexvolume/smb/deployment/smb-flexvol-installer/
+        docker build --no-cache -t blobfuse:test flexvolume/blobfuse/deployment/blobfuse-flexvol-installer/
+

@@ -8,7 +8,12 @@ This repository leverages [local volume static provisioner](https://github.com/k
  - OS: Linux
 
 ## Usage
-### 1. Install local volume static provisioner on a Kubernetes cluster
+### 1. Create a new local volume storage class(with name `fast-disks`)
+```console
+kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-storageclass.yaml
+```
+
+### 2. Install local volume static provisioner on a Kubernetes cluster
 #### Option#1: discover NVMe SSD(`/dev/nvme*`) disks
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-provisioner-nvmedisk.yaml
@@ -64,11 +69,6 @@ status:
   phase: Available
 ```
 
-### 2. Create a new local volume storage class(with name `fast-disks`)
-```console
-kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-storageclass.yaml
-```
-
 ### 3. Create a PVC and pod to consume local volume PV
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/deployment.yaml
@@ -90,6 +90,12 @@ Filesystem      Size  Used Avail Use% Mounted on
 
 #### Notes
 If `reclaimPolicy` is set as `Delete` in [local volume storage class](https://github.com/Azure/kubernetes-volume-drivers/blob/6846c13ebc6a8d8682f6265ae4ae588857de31ab/local/local-pv-storageclass.yaml#L8), data will be cleaned up after PVC deleted, local volume PV would be in `Released` status, after around 5min by default, PV status would be changed to `Bound`, user could tune [minResyncPeriod](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/provisioner.md#configuration) value to make PV status refresh more quickly.
+
+#### Troubleshooting
+ - get local-volume-provisioner logs
+```console
+kubectl logs local-volume-provisioner-m8fbj -n kube-system
+```
 
 ### Links
  - [Local Volume](https://kubernetes.io/docs/concepts/storage/volumes/#local)
