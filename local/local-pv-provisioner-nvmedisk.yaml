@@ -39,6 +39,9 @@ spec:
       containers:
         - image: "mcr.microsoft.com/k8s/local-volume-provisioner:v2.4.0"
           name: provisioner
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=2"
           securityContext:
             privileged: true
           env:
