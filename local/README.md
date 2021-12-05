@@ -96,6 +96,17 @@ If `reclaimPolicy` is set as `Delete` in [local volume storage class](https://gi
 ```console
 kubectl logs local-volume-provisioner-m8fbj -n kube-system
 ```
+ - example logs
+```
+I1205 11:53:42.771500       1 cache.go:64] Updated pv "local-pv-8739a5e2" to cache
+I1205 11:53:45.552542       1 deleter.go:195] Start cleanup for pv local-pv-8739a5e2
+I1205 11:53:45.552944       1 deleter.go:275] Deleting PV block volume "local-pv-8739a5e2" device hostpath "/dev/sdb1", mountpath "/dev/sdb1"
+I1205 11:53:45.624199       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)..."
+I1205 11:53:50.007271       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)...564MiB/16GiB 3%"
+I1205 11:53:55.006489       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)...1.1GiB/16GiB 7%"
+I1205 11:54:00.017742       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)...1.7GiB/16GiB 10%"
+I1205 11:54:05.006582       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)...2.1GiB/16GiB 13%"
+```
 
 ### Links
  - [Local Volume](https://kubernetes.io/docs/concepts/storage/volumes/#local)
