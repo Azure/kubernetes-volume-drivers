@@ -9,7 +9,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: fast-disks
+  storageClassName: local-disk
 ---
 apiVersion: apps/v1
 kind: Deployment

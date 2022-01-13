@@ -7,7 +7,7 @@ metadata:
   namespace: kube-system
 data:
   storageClassMap: |
-    fast-disks:
+    local-disk:
        hostDir: /dev
        mountDir:  /dev
        blockCleanerCommand:
@@ -54,13 +54,13 @@ spec:
               name: provisioner-config
               readOnly: true
             - mountPath: /dev/
-              name: fast-disks
+              name: local-disk
               mountPropagation: "HostToContainer"
       volumes:
         - name: provisioner-config
           configMap:
             name: local-provisioner-config
-        - name: fast-disks
+        - name: local-disk
           hostPath:
             path: /dev/
 
