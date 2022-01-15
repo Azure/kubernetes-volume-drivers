@@ -77,7 +77,11 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 ### 4. Enter the pod to verify
 > in below example, NVMe disk has been formatted as `ext4` file system
 
-<details><summary>kubectl exec -it deployment-localdisk-56cf8d4c5c-clwbl -- df -h</summary>
+<details><summary>check file system inside pod</summary>
+<pre>
+kubectl exec -it deployment-localdisk-56cf8d4c5c-clwbl -- df -h
+</pre>
+
 <pre>
 Filesystem      Size  Used Avail Use% Mounted on
 ...
@@ -85,6 +89,7 @@ Filesystem      Size  Used Avail Use% Mounted on
 /dev/nvme0n1    1.8T   68M  1.8T   1% /mnt/localdisk
 ...
 </pre>
+
 </details>
 
 #### Notes
