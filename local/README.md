@@ -14,6 +14,7 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 ```
 
 ### 2. Install local volume static provisioner on a Kubernetes cluster
+> use only one `local-pv-provisioner-xxx.yaml` config file, there would be conflict if applying multiple config files on one cluster
 #### Option#1: discover NVMe SSD(`/dev/nvme*`) disks
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-provisioner-nvmedisk.yaml
