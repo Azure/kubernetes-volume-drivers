@@ -19,7 +19,7 @@ function clone_dysk()
 		git checkout "${dysk_tag}"
 	else
 		cd "${dysk_src}"
-		echo "INF: found dysk source @ ${dysk_src}. will pull to ensure latest udpates"
+		echo "INF: found dysk source @ ${dysk_src}. will pull to ensure latest updates"
 		git pull
 	fi
 }
