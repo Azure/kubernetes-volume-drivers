@@ -16,7 +16,7 @@ docker stop flex && docker rm flex
 ```
 
 #### Note
-if you cannot `docker exec -it flex bash`, run followng command to check logs:
+if you cannot `docker exec -it flex bash`, run following command to check logs:
 ```
 docker logs flex
 ```

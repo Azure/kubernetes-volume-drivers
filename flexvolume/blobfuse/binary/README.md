@@ -1,4 +1,4 @@
-## How to build blobfuse binary for FlexVolume dirver running in kubelet
+## How to build blobfuse binary for FlexVolume driver running in kubelet
 ```
 VER=v1.9.0
 docker run --name hyperkube -v /var/log:/var/log -it gcrio.azureedge.net/google_containers/hyperkube-amd64:$VER bash
@@ -14,7 +14,7 @@ build/blobfuse
 cp build/blobfuse /var/log/
 ```
 
-## Validate blobfuse binary for FlexVolume dirver running in kubelet
+## Validate blobfuse binary for FlexVolume driver running in kubelet
 ```
 VER=v1.9.0
 docker run --name hyperkube -v /var/log:/var/log -it gcrio.azureedge.net/google_containers/hyperkube-amd64:$VER bash
