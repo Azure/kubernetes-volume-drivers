@@ -4,7 +4,7 @@ REPO_NAME=<YOUR-REPO-NAME>
 VER=1.0.18
 cd blobfuse-flexvol-installer
 
-docker build --no-cache -t $REPO_NAME/blobfuse-flexvol-installer:$VER .
+docker build --no-cache --output=type=docker -t $REPO_NAME/blobfuse-flexvol-installer:$VER .
 ```
 ## 2. Test blobfuse-flexvol-installer image
 ```console
