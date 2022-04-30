@@ -5,7 +5,7 @@ REPO_NAME=<YOUR-REPO-NAME>
 VER=1.0.5
 cd smb-flexvol-installer
 
-docker build --no-cache -t $REPO_NAME/smb-flexvol-installer:$VER .
+docker build --no-cache --output=type=docker -t $REPO_NAME/smb-flexvol-installer:$VER .
 ```
 ## 2. Test smb-flexvol-installer image
 ```
