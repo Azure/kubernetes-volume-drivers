@@ -1,5 +1,5 @@
 # Local Persistent Volume support on Azure
-The goal of this repository is to enable Kubernetes workloads using local disks, e.g. Azure [LSv2](https://docs.microsoft.com/en-us/azure/virtual-machines/lsv2-series) VM with NVMe SSD, [local temporary disk](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/managed-disks-overview#temporary-disk).
+The goal of this repository is to enable Kubernetes workloads using local disks, e.g. Azure [LSv2](https://docs.microsoft.com/en-us/azure/virtual-machines/lsv2-series) VM with NVMe SSD.
 
 This repository leverages [local volume static provisioner](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner) to manage the PersistentVolume lifecycle for pre-allocated disks by detecting, formatting and creating PVs for each local disk on the agent node, and cleaning up the disks when released.
 
@@ -15,15 +15,11 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 
 ### 2. Install local volume static provisioner on a Kubernetes cluster
 > use only one `local-pv-provisioner-xxx.yaml` config file, there would be conflict if applying multiple config files on one cluster
-#### Option#1: discover NVMe SSD(`/dev/nvme*`) disks
+#### discover NVMe SSD(`/dev/nvme*`) disks
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-provisioner-nvmedisk.yaml
 ```
 
-#### Option#2: discover temp(`/dev/sdb1`) disk
-```console
-kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-provisioner-tempdisk.yaml
-```
 > you can also download [local-pv-provisioner-nvmedisk.yaml](https://github.com/Azure/kubernetes-volume-drivers/blob/master/local/local-pv-provisioner-nvmedisk.yaml) and modify `namePattern`, `fsType` fields to match other pre-allocated disks.
 
  - Persistent volumes would be created after provisioner daemonset started
