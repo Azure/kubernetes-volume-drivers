@@ -21,6 +21,11 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 ```
 
 #### Option#2: discover temp(`/dev/sdb1`) disk
+> to make sure temp disk is not used, run following command to unmount temp disk first
+> ```console
+> kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/umount-mnt.yaml
+> ```
+
 ```console
 kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/local-pv-provisioner-tempdisk.yaml
 ```
