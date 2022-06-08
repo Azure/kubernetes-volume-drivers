@@ -72,7 +72,7 @@ status:
 
 ### 3. Create a PVC and pod to consume local volume PV
 ```console
-kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/local/statefulset.yaml
 ```
 
 ### 4. Enter the pod to verify
@@ -80,7 +80,7 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 
 <details><summary>check file system inside pod</summary>
 <pre>
-kubectl exec -it deployment-localdisk-56cf8d4c5c-clwbl -- df -h
+kubectl exec -it statefulset-local-0 -- df -h
 </pre>
 
 <pre>
@@ -106,6 +106,21 @@ kubectl logs local-volume-provisioner-m8fbj -n kube-system
 <details><summary>example logs</summary>
 
 ```
+I0530 12:43:11.874618       1 common.go:344] StorageClass "local-disk" configured with MountDir "/dev", HostDir "/dev", VolumeMode "Filesystem", FsType "xfs", BlockCleanerCommand ["/scripts/shred.sh" "2"], NamePattern "nvme*"
+I0530 12:43:11.874684       1 main.go:63] Loaded configuration: {StorageClassConfig:map[local-disk:{HostDir:/dev MountDir:/dev BlockCleanerCommand:[/scripts/shred.sh 2] VolumeMode:Filesystem FsType:xfs NamePattern:nvme*}] NodeLabelsForPV:[] UseAlphaAPI:false UseJobForCleaning:false MinResyncPeriod:{Duration:5m0s} UseNodeNameOnly:false LabelsForPV:map[] SetPVOwnerRef:false}
+I0530 12:43:11.874713       1 main.go:64] Ready to run...
+W0530 12:43:11.874724       1 main.go:73] MY_NAMESPACE environment variable not set, will be set to default.
+W0530 12:43:11.874737       1 main.go:79] JOB_CONTAINER_IMAGE environment variable not set.
+I0530 12:43:11.874963       1 common.go:407] Creating client using in-cluster config
+I0530 12:43:11.945316       1 main.go:85] Starting controller
+I0530 12:43:11.945354       1 main.go:101] Starting metrics server at :8080
+I0530 12:43:11.945398       1 controller.go:47] Initializing volume cache
+I0530 12:43:11.945607       1 mount_linux.go:163] Detected OS without systemd
+I0530 12:43:12.045905       1 controller.go:111] Controller started
+I0530 12:43:12.046863       1 discovery.go:287] file(termination-log) under(/dev) does not match pattern(nvme*)
+I0530 12:43:12.046979       1 discovery.go:287] file(sdb1) under(/dev) does not match pattern(nvme*)
+I0530 12:43:12.046991       1 discovery.go:287] file(dvd) under(/dev) does not match pattern(nvme*)
+
 I1205 11:53:42.771500       1 cache.go:64] Updated pv "local-pv-8739a5e2" to cache
 I1205 11:53:45.552542       1 deleter.go:195] Start cleanup for pv local-pv-8739a5e2
 I1205 11:53:45.552944       1 deleter.go:275] Deleting PV block volume "local-pv-8739a5e2" device hostpath "/dev/sdb1", mountpath "/dev/sdb1"

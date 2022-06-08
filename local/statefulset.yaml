@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-local
+  labels:
+    app: nginx
+spec:
+  podManagementPolicy: Parallel  # default is OrderedReady
+  serviceName: statefulset-local
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+        - name: statefulset-local
+          image: mcr.microsoft.com/oss/nginx/nginx:1.19.5
+          command:
+            - "/bin/bash"
+            - "-c"
+            - set -euo pipefail; while true; do echo $(date) >> /mnt/local/outfile; sleep 1; done
+          volumeMounts:
+            - name: persistent-storage
+              mountPath: /mnt/local
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: nginx
+  volumeClaimTemplates:
+    - metadata:
+        name: persistent-storage
+        annotations:
+          volume.beta.kubernetes.io/storage-class: local-disk
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
