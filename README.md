@@ -8,6 +8,7 @@ This repository lists all Kubernetes volume drivers on Azure:
 | [LocalVolume](./local) | This directory contains all kubernetes [Local Persistent Volume](https://kubernetes.io/docs/concepts/storage/volumes/#local) support on Azure |
 | [NFS](./nfs) | This directory contains [NFS Server Provisioner](https://github.com/kubernetes-incubator/external-storage/tree/master/nfs) support on Azure |
 | [Rook Ceph](./rook-ceph) | This directory contains [Rook Ceph](https://github.com/rook/rook) support on Azure |
+| [OpenEBS](./openebs) | This directory contains [OpenEBS Mayastor](https://mayastor.gitbook.io/) support on Azure |
 
 ## Support
 

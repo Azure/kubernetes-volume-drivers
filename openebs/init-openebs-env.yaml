@@ -1,0 +1,59 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: init-openebs-env
+  name: init-openebs-env
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: init-openebs-env
+  template:
+    metadata:
+      labels:
+        app: init-openebs-env
+    spec:
+      containers:
+        - command:
+            - nsenter
+            - --target
+            - "1"
+            - --mount
+            - --uts
+            - --ipc
+            - --net
+            - --pid
+            - --
+            - bash
+            - -c
+            - |
+              exists=`grep vm.nr_hugepages /etc/sysctl.conf`
+              echo $exists
+              if [[ "${#exists}" -lt "10" ]]; then
+                echo "begin to load nvme_tcp, set nr_hugepages and restart kubelet"
+                modprobe nvme_tcp
+                echo 1024 | tee /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+                echo vm.nr_hugepages = 1024 | tee -a /etc/sysctl.conf
+                systemctl daemon-reload
+                systemctl restart kubelet
+              fi
+              sleep 600000000s
+          image: mcr.microsoft.com/oss/nginx/nginx:1.17.3-alpine
+          imagePullPolicy: IfNotPresent
+          name: init-openebs-env
+          resources:
+            requests:
+              cpu: 10m
+          securityContext:
+            privileged: true
+      hostPID: true
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+      restartPolicy: Always
+  updateStrategy:
+    type: OnDelete
