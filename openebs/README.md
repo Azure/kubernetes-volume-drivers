@@ -2,7 +2,7 @@
 
 OpenEBS is a "Container Attached Storage" or CAS solution which extends Kubernetes with a declarative data plane, providing flexible persistent storage for stateful applications.
 
-OpenEBS Mayastor incorporates Intel's Storage Performance Development Kit. It has been designed from the ground up to leverage the protocol and compute efficiency of NVMe-oF semantics, and the performance capabilities of the latest generation of solid-state storage devices, in order to deliver a storage abstraction with performance overhead measured to be within the range of single-digit percentages.
+[OpenEBS Mayastor](https://mayastor.gitbook.io/) incorporates Intel's Storage Performance Development Kit. It has been designed from the ground up to leverage the protocol and compute efficiency of NVMe-oF semantics, and the performance capabilities of the latest generation of solid-state storage devices, in order to deliver a storage abstraction with performance overhead measured to be within the range of single-digit percentages.
 
 This article shows you how to deploy OpenEBS Mayastor on Azure Kubernetes Service (AKS) and uses it as the storage solution for your cluster.
 
