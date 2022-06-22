@@ -3,17 +3,17 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   labels:
-    app: init-openebs-env
+    openebs.io/engine: mayastor
   name: init-openebs-env
-  namespace: kube-system
+  namespace: mayastor
 spec:
   selector:
     matchLabels:
-      app: init-openebs-env
+      openebs.io/engine: mayastor
   template:
     metadata:
       labels:
-        app: init-openebs-env
+        openebs.io/engine: mayastor
     spec:
       containers:
         - command:
@@ -51,6 +51,7 @@ spec:
       hostPID: true
       nodeSelector:
         kubernetes.io/os: linux
+        openebs.io/engine: mayastor
       tolerations:
         - effect: NoSchedule
           operator: Exists
