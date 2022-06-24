@@ -138,3 +138,17 @@ aks-storagepool-14514606-vmss000000       aks-storagepool-14514606-vmss000000   
 
 ### Step 2.4: Deploy a Test Application
  - follow this [guide](https://mayastor.gitbook.io/introduction/quickstart/deploy-a-test-application) to deploy a test application
+
+<details> <summary> example pod events of volume attach  </summary> 
+
+```
+  Type    Reason                  Age   From                     Message
+  ----    ------                  ----  ----                     -------
+  Normal  Scheduled               16s   default-scheduler        Successfully assigned default/statefulset-azuredisk-maya-9 to aks-store-37972342-vmss000000
+  Normal  SuccessfulAttachVolume  15s   attachdetach-controller  AttachVolume.Attach succeeded for volume "pvc-2156ec5a-43e4-4b84-8f58-84b0de07cd1a"
+  Normal  Pulled                  6s    kubelet                  Container image "mcr.microsoft.com/oss/nginx/nginx:1.19.5" already present on machine
+  Normal  Created                 6s    kubelet                  Created container statefulset-azuredisk
+  Normal  Started                 6s    kubelet                  Started container statefulset-azuredisk
+ ```
+ 
+ </details>
