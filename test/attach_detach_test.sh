@@ -60,54 +60,54 @@ pvcnum=$(kubectl get pvc -n test | grep Bound | awk 'END{print NR}')
 if [ $pvcnum -ge $p50 ] && [ $pvcflag -eq 0 ]; then
 date2=$(date +"%Y-%m-%d %H:%M:%S")
 pvcflag=1
-echo "pv creation p50: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "pv creation p50: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 fi
 if [ $pvcnum -ge $p90 ] && [ $pvcflag2 -eq 0 ]; then
 date2=$(date +"%Y-%m-%d %H:%M:%S")
 pvcflag2=1
-echo "pv creation p90: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "pv creation p90: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 fi
 if [ $pvcnum -ge $p99 ] && [ $pvcflag3 -eq 0 ]; then
 date2=$(date +"%Y-%m-%d %H:%M:%S")
 pvcflag3=1
-echo "pv creation p99: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "pv creation p99: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 fi
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
 readynum=$(kubectl get pod -n test --field-selector=status.phase==Running | awk 'END{print NR}')
 done
-echo "attach p50: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "attach p50: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 while [ $readynum -le $((p90+1)) ]
 do
 pvcnum=$(kubectl get pvc -n test | grep Bound | awk 'END{print NR}')
 if [ $pvcnum -ge $p90 ] && [ $pvcflag2 -eq 0 ]; then
 date2=$(date +"%Y-%m-%d %H:%M:%S")
 pvcflag2=1
-echo "pv creation p90: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "pv creation p90: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 fi
 if [ $pvcnum -ge $p99 ] && [ $pvcflag3 -eq 0 ]; then
 date2=$(date +"%Y-%m-%d %H:%M:%S")
 pvcflag3=1
-echo "pv creation p99: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "pv creation p99: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 fi
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
 readynum=$(kubectl get pod -n test --field-selector=status.phase==Running | awk 'END{print NR}')
 done
-echo "attach p90: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "attach p90: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 while [ $readynum -le $((p99+1)) ]
 do
 pvcnum=$(kubectl get pvc -n test | grep Bound | awk 'END{print NR}')
 if [ $pvcnum -ge $p99 ] && [ $pvcflag3 -eq 0 ]; then
 date2=$(date +"%Y-%m-%d %H:%M:%S")
 pvcflag3=1
-echo "pv creation p99: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "pv creation p99: $(( $(date -d "$date2" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 fi
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
 readynum=$(kubectl get pod -n test --field-selector=status.phase==Running | awk 'END{print NR}')
 done
-echo "attach p99: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "attach p99: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 
 predate=$(date +"%Y-%m-%d %H:%M:%S")
 cat <<EOF | kubectl delete -f -
@@ -155,26 +155,27 @@ spec:
           requests:
             storage: 1Gi
 EOF
-kubectl delete ns test &
-detachnum=$(kubectl get pvc -n test | awk 'END{print NR}')
+kubectl delete pvc -n test --all &
+detachnum=$(kubectl get pv | grep pvc- | awk 'END{print NR}')
 while [ $detachnum -ge $((p100-p50+1)) ]
 do
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
 detachnum=$(kubectl get pv | grep pvc- | awk 'END{print NR}')
 done
-echo "detach p50: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "detach p50: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 while [ $detachnum -ge $((p100-p90+1)) ]
 do
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
 detachnum=$(kubectl get pv | grep pvc- | awk 'END{print NR}')
 done
-echo "detach p90: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "detach p90: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 while [ $detachnum -ge $((p100-p99+1)) ]
 do
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
 detachnum=$(kubectl get pv | grep pvc- | awk 'END{print NR}')
 done
-echo "detach p99: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))"
+echo "detach p99: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
+kubectl delete ns test
