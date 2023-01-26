@@ -8,14 +8,14 @@ metadata:
 data:
   storageClassMap: |
     local-disk:
-       hostDir: /dev
-       mountDir:  /dev
+       hostDir: /dev/disk/cloud/
+       mountDir:  /dev/disk/cloud/
        blockCleanerCommand:
          - "/scripts/shred.sh"
          - "2"
        volumeMode: Filesystem
        fsType: ext4
-       namePattern: sdb1*
+       namePattern: azure_resource-part1
 ---
 apiVersion: apps/v1
 kind: DaemonSet
