@@ -1,5 +1,5 @@
 # use sh attach_detach_test.sh 500 default file.txt to test 500 pods with default sc and write results in file.txt.
-# attach_detach_test.sh use pod in running state for attach test and pv deletion for detach test.
+# attach_detach_test.sh use pod in running state for attach test and volumeattachments in false for detach test.
 kubectl create ns test
 predate=$(date +"%Y-%m-%d %H:%M:%S")
 pvcflag=0
@@ -157,26 +157,26 @@ spec:
             storage: 1Gi
 EOF
 kubectl delete pvc -n test --all &
-detachnum=$(kubectl get pv | grep pvc- | awk 'END{print NR}')
+detachnum=$(kubectl get volumeattachments -n test | grep true | grep pvc- | awk 'END{print NR}')
 while [ $detachnum -ge $((p100-p50+1)) ]
 do
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
-detachnum=$(kubectl get pv | grep pvc- | awk 'END{print NR}')
+detachnum=$(kubectl get volumeattachments -n test | grep true | grep pvc- | awk 'END{print NR}')
 done
 echo "detach p50: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 while [ $detachnum -ge $((p100-p90+1)) ]
 do
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
-detachnum=$(kubectl get pv | grep pvc- | awk 'END{print NR}')
+detachnum=$(kubectl get volumeattachments -n test | grep true | grep pvc- | awk 'END{print NR}')
 done
 echo "detach p90: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 while [ $detachnum -ge $((p100-p99+1)) ]
 do
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
-detachnum=$(kubectl get pv | grep pvc- | awk 'END{print NR}')
+detachnum=$(kubectl get volumeattachments -n test | grep true | grep pvc- | awk 'END{print NR}')
 done
 echo "detach p99: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 kubectl delete ns test
