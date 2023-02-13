@@ -21,7 +21,7 @@ use `cyc_attach_detach_test.sh` to loop attach/detach test in background.
 e.g. test 1000 pods attach/detach with default sc and write result in test1000v1.txt for 30 times in background. When one attach/detach test is finished, sleep for 3 minutes to avoid client throttling.
 - Option#1. remote test
 ```
-curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/test/cyc_attach_detach_test.sh | nohup bash 1000 default test1000v1.txt 30 & --
+curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/test/cyc_attach_detach_test.sh | nohup bash -s 1000 default test1000v1.txt 30 & 
 ```
 - Option#2. local test
 ```
@@ -35,7 +35,7 @@ In this scenario, we test 1 pod 3 pvc pod failover test. The time from pod delet
 e.g. test 1 pod 3 pvc pod failover test for 300 times and write results in file.txt in background.
 - Option#1. remote test
 ```
-curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/test/pod_failover_test.sh | nohup bash 300 file.txt & --
+curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/test/pod_failover_test.sh | nohup bash -s 300 file.txt & 
 ```
 - Option#2. local test
 ```
