@@ -110,6 +110,9 @@ readynum=$(kubectl get pod -n test --field-selector=status.phase==Running | awk 
 done
 echo "attach p99: $(( $(date -d "$date1" "+%s") - $(date -d "$predate" "+%s") ))" >> $3
 
+echo "sleep 5 minutes ..." >> $3
+sleep 5m
+
 predate=$(date +"%Y-%m-%d %H:%M:%S")
 cat <<EOF | kubectl delete -f -
 apiVersion: apps/v1
