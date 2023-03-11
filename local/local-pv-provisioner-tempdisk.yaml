@@ -11,8 +11,7 @@ data:
        hostDir: /dev/disk/cloud/
        mountDir:  /dev/disk/cloud/
        blockCleanerCommand:
-         - "/scripts/shred.sh"
-         - "2"
+         - "/scripts/quick_reset.sh"
        volumeMode: Filesystem
        fsType: ext4
        namePattern: azure_resource-part1
