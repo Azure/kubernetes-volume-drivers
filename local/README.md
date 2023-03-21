@@ -99,7 +99,7 @@ Filesystem      Size  Used Avail Use% Mounted on
 </details>
 
 #### Notes
-If `reclaimPolicy` is set as `Delete` in [local volume storage class](https://github.com/Azure/kubernetes-volume-drivers/blob/6846c13ebc6a8d8682f6265ae4ae588857de31ab/local/local-pv-storageclass.yaml#L8), data will be cleaned up after PVC deleted, local volume PV would be in `Released` status, after around 5min by default, PV status would be changed to `Bound`, user could tune [minResyncPeriod](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/provisioner.md#configuration) value to make PV status refresh more quickly.
+If `reclaimPolicy` is set as `Delete` in [local volume storage class](https://github.com/Azure/kubernetes-volume-drivers/blob/6846c13ebc6a8d8682f6265ae4ae588857de31ab/local/local-pv-storageclass.yaml#L8), data will be cleaned up after PVC deleted, local volume PV would be in `Released` status, after around 3 minutes, PV status would be changed to `Bound`, user could tune [minResyncPeriod](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/provisioner.md#configuration) value to make PV status refresh more quickly.
 
 #### Troubleshooting
 <details><summary>get local-volume-provisioner logs</summary>
@@ -111,29 +111,32 @@ kubectl logs local-volume-provisioner-m8fbj -n kube-system
 <details><summary>example logs</summary>
 
 ```
-I0530 12:43:11.874618       1 common.go:344] StorageClass "local-disk" configured with MountDir "/dev", HostDir "/dev", VolumeMode "Filesystem", FsType "xfs", BlockCleanerCommand ["/scripts/shred.sh" "2"], NamePattern "nvme*"
-I0530 12:43:11.874684       1 main.go:63] Loaded configuration: {StorageClassConfig:map[local-disk:{HostDir:/dev MountDir:/dev BlockCleanerCommand:[/scripts/shred.sh 2] VolumeMode:Filesystem FsType:xfs NamePattern:nvme*}] NodeLabelsForPV:[] UseAlphaAPI:false UseJobForCleaning:false MinResyncPeriod:{Duration:5m0s} UseNodeNameOnly:false LabelsForPV:map[] SetPVOwnerRef:false}
-I0530 12:43:11.874713       1 main.go:64] Ready to run...
-W0530 12:43:11.874724       1 main.go:73] MY_NAMESPACE environment variable not set, will be set to default.
-W0530 12:43:11.874737       1 main.go:79] JOB_CONTAINER_IMAGE environment variable not set.
-I0530 12:43:11.874963       1 common.go:407] Creating client using in-cluster config
-I0530 12:43:11.945316       1 main.go:85] Starting controller
-I0530 12:43:11.945354       1 main.go:101] Starting metrics server at :8080
-I0530 12:43:11.945398       1 controller.go:47] Initializing volume cache
-I0530 12:43:11.945607       1 mount_linux.go:163] Detected OS without systemd
-I0530 12:43:12.045905       1 controller.go:111] Controller started
-I0530 12:43:12.046863       1 discovery.go:287] file(termination-log) under(/dev) does not match pattern(nvme*)
-I0530 12:43:12.046979       1 discovery.go:287] file(sdb1) under(/dev) does not match pattern(nvme*)
-I0530 12:43:12.046991       1 discovery.go:287] file(dvd) under(/dev) does not match pattern(nvme*)
-
-I1205 11:53:42.771500       1 cache.go:64] Updated pv "local-pv-8739a5e2" to cache
-I1205 11:53:45.552542       1 deleter.go:195] Start cleanup for pv local-pv-8739a5e2
-I1205 11:53:45.552944       1 deleter.go:275] Deleting PV block volume "local-pv-8739a5e2" device hostpath "/dev/sdb1", mountpath "/dev/sdb1"
-I1205 11:53:45.624199       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)..."
-I1205 11:53:50.007271       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)...564MiB/16GiB 3%"
-I1205 11:53:55.006489       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)...1.1GiB/16GiB 7%"
-I1205 11:54:00.017742       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)...1.7GiB/16GiB 10%"
-I1205 11:54:05.006582       1 deleter.go:319] Cleanup pv "local-pv-8739a5e2": StderrBuf - "shred: /dev/sdb1: pass 1/3 (random)...2.1GiB/16GiB 13%"
+I0321 11:21:50.707052       1 common.go:348] StorageClass "local-disk" configured with MountDir "/dev", HostDir "/dev", VolumeMode "Filesystem", FsType "ext4", BlockCleanerCommand ["/scripts/quick_reset.sh"], NamePattern "nvme*"
+I0321 11:21:50.707144       1 main.go:66] Loaded configuration: {StorageClassConfig:map[local-disk:{HostDir:/dev MountDir:/dev BlockCleanerCommand:[/scripts/quick_reset.sh] VolumeMode:Filesystem FsType:ext4 NamePattern:nvme*}] NodeLabelsForPV:[] UseAlphaAPI:false UseJobForCleaning:false MinResyncPeriod:{Duration:5m0s} UseNodeNameOnly:false LabelsForPV:map[] SetPVOwnerRef:false}
+I0321 11:21:50.707174       1 main.go:67] Ready to run...
+W0321 11:21:50.707180       1 main.go:76] MY_NAMESPACE environment variable not set, will be set to default.
+W0321 11:21:50.707185       1 main.go:82] JOB_CONTAINER_IMAGE environment variable not set.
+I0321 11:21:50.707320       1 common.go:425] Creating client using in-cluster config
+I0321 11:21:50.751109       1 main.go:88] Starting controller
+I0321 11:21:50.751161       1 main.go:105] Starting metrics server at :8080
+I0321 11:21:50.751236       1 controller.go:47] Initializing volume cache
+I0321 11:21:50.752642       1 mount_linux.go:163] Detected OS without systemd
+I0321 11:21:50.855049       1 controller.go:116] Controller started
+I0321 11:21:50.855755       1 discovery.go:423] Found new volume at host path "/dev/nvme1n1" with capacity 1920383410176, creating Local PV "local-pv-1de3995e", required volumeMode "Filesystem"
+I0321 11:21:50.873281       1 discovery.go:457] Created PV "local-pv-1de3995e" for volume at "/dev/nvme1n1"
+I0321 11:21:50.873346       1 discovery.go:423] Found new volume at host path "/dev/nvme3n1" with capacity 1920383410176, creating Local PV "local-pv-20d38638", required volumeMode "Filesystem"
+I0321 11:21:50.873387       1 cache.go:55] Added pv "local-pv-1de3995e" to cache
+I0321 11:21:50.878969       1 cache.go:55] Added pv "local-pv-20d38638" to cache
+I0321 11:21:50.879557       1 discovery.go:457] Created PV "local-pv-20d38638" for volume at "/dev/nvme3n1"
+I0321 11:21:50.879657       1 discovery.go:423] Found new volume at host path "/dev/nvme0n1" with capacity 1920383410176, creating Local PV "local-pv-2d08f517", required volumeMode "Filesystem"
+I0321 11:21:50.882559       1 cache.go:64] Updated pv "local-pv-1de3995e" to cache
+I0321 11:21:50.885724       1 discovery.go:457] Created PV "local-pv-2d08f517" for volume at "/dev/nvme0n1"
+I0321 11:21:50.885773       1 cache.go:55] Added pv "local-pv-2d08f517" to cache
+I0321 11:21:50.885822       1 discovery.go:423] Found new volume at host path "/dev/nvme2n1" with capacity 1920383410176, creating Local PV "local-pv-df7e5119", required volumeMode "Filesystem"
+I0321 11:21:50.888347       1 cache.go:64] Updated pv "local-pv-20d38638" to cache
+I0321 11:21:50.892143       1 cache.go:55] Added pv "local-pv-df7e5119" to cache
+I0321 11:21:50.892260       1 discovery.go:457] Created PV "local-pv-df7e5119" for volume at "/dev/nvme2n1"
+E0321 11:21:50.892413       1 discovery.go:221] Failed to discover local volumes: 4 error(s) while discovering volumes: [Skipping file "/dev/nvme3": not a directory nor block device Skipping file "/dev/nvme2": not a directory nor block device Skipping file "/dev/nvme1": not a directory nor block device Skipping file "/dev/nvme0": not a directory nor block device]
 ```
 
 </details>
