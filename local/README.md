@@ -138,6 +138,18 @@ I0321 11:21:50.892143       1 cache.go:55] Added pv "local-pv-df7e5119" to cache
 I0321 11:21:50.892260       1 discovery.go:457] Created PV "local-pv-df7e5119" for volume at "/dev/nvme2n1"
 E0321 11:21:50.892413       1 discovery.go:221] Failed to discover local volumes: 4 error(s) while discovering volumes: [Skipping file "/dev/nvme3": not a directory nor block device Skipping file "/dev/nvme2": not a directory nor block device Skipping file "/dev/nvme1": not a directory nor block device Skipping file "/dev/nvme0": not a directory nor block device]
 ```
+ 
+```
+ root@aks-l32s2-91958816-vmss000000:/# mount | grep nvme | sort | uniq
+/dev/nvme0n1 on /var/lib/kubelet/plugins/kubernetes.io/local-volume/mounts/local-pv-2d08f517 type ext4 (rw,relatime)
+/dev/nvme0n1 on /var/lib/kubelet/pods/2e2c41f2-2de9-4c9a-ad9f-684f1e831ca5/volumes/kubernetes.io~local-volume/local-pv-2d08f517 type ext4 (rw,relatime)
+/dev/nvme1n1 on /var/lib/kubelet/plugins/kubernetes.io/local-volume/mounts/local-pv-1de3995e type ext4 (rw,relatime)
+/dev/nvme1n1 on /var/lib/kubelet/pods/7d2b62cb-2e0b-4841-90af-f8f719c20f72/volumes/kubernetes.io~local-volume/local-pv-1de3995e type ext4 (rw,relatime)
+/dev/nvme2n1 on /var/lib/kubelet/plugins/kubernetes.io/local-volume/mounts/local-pv-df7e5119 type ext4 (rw,relatime)
+/dev/nvme2n1 on /var/lib/kubelet/pods/c430b76a-743a-4382-80ce-75bac2b7a349/volumes/kubernetes.io~local-volume/local-pv-df7e5119 type ext4 (rw,relatime)
+/dev/nvme3n1 on /var/lib/kubelet/plugins/kubernetes.io/local-volume/mounts/local-pv-20d38638 type ext4 (rw,relatime)
+/dev/nvme3n1 on /var/lib/kubelet/pods/7bdfd3ae-7a42-4c1b-af4d-ef63436cd415/volumes/kubernetes.io~local-volume/local-pv-20d38638 type ext4 (rw,relatime)
+```
 
 </details>
 
