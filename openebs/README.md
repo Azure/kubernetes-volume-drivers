@@ -33,7 +33,8 @@ References:
 * [Quickstart: Deploy an Azure Kubernetes Service cluster using the Azure CLI](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough)
 
 ### Step 1.2: Create a storage node pool
-
+> Note: this is only for testing purposes. If you delete the VMSS instance, the data in the disk attached to the VMSS would be lost.
+> 
 To isolate storage from your applications, create a dedicated node pool for Mayastor.
  - create a node pool with 0 count first
 ```bash
