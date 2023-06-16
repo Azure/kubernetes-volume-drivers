@@ -159,7 +159,7 @@ predate=$(date +"%Y-%m-%d %H:%M:%S")
 kubectl delete statefulset statefulset-azuredisk-5disks -n test
 kubectl delete pvc -n test --all &
 detachnum=$(kubectl get volumeattachments -n test | grep true | grep pvc- | awk 'END{print NR}')
-while [ $detachnum -gt $((diskp100-pdisk50)) ]
+while [ $detachnum -gt $((diskp100-diskp50)) ]
 do
 sleep 1
 date1=$(date +"%Y-%m-%d %H:%M:%S")
