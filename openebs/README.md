@@ -85,42 +85,25 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drive
 
 ```bash
 kubectl create namespace mayastor
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor-control-plane/master/deploy/operator-rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor-control-plane/master/deploy/mayastorpoolcrd.yaml
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor/master/deploy/nats-deployment.yaml
-kubectl -n mayastor get pods --selector=app=nats
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor/master/deploy/etcd/storage/localpv.yaml
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor/master/deploy/etcd/statefulset.yaml 
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor/master/deploy/etcd/svc.yaml
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor/master/deploy/etcd/svc-headless.yaml
-kubectl -n mayastor get pods --selector=app.kubernetes.io/name=etcd
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor/master/deploy/csi-daemonset.yaml
-kubectl -n mayastor get daemonset mayastor-csi
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor-control-plane/master/deploy/core-agents-deployment.yaml
-kubectl get pods -n mayastor --selector=app=core-agents
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor-control-plane/master/deploy/rest-deployment.yaml
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor-control-plane/master/deploy/rest-service.yaml
-kubectl get pods -n mayastor --selector=app=rest
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor-control-plane/master/deploy/csi-deployment.yaml
-kubectl get pods -n mayastor --selector=app=csi-controller
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor-control-plane/master/deploy/msp-deployment.yaml
-kubectl get pods -n mayastor --selector=app=msp-operator
-kubectl apply -f https://raw.githubusercontent.com/openebs/mayastor/master/deploy/mayastor-daemonset.yaml
+helm repo add mayastor https://openebs.github.io/mayastor-extensions/ 
+helm search repo mayastor --versions
+helm install mayastor mayastor/mayastor -n mayastor --create-namespace --version 2.1.0
+kubectl get pods -n mayastor
 ```
 
 ### Step 2.3: Configure Mayastor
-- configure Mayastor pool on dedicated node pool
+- configure DiskPool on dedicated node pool
 > you could find all detailed steps [here](https://mayastor.gitbook.io/introduction/quickstart/configure-mayastor)
 
 ```bash
 cat <<EOF | kubectl create -f -
 apiVersion: "openebs.io/v1alpha1"
-kind: MayastorPool
+kind: DiskPool
 metadata:
-  name: aks-storagepool-14514606-vmss000000
+  name: pool-on-node-1
   namespace: mayastor
 spec:
-  node: aks-storagepool-14514606-vmss000000
+  node: aks-storagepool-14514606-vmss000000 
   disks: ["/dev/sdc"]
 EOF
 ```
@@ -128,13 +111,13 @@ EOF
 Verify Pool Creation and Status.
 
 ```bash
-kubectl -n mayastor get msp
+kubectl -n mayastor get dsp
 ```
 
 Expected output:
 ```
-NAME                                      NODE                                     STATUS   CAPACITY       USED         AVAILABLE
-aks-storagepool-14514606-vmss000000       aks-storagepool-14514606-vmss000000      Online   107265130496   0            107265130496
+NAME             NODE                                 STATE    POOL_STATUS   CAPACITY        USED           AVAILABLE
+pool-on-node-0   aks-storagepool-14514606-vmss000000  Online   Online        1918504009728   0              1918504009728
 ```
 
 ### Step 2.4: Deploy a Test Application

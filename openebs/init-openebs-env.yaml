@@ -39,6 +39,9 @@ spec:
                 systemctl daemon-reload
                 systemctl restart kubelet
               fi
+              apt -y install `apt search linux-modules-extra | fgrep \`uname -r\` | sed -e "s/,.*//"`
+              modprobe nvme-tcp
+              nvme-tcp | tee -a /etc/modules-load.d/kvm.conf
               sleep 600000000s
           image: mcr.microsoft.com/oss/nginx/nginx:1.17.3-alpine
           imagePullPolicy: IfNotPresent
