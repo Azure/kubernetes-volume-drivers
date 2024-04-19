@@ -10,26 +10,26 @@ This repository leverages [local volume static provisioner](https://github.com/k
 ## Usage
 ### 1. Create a new local volume storage class
 ```console
-kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.5.0/local/local-pv-storageclass.yaml
+kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.7.0/local/local-pv-storageclass.yaml
 ```
 
 ### 2. Install local volume static provisioner on a Kubernetes cluster
 > use only one `local-pv-provisioner-xxx.yaml` config file, there would be conflict if applying multiple config files on one cluster
 #### Option#1: discover NVMe SSD(`/dev/nvme*`) disks
 ```console
-kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.5.0/local/local-pv-provisioner-nvmedisk.yaml
+kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.7.0/local/local-pv-provisioner-nvmedisk.yaml
 ```
 
 #### Option#2: discover temp(`/dev/sdb1`) disk
 > to make sure temp disk is not used, run following command to unmount temp disk first
 > ```console
-> kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.5.0/local/umount-mnt.yaml
+> kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.7.0/local/umount-mnt.yaml
 > ```
 
 ```console
-kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.5.0/local/local-pv-provisioner-tempdisk.yaml
+kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.7.0/local/local-pv-provisioner-tempdisk.yaml
 ```
-> you can also download [local-pv-provisioner-nvmedisk.yaml](https://github.com/Azure/kubernetes-volume-drivers/blob/v2.5.0/local/local-pv-provisioner-nvmedisk.yaml) and modify `namePattern`, `fsType` fields to match other pre-allocated disks.
+> you can also download [local-pv-provisioner-nvmedisk.yaml](https://github.com/Azure/kubernetes-volume-drivers/blob/v2.7.0/local/local-pv-provisioner-nvmedisk.yaml) and modify `namePattern`, `fsType` fields to match other pre-allocated disks.
 
  - Persistent volumes would be created after provisioner daemonset started
 > In following example, one PV would be created per one NVMe disk
@@ -77,7 +77,7 @@ status:
 
 ### 3. Create a PVC and pod to consume local volume PV
 ```console
-kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.5.0/local/statefulset.yaml
+kubectl apply -f https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/v2.7.0/local/statefulset.yaml
 ```
 
 ### 4. Enter the pod to verify
