@@ -30,14 +30,14 @@ nohup sh cyc_attach_detach_test.sh 1000 default test1000v1.txt 30 &
 ### Portworx test scenario
 Because portworx has no attach operation, we use pv deletion for detach test. Use `attach_detach_test_portworx.sh` and `cyc_attach_detach_test_portworx.sh` for attach/detach test in portworx test scenario.
 ## Test scenario 2: pod failover test
-In this scenario, we test 1 pod 3 pvc pod failover test. The time from pod deleted to pod ready will be calculated in the test script. Use `pod_failover_test.sh` for test.
+In this scenario, we test 1 pod 3 pvc pod failover test. The time from pod deleted to pod ready will be calculated in the test script. Use `pod_failover_test_azure.sh` or `pod_failover_test_aws.sh` on azure or aws for test.
 
-e.g. test 1 pod 3 pvc pod failover test for 300 times and write results in file.txt in background.
+e.g. test 1 pod 3 pvc pod failover test for 300 times on azure and write results in file.txt in background.
 - Option#1. remote test
 ```
-curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/test/pod_failover_test.sh | nohup bash -s 300 file.txt & 
+curl -skSL https://raw.githubusercontent.com/Azure/kubernetes-volume-drivers/master/test/pod_failover_test_azure.sh | nohup bash -s 300 file.txt & 
 ```
 - Option#2. local test
 ```
-nohup sh pod_failover_test.sh 300 file.txt &
+nohup sh pod_failover_test_azure.sh 300 file.txt &
 ```

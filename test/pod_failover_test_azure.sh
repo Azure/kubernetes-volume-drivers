@@ -1,4 +1,4 @@
-# use sh pod_failover_test.sh 100 file.txt to test 1 pod 3 pvc pod failover test for 100 times and write results in file.txt.
+# use sh pod_failover_test.sh 100 file.txt to test 1 pod 3 pvc pod failover test on azure for 100 times and write results in file.txt.
 kubectl create ns azdisk-pod-failover-1pod3pvc
 cat <<EOF | kubectl apply -f -
 apiVersion: storage.k8s.io/v1
