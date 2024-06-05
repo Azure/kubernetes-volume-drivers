@@ -36,7 +36,7 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
       containers:
-        - image: "mcr.microsoft.com/oss/kubernetes/local-volume-provisioner:v2.7.0"
+        - image: "mcr.microsoft.com/k8s/local-volume-provisioner:v2.7.0"
           name: provisioner
           imagePullPolicy: IfNotPresent
           args:
